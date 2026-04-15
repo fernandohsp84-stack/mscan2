@@ -8,45 +8,24 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:-apple-system,sans-serif;background:#F0F2F5;color:#1A1D23;font-size:15px;}
-
-/* HEADER */
 #hdr{background:#003F7A;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;position:sticky;top:0;z-index:50;}
 #hdr-left{display:flex;align-items:center;gap:10px;}
 #hdr-icon{width:28px;height:28px;background:#F47920;border-radius:6px;display:flex;align-items:center;justify-content:center;}
 #hdr-name{font-size:17px;font-weight:700;color:#fff;}
-#hdr-btn{background:rgba(255,255,255,.15);border:none;border-radius:6px;width:36px;height:36px;color:#fff;font-size:20px;cursor:pointer;-webkit-appearance:none;}
-
-/* MENU */
+#hdr-btn{background:rgba(255,255,255,.15);border:none;border-radius:6px;width:36px;height:36px;color:#fff;font-size:20px;cursor:pointer;-webkit-appearance:none;display:flex;align-items:center;justify-content:center;}
 #menu-drop{display:none;background:#002F5A;border-bottom:3px solid #F47920;}
-#menu-drop.open{display:block;}
 #menu-drop button{display:block;width:100%;text-align:left;padding:14px 20px;background:none;border:none;color:rgba(255,255,255,.8);font-size:15px;font-family:inherit;cursor:pointer;-webkit-appearance:none;}
-
-/* PAGE TABS */
 #ptabs{display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid #E0E4EA;-webkit-overflow-scrolling:touch;}
-.ptab{padding:12px 16px;font-size:13px;font-weight:600;color:#9BA3B2;white-space:nowrap;cursor:pointer;border-bottom:3px solid transparent;flex-shrink:0;}
+.ptab{padding:11px 14px;font-size:13px;font-weight:600;color:#9BA3B2;white-space:nowrap;cursor:pointer;border-bottom:3px solid transparent;flex-shrink:0;}
 .ptab.on{color:#005CA9;border-bottom-color:#005CA9;}
-
-/* STEP BAR - outside any card, plain background */
-#step-bar{background:#fff;border-bottom:1px solid #E0E4EA;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;}
+#step-bar{background:#fff;border-bottom:1px solid #E0E4EA;padding:11px 16px;display:none;align-items:center;justify-content:space-between;}
 #step-text{font-size:14px;font-weight:700;color:#005CA9;}
-#step-nums{font-size:13px;color:#9BA3B2;font-weight:600;}
-
-/* PAGES */
+#step-nums{font-size:13px;font-weight:700;color:#005CA9;}
 .page{display:none;padding:14px 14px 80px;}
-.page.on{display:block;}
-
-/* CARD */
 .card{background:#fff;border-radius:10px;padding:16px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.08);}
 .card-t{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#9BA3B2;margin-bottom:12px;padding-bottom:9px;border-bottom:1px solid #ECEEF2;}
-
-/* PANELS */
 .pnl{display:none;}
-.pnl.on{display:block;}
-
-/* TIP */
 .tip{display:flex;gap:10px;padding:12px 14px;border-radius:8px;background:#E5F3F4;border:1px solid rgba(13,115,119,.2);color:#0D7377;font-size:13px;line-height:1.6;margin-bottom:14px;}
-
-/* FORM */
 .field{margin-bottom:14px;}
 .field:last-child{margin-bottom:0;}
 label{display:block;font-size:13px;font-weight:600;color:#3C4353;margin-bottom:5px;}
@@ -57,26 +36,22 @@ textarea{resize:vertical;min-height:80px;}
 .key-row{display:flex;gap:8px;}
 .key-row input{flex:1;}
 .eye{background:#F0F2F5;border:1.5px solid #D0D5DD;border-radius:8px;padding:0 12px;font-size:15px;cursor:pointer;-webkit-appearance:none;flex-shrink:0;}
-
-/* BUTTONS */
-.btn{display:block;width:100%;padding:14px;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;-webkit-appearance:none;margin-top:14px;text-align:center;}
-.btn-p{background:#005CA9;color:#fff;}
-.btn-p:active{background:#003F7A;}
-.btn-s{background:#fff;color:#3C4353;border:1.5px solid #D0D5DD;margin-top:0;}
+.cta-wrap{position:sticky;bottom:0;background:linear-gradient(transparent,#F0F2F5 40%);padding:16px 14px 24px;}
+.cta{display:block;width:100%;padding:16px;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;-webkit-appearance:none;text-align:center;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
+.cta-p{background:#005CA9;color:#fff;box-shadow:0 4px 12px rgba(0,92,169,.35);}
+.cta-p:active{background:#003F7A;}
 .btn-row{display:flex;gap:10px;margin-top:14px;}
-.btn-row .btn-s{flex:0 0 auto;width:auto;padding:14px 18px;}
-.btn-row .btn-p{flex:1;margin-top:0;}
-
-/* SOURCE TILES */
+.btn-row .btn-s{flex:0 0 auto;padding:14px 18px;}
+.btn-row .btn-p{flex:1;}
+.btn-s{background:#fff;color:#3C4353;border:1.5px solid #D0D5DD;border-radius:8px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;-webkit-appearance:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
+.btn-p{background:#005CA9;color:#fff;border:none;border-radius:8px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;-webkit-appearance:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
 .tiles{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;}
 @media(max-width:400px){.tiles{grid-template-columns:1fr 1fr;}}
-.tile{border:1.5px solid #D0D5DD;border-radius:8px;padding:12px 6px;cursor:pointer;text-align:center;background:#fff;}
+.tile{border:1.5px solid #D0D5DD;border-radius:8px;padding:12px 6px;cursor:pointer;text-align:center;background:#fff;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
 .tile.on{border-color:#005CA9;background:#EBF3FB;}
 .tile-i{font-size:18px;margin-bottom:4px;}
 .tile-l{font-size:10px;font-weight:600;color:#717A8C;}
 .tile.on .tile-l{color:#005CA9;}
-
-/* UPLOAD */
 .upz{border:2px dashed #B8BEC9;border-radius:8px;padding:20px;text-align:center;background:#F8F9FA;position:relative;}
 .upz input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer;}
 .upz-t{font-size:13px;color:#717A8C;margin:6px 0 3px;}
@@ -87,13 +62,10 @@ textarea{resize:vertical;min-height:80px;}
 .fi-r{background:none;border:none;color:#B8BEC9;font-size:16px;cursor:pointer;-webkit-appearance:none;}
 .link-row{display:flex;gap:8px;margin-bottom:8px;}
 .link-row input{flex:1;}
-.ladd{background:#F0F2F5;border:1.5px solid #D0D5DD;border-radius:8px;padding:0 14px;font-size:14px;font-family:inherit;cursor:pointer;-webkit-appearance:none;color:#717A8C;}
+.ladd{background:#F0F2F5;border:1.5px solid #D0D5DD;border-radius:8px;padding:0 14px;font-size:14px;font-family:inherit;cursor:pointer;-webkit-appearance:none;color:#717A8C;touch-action:manipulation;}
 .chips{display:flex;flex-wrap:wrap;gap:6px;}
-.chip{background:#EBF3FB;border:1px solid rgba(0,92,169,.2);border-radius:20px;padding:4px 10px;font-size:12px;color:#005CA9;display:flex;align-items:center;gap:4px;max-width:90%;}
-.chip-t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.chip{background:#EBF3FB;border:1px solid rgba(0,92,169,.2);border-radius:20px;padding:4px 10px;font-size:12px;color:#005CA9;display:flex;align-items:center;gap:4px;}
 .chip-r{background:none;border:none;color:rgba(0,92,169,.5);cursor:pointer;font-size:14px;-webkit-appearance:none;line-height:1;}
-
-/* ANALYSIS */
 .awrap{text-align:center;padding:40px 0;}
 .spin{width:40px;height:40px;border:3px solid #ECEEF2;border-top-color:#005CA9;border-radius:50%;margin:0 auto 18px;animation:spin .8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
@@ -104,9 +76,7 @@ textarea{resize:vertical;min-height:80px;}
 .astep.on{opacity:1;}.astep.dn{opacity:.6;}
 .adot{width:7px;height:7px;border-radius:50%;background:#B8BEC9;margin-top:5px;flex-shrink:0;}
 .astep.on .adot{background:#005CA9;}.astep.dn .adot{background:#1B7F4F;}
-.al{font-size:14px;font-weight:600;}.as{font-size:12px;color:#B8BEC9;margin-top:2px;}
-
-/* MODEL CARD */
+.al{font-size:14px;font-weight:600;}.as2{font-size:12px;color:#B8BEC9;margin-top:2px;}
 .mc{background:#fff;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.12);overflow:hidden;margin-bottom:16px;}
 .mc-hd{padding:20px 16px 16px;background:linear-gradient(135deg,#003F7A,#1A6DC4);}
 .mc-id{font-family:monospace;font-size:11px;color:rgba(255,255,255,.7);background:rgba(255,255,255,.12);padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:8px;}
@@ -144,7 +114,7 @@ textarea{resize:vertical;min-height:80px;}
 .ci.warn{background:#FDF5E6;border-color:#9A6200;}
 .ci.ok{background:#E6F4EE;border-color:#1B7F4F;}
 .mtabs{display:flex;border-bottom:1px solid #ECEEF2;margin-bottom:10px;}
-.mtab{padding:8px 12px;font-size:12px;font-weight:600;color:#B8BEC9;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;}
+.mtab{padding:8px 12px;font-size:12px;font-weight:600;color:#B8BEC9;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;touch-action:manipulation;}
 .mtab.on{color:#005CA9;border-bottom-color:#005CA9;}
 .mcont{display:none;}.mcont.on{display:block;}
 .mprev{background:#F8F9FA;border:1px solid #DDE1E9;border-radius:8px;overflow:hidden;}
@@ -157,7 +127,7 @@ textarea{resize:vertical;min-height:80px;}
 .mrec-l{font-size:12px;color:#B8BEC9;flex-shrink:0;}
 .mrec input{flex:1;}
 .dec-btns{display:flex;gap:8px;margin-top:4px;}
-.dec-btn{flex:1;padding:12px;border-radius:8px;border:1.5px solid #D0D5DD;background:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;-webkit-appearance:none;color:#717A8C;}
+.dec-btn{flex:1;padding:12px;border-radius:8px;border:1.5px solid #D0D5DD;background:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;-webkit-appearance:none;color:#717A8C;touch-action:manipulation;}
 .dec-btn.ap.on{border-color:#1B7F4F;background:#E6F4EE;color:#1B7F4F;}
 .dec-btn.rj.on{border-color:#9A6200;background:#FDF5E6;color:#9A6200;}
 .ok-banner{display:none;align-items:center;gap:10px;padding:12px;background:#E6F4EE;border:1px solid rgba(27,127,79,.25);border-radius:8px;margin-bottom:12px;font-size:13px;color:#1B7F4F;}
@@ -165,10 +135,8 @@ textarea{resize:vertical;min-height:80px;}
 .mc-foot-l{font-size:10px;color:#B8BEC9;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:monospace;}
 .mc-foot-r{display:flex;gap:5px;flex-shrink:0;}
 .bexp{background:#fff;border:1px solid #DDE1E9;border-radius:5px;padding:4px 9px;font-size:11px;color:#717A8C;cursor:pointer;font-family:monospace;-webkit-appearance:none;}
-
-/* VALIDATION */
 .vf{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
-.fb{padding:6px 12px;border-radius:20px;border:1.5px solid #D0D5DD;font-size:12px;font-weight:600;color:#717A8C;background:#fff;cursor:pointer;-webkit-appearance:none;}
+.fb{padding:6px 12px;border-radius:20px;border:1.5px solid #D0D5DD;font-size:12px;font-weight:600;color:#717A8C;background:#fff;cursor:pointer;-webkit-appearance:none;touch-action:manipulation;}
 .fb.on{background:#005CA9;border-color:#005CA9;color:#fff;}
 .vt{width:100%;border-collapse:collapse;}
 .vt th{text-align:left;padding:8px 10px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#B8BEC9;border-bottom:1px solid #ECEEF2;background:#F8F9FA;}
@@ -177,23 +145,19 @@ textarea{resize:vertical;min-height:80px;}
 .badge{display:inline-flex;align-items:center;padding:2px 7px;border-radius:20px;font-size:11px;font-weight:700;}
 .bN1{background:#FBECEC;color:#B83232;}.bN2{background:#FEF2E8;color:#F47920;}
 .bN3{background:#FDF5E6;color:#9A6200;}.bN4{background:#E6F4EE;color:#1B7F4F;}
-
-/* MODAL */
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:flex-end;}
 .modal-bg.on{display:flex;}
 .modal{background:#fff;border-radius:14px 14px 0 0;width:100%;max-height:90vh;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px 14px;}
-.modal-x{float:right;background:none;border:none;font-size:22px;color:#B8BEC9;cursor:pointer;-webkit-appearance:none;margin:-4px -2px 0 0;}
+.modal-x{float:right;background:none;border:none;font-size:22px;color:#B8BEC9;cursor:pointer;-webkit-appearance:none;margin:-4px -2px 0 0;touch-action:manipulation;}
 .uc{background:#F8F9FA;border:1px solid #ECEEF2;border-radius:8px;padding:11px;margin-bottom:8px;}
 .uc-hd{display:flex;align-items:center;gap:7px;margin-bottom:5px;}
 .uc-av{width:24px;height:24px;border-radius:50%;background:#005CA9;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;}
 .uc-nm{font-size:13px;font-weight:600;}
 .uc-t{font-size:11px;color:#B8BEC9;margin-left:auto;}
 .uc-txt{font-size:13px;color:#3C4353;line-height:1.6;}
-
-/* BI */
 .kpig{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
 .kpi{background:#fff;border-radius:10px;padding:14px;position:relative;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.07);}
-.kpi::before{content:’’;position:absolute;top:0;left:0;right:0;height:3px;}
+.kpi::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;}
 .kb::before{background:#005CA9;}.ko::before{background:#F47920;}.kg::before{background:#1B7F4F;}.kr::before{background:#B83232;}
 .kpi-l{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#B8BEC9;margin-bottom:6px;}
 .kpi-v{font-size:28px;font-weight:800;color:#1A1D23;letter-spacing:-1px;line-height:1;margin-bottom:2px;}
@@ -205,31 +169,24 @@ textarea{resize:vertical;min-height:80px;}
 .br-trk{flex:1;height:18px;background:#F0F2F5;border-radius:3px;overflow:hidden;}
 .br-f{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:7px;font-size:11px;font-weight:700;color:#fff;}
 .br-v{font-size:11px;color:#717A8C;width:18px;flex-shrink:0;}
-
-/* PH */
 .ph{margin-bottom:16px;}
 .ph-e{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#005CA9;margin-bottom:3px;}
 .ph-t{font-size:20px;font-weight:800;color:#1A1D23;letter-spacing:-.4px;margin-bottom:4px;}
 .ph-d{font-size:13px;color:#717A8C;line-height:1.6;}
-
-/* SAIBA MAIS */
-.sm-hero{background:linear-gradient(135deg,#003F7A,#1A6DC4);border-radius:12px;padding:20px 16px;margin-bottom:12px;color:#fff;}
-.sm-step{display:flex;gap:12px;padding:16px 0;border-bottom:1px solid #ECEEF2;}
+.sm-step{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid #ECEEF2;}
 .sm-step:last-child{border:none;}
-.sm-num{width:28px;height:28px;border-radius:50%;background:#005CA9;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;margin-top:2px;}
+.sm-num{width:32px;height:32px;border-radius:50%;background:#005CA9;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0;margin-top:2px;}
 .sm-t{font-size:14px;font-weight:700;margin-bottom:3px;}
 .sm-d{font-size:13px;color:#717A8C;line-height:1.65;}
 .sm-n{margin-top:7px;padding:8px 11px;background:#F8F9FA;border:1px solid #ECEEF2;border-radius:6px;font-size:12px;color:#717A8C;line-height:1.5;}
 .pills{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px;}
 .pill{background:#EBF3FB;border:1px solid rgba(0,92,169,.15);border-radius:20px;padding:3px 9px;font-size:11px;color:#005CA9;font-weight:600;}
 .faq-i{background:#fff;border:1px solid #DDE1E9;border-radius:8px;overflow:hidden;margin-bottom:7px;}
-.faq-q{display:flex;align-items:center;justify-content:space-between;padding:13px 14px;cursor:pointer;font-size:14px;font-weight:600;color:#1A1D23;-webkit-user-select:none;}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:13px 14px;cursor:pointer;font-size:14px;font-weight:600;color:#1A1D23;-webkit-user-select:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
 .faq-ico{color:#B8BEC9;font-size:18px;flex-shrink:0;transition:transform .2s;}
 .faq-i.open .faq-ico{transform:rotate(45deg);}
 .faq-a{display:none;padding:0 14px 11px;font-size:13px;color:#717A8C;line-height:1.7;border-top:1px solid #ECEEF2;}
 .faq-i.open .faq-a{display:block;padding-top:10px;}
-
-/* STORAGE */
 .sg{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 @media(max-width:400px){.sg{grid-template-columns:1fr;}}
 .si{background:#fff;border-radius:10px;padding:13px;box-shadow:0 1px 3px rgba(0,0,0,.07);}
@@ -237,7 +194,6 @@ textarea{resize:vertical;min-height:80px;}
 .si-p{font-family:monospace;font-size:10px;color:#005CA9;background:#EBF3FB;border-radius:3px;padding:2px 6px;display:inline-block;margin-bottom:4px;}
 .si-d{font-size:12px;color:#717A8C;line-height:1.5;}
 </style>
-
 </head>
 <body>
 
@@ -249,45 +205,111 @@ textarea{resize:vertical;min-height:80px;}
         <path d="M3 7h8M7 3v8" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
       </svg>
     </div>
-    <div id="hdr-name">ModelScan <span style="font-size:11px;opacity:0.6;">v5</span></div>
+    <div id="hdr-name">ModelScan</div>
   </div>
-  <button id="hdr-btn" type="button" onclick="toggleMenu()">&#9776;</button>
+  <button id="hdr-btn" type="button">&#9776;</button>
 </div>
 
-<div id="menu-drop" style="display:none;">
-  <button type="button" onclick="goPage('catalog',this)">Catalogacao</button>
-  <button type="button" onclick="goPage('validation',this)">Validacao</button>
-  <button type="button" onclick="goPage('bi',this)">Painel BI</button>
-  <button type="button" onclick="goPage('saibamais',this)">Saiba Mais</button>
-  <button type="button" onclick="goPage('storage',this)">Onde ficam os arquivos</button>
+<div id="menu-drop">
+  <button type="button" data-page="intro">Inicio</button>
+  <button type="button" data-page="catalog">Catalogacao</button>
+  <button type="button" data-page="validation">Validacao</button>
+  <button type="button" data-page="bi">Painel BI</button>
+  <button type="button" data-page="storage">Onde ficam os arquivos</button>
 </div>
 
 <div id="ptabs">
-  <div class="ptab on" id="ptab-catalog" onclick="goPage('catalog',null)">Catalogacao</div>
-  <div class="ptab" id="ptab-validation" onclick="goPage('validation',null)">Validacao</div>
-  <div class="ptab" id="ptab-bi" onclick="goPage('bi',null)">Painel BI</div>
-  <div class="ptab" id="ptab-saibamais" onclick="goPage('saibamais',null)">Saiba Mais</div>
-  <div class="ptab" id="ptab-storage" onclick="goPage('storage',null)">Arquivos</div>
+  <div class="ptab on" data-page="intro">Inicio</div>
+  <div class="ptab" data-page="catalog">Catalogacao</div>
+  <div class="ptab" data-page="validation">Validacao</div>
+  <div class="ptab" data-page="bi">Painel BI</div>
+  <div class="ptab" data-page="storage">Arquivos</div>
 </div>
-
-<!-- STEP BAR: fora de qualquer card, sem overflow, sem border-radius -->
 
 <div id="step-bar">
   <div id="step-text">Passo 1 de 4 - Identificacao</div>
-  <div id="step-nums" style="font-size:13px;font-weight:700;color:#005CA9;">1/4</div>
+  <div id="step-nums">1/4</div>
 </div>
 
-<div class="page" id="page-catalog" style="display:block;">
+<!-- INTRO / SAIBA MAIS -->
 
+<div class="page" id="page-intro" style="display:block;">
+  <div style="background:linear-gradient(135deg,#003F7A,#1A6DC4);border-radius:14px;padding:24px 18px;margin-bottom:16px;color:#fff;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:8px;">Bem-vindo ao</div>
+    <div style="font-size:26px;font-weight:800;margin-bottom:8px;letter-spacing:-.5px;">ModelScan</div>
+    <div style="font-size:14px;color:rgba(255,255,255,.8);line-height:1.65;">Sistema de catalogacao inteligente de modelos institucionais — estatisticos, ML e IA Generativa.</div>
+  </div>
+  <div class="card">
+    <div class="card-t">O que e o ModelScan?</div>
+    <div style="font-size:14px;color:#3C4353;line-height:1.75;margin-bottom:14px;">O ModelScan substitui formularios de autodeclaracao por um processo guiado e assistido por <strong>5 agentes de IA</strong>. Voce informa onde esta a documentacao do modelo — os agentes leem, classificam e geram o <strong>Model Card completo</strong> automaticamente.</div>
+    <div style="background:#EBF3FB;border-radius:8px;padding:12px 14px;font-size:13px;color:#005CA9;line-height:1.6;">
+      <strong>Tempo total estimado:</strong> 5 a 20 minutos por modelo.
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-t">Como funciona — passo a passo</div>
+    <div class="sm-step">
+      <div class="sm-num">1</div>
+      <div>
+        <div class="sm-t">Identificacao do Modelo</div>
+        <div class="sm-d">Informe nome, area responsavel, seu nome e e-mail. Nao precisa ter tudo documentado — os agentes complementam.</div>
+        <div class="sm-n">O nome pode ser informal. A validacao padroniza depois.</div>
+      </div>
+    </div>
+    <div class="sm-step">
+      <div class="sm-num">2</div>
+      <div>
+        <div class="sm-t">Indicacao das Fontes</div>
+        <div class="sm-d">Envie arquivos (PDF, Word, Python, R, Jupyter) ou informe links de repositorios (SharePoint, GitLab, Databricks, GCP).</div>
+        <div class="pills"><span class="pill">PDF/Word</span><span class="pill">Python</span><span class="pill">R</span><span class="pill">SharePoint</span><span class="pill">Databricks</span><span class="pill">GCP</span></div>
+      </div>
+    </div>
+    <div class="sm-step">
+      <div class="sm-num">3</div>
+      <div>
+        <div class="sm-t">Analise pelos 5 Agentes de IA</div>
+        <div class="sm-d">Os agentes rodam em sequencia: Ingestao, RAG (extracao), Classificador, Criticidade e Sintese. Resultado em 15 a 45 segundos.</div>
+      </div>
+    </div>
+    <div class="sm-step">
+      <div class="sm-num">4</div>
+      <div>
+        <div class="sm-t">Model Card + Moderacao</div>
+        <div class="sm-d">O Model Card e gerado com chave unica (ex: MDL-A3F9K2). Voce revisa, corrige o que precisar e confirma. A area de Validacao e notificada automaticamente.</div>
+      </div>
+    </div>
+    <div class="sm-step" style="border:none;">
+      <div class="sm-num">5</div>
+      <div>
+        <div class="sm-t">Criticidade N1 a N5</div>
+        <div class="sm-d">O modelo recebe um nivel de criticidade baseado em 6 dimensoes: Impacto Financeiro, Exposicao Regulatoria, Autonomia Decisoria, Opacidade, Abrangencia e Maturidade.</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-t">Perguntas Frequentes</div>
+    <div class="faq-i" id="faq1"><div class="faq-q">Preciso de documentacao formal? <span class="faq-ico">+</span></div><div class="faq-a">Nao! README, comentarios de codigo ou qualquer descricao servem. Quanto mais informacao, melhor o resultado.</div></div>
+    <div class="faq-i" id="faq2"><div class="faq-q">Quanto tempo leva? <span class="faq-ico">+</span></div><div class="faq-a">Analise pelos agentes: 15 a 45 segundos. Moderacao pelo owner: 5 a 10 minutos. Total: menos de 20 minutos.</div></div>
+    <div class="faq-i" id="faq3"><div class="faq-q">O que e a chave unica? <span class="faq-ico">+</span></div><div class="faq-a">Cada modelo recebe um ID (ex: MDL-A3F9K2) que serve como referencia em todo o ciclo de vida — validacao, monitoramento e descomissionamento.</div></div>
+    <div class="faq-i" id="faq4"><div class="faq-q">E se eu discordar da criticidade sugerida? <span class="faq-ico">+</span></div><div class="faq-a">Solicite revisao na etapa de moderacao. A area de Validacao pode corrigir o nivel durante a ratificacao.</div></div>
+  </div>
+  <div class="cta-wrap">
+    <button class="cta cta-p" id="btn-start" type="button">Iniciar Catalogacao &rarr;</button>
+  </div>
+</div>
+
+<!-- CATALOGACAO -->
+
+<div class="page" id="page-catalog" style="display:none;">
   <div class="pnl" id="pn1" style="display:block;">
-    <div class="tip"><span style="font-size:18px;flex-shrink:0;">&#128075;</span><div><strong>Ola! Que bom ter voce aqui.</strong> Preencha as informacoes abaixo e indique onde esta a documentacao do seu modelo. O resto fica com a gente!</div></div>
+    <div class="tip"><span style="font-size:18px;flex-shrink:0;">&#128075;</span><div><strong>Ola! Que bom ter voce aqui.</strong> Preencha as informacoes abaixo. O resto fica com os agentes!</div></div>
     <div class="card">
       <div class="card-t">Acesso a API</div>
       <div class="field">
         <label>Chave API Anthropic</label>
         <div class="key-row">
           <input type="password" id="api-key" placeholder="sk-ant-... (ou deixe em branco para demo)" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false">
-          <button class="eye" type="button" onclick="toggleKey()">&#128065;</button>
+          <button class="eye" type="button" id="eye-btn">&#128065;</button>
         </div>
         <div style="font-size:11px;color:#B8BEC9;margin-top:5px;">Gere em <a href="https://console.anthropic.com" style="color:#005CA9;">console.anthropic.com</a> &gt; API Keys</div>
       </div>
@@ -304,21 +326,23 @@ textarea{resize:vertical;min-height:80px;}
       <div class="field"><label>E-mail Validacao de Modelos</label><input type="text" id="ve" placeholder="validacao@email.com" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false"></div>
       <div class="field"><label>E-mail Comite (opcional)</label><input type="text" id="ce" placeholder="comite@email.com" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false"></div>
     </div>
-    <button class="btn btn-p" type="button" id="btn-next" onclick="step2()" ontouchend="this._touched=true;" style="cursor:pointer;-webkit-tap-highlight-color:rgba(0,0,0,0.1);touch-action:manipulation;">Proximo: Fontes &rarr;</button>
+    <div class="cta-wrap">
+      <button class="cta cta-p" id="btn-pn2" type="button">Proximo: Fontes &rarr;</button>
+    </div>
   </div>
 
   <div class="pnl" id="pn2" style="display:none;">
     <div class="card">
       <div class="card-t">Tipo de Fonte</div>
       <div class="tiles" id="tiles">
-        <div class="tile" data-s="pdf" onclick="togTile(this)"><div class="tile-i">&#128196;</div><div class="tile-l">PDF/Word</div></div>
-        <div class="tile" data-s="sharepoint" onclick="togTile(this)"><div class="tile-i">&#9729;&#65039;</div><div class="tile-l">SharePoint</div></div>
-        <div class="tile" data-s="databricks" onclick="togTile(this)"><div class="tile-i">&#9889;</div><div class="tile-l">Databricks</div></div>
-        <div class="tile" data-s="gcp" onclick="togTile(this)"><div class="tile-i">&#128309;</div><div class="tile-l">GCP</div></div>
-        <div class="tile" data-s="python" onclick="togTile(this)"><div class="tile-i">&#128013;</div><div class="tile-l">Python/Jupyter</div></div>
-        <div class="tile" data-s="r" onclick="togTile(this)"><div class="tile-i">&#128202;</div><div class="tile-l">R/RMarkdown</div></div>
-        <div class="tile" data-s="git" onclick="togTile(this)"><div class="tile-i">&#128193;</div><div class="tile-l">Git/GitLab</div></div>
-        <div class="tile" data-s="link" onclick="togTile(this)"><div class="tile-i">&#128279;</div><div class="tile-l">Link/URL</div></div>
+        <div class="tile" data-s="pdf"><div class="tile-i">&#128196;</div><div class="tile-l">PDF/Word</div></div>
+        <div class="tile" data-s="sharepoint"><div class="tile-i">&#9729;&#65039;</div><div class="tile-l">SharePoint</div></div>
+        <div class="tile" data-s="databricks"><div class="tile-i">&#9889;</div><div class="tile-l">Databricks</div></div>
+        <div class="tile" data-s="gcp"><div class="tile-i">&#128309;</div><div class="tile-l">GCP</div></div>
+        <div class="tile" data-s="python"><div class="tile-i">&#128013;</div><div class="tile-l">Python/Jupyter</div></div>
+        <div class="tile" data-s="r"><div class="tile-i">&#128202;</div><div class="tile-l">R/RMarkdown</div></div>
+        <div class="tile" data-s="git"><div class="tile-i">&#128193;</div><div class="tile-l">Git/GitLab</div></div>
+        <div class="tile" data-s="link"><div class="tile-i">&#128279;</div><div class="tile-l">Link/URL</div></div>
       </div>
     </div>
     <div class="card">
@@ -328,7 +352,7 @@ textarea{resize:vertical;min-height:80px;}
     </div>
     <div class="card">
       <div class="card-t">Links de Repositorios</div>
-      <div class="link-row"><input type="text" id="linp" placeholder="https://..." inputmode="url" autocapitalize="none" autocorrect="off"><button class="ladd" type="button" onclick="addLink()">+ Add</button></div>
+      <div class="link-row"><input type="text" id="linp" placeholder="https://..." inputmode="url" autocapitalize="none" autocorrect="off"><button class="ladd" type="button" id="btn-addlink">+ Add</button></div>
       <div class="chips" id="chips"></div>
     </div>
     <div class="card">
@@ -336,8 +360,8 @@ textarea{resize:vertical;min-height:80px;}
       <textarea id="ctx" placeholder="Cole trechos de codigo ou descricoes..."></textarea>
     </div>
     <div class="btn-row">
-      <button class="btn btn-s" type="button" onclick="setPn(1)">&#8592; Voltar</button>
-      <button class="btn btn-p" type="button" onclick="runAnalysis()">Analisar &rarr;</button>
+      <button class="btn-s" type="button" id="btn-back1">&#8592; Voltar</button>
+      <button class="btn-p" type="button" id="btn-analyze">Analisar &rarr;</button>
     </div>
   </div>
 
@@ -347,11 +371,11 @@ textarea{resize:vertical;min-height:80px;}
       <h3 id="atit">Agentes trabalhando...</h3>
       <p id="asub">Isso leva alguns segundos.</p>
       <div style="max-width:340px;margin:0 auto;text-align:left;">
-        <div class="astep on" id="as1"><div class="adot"></div><div><div class="al">Agente de Ingestao</div><div class="as">Lendo arquivos e links</div></div></div>
-        <div class="astep" id="as2"><div class="adot"></div><div><div class="al">Agente RAG</div><div class="as">Extraindo informacoes</div></div></div>
-        <div class="astep" id="as3"><div class="adot"></div><div><div class="al">Agente Classificador</div><div class="as">Identificando familia e tecnica</div></div></div>
-        <div class="astep" id="as4"><div class="adot"></div><div><div class="al">Agente de Criticidade</div><div class="as">Calculando as 6 dimensoes</div></div></div>
-        <div class="astep" id="as5"><div class="adot"></div><div><div class="al">Geracao do Model Card</div><div class="as">Preparando notificacoes</div></div></div>
+        <div class="astep on" id="as1"><div class="adot"></div><div><div class="al">Agente de Ingestao</div><div class="as2">Lendo arquivos e links</div></div></div>
+        <div class="astep" id="as2"><div class="adot"></div><div><div class="al">Agente RAG</div><div class="as2">Extraindo informacoes</div></div></div>
+        <div class="astep" id="as3"><div class="adot"></div><div><div class="al">Agente Classificador</div><div class="as2">Identificando familia e tecnica</div></div></div>
+        <div class="astep" id="as4"><div class="adot"></div><div><div class="al">Agente de Criticidade</div><div class="as2">Calculando as 6 dimensoes</div></div></div>
+        <div class="astep" id="as5"><div class="adot"></div><div><div class="al">Geracao do Model Card</div><div class="as2">Preparando notificacoes</div></div></div>
       </div>
     </div>
   </div>
@@ -360,24 +384,27 @@ textarea{resize:vertical;min-height:80px;}
     <div class="ok-banner" id="okb"><div style="font-size:18px;">&#9989;</div><div id="okbtxt"></div></div>
     <div id="mcc"></div>
   </div>
-
 </div>
+
+<!-- VALIDACAO -->
 
 <div class="page" id="page-validation" style="display:none;">
   <div class="ph"><div class="ph-e">Validacao</div><div class="ph-t">Fila de Validacao</div><div class="ph-d">Analise e ratifique os Model Cards.</div></div>
   <div class="vf">
-    <button class="fb on" type="button" onclick="fv('all',this)">Todos</button>
-    <button class="fb" type="button" onclick="fv('N1',this)">N1</button>
-    <button class="fb" type="button" onclick="fv('N2',this)">N2</button>
-    <button class="fb" type="button" onclick="fv('N3',this)">N3</button>
-    <button class="fb" type="button" onclick="fv('N4',this)">N4</button>
-    <button class="fb" type="button" onclick="fv('pending',this)">Aguardando</button>
-    <button class="fb" type="button" onclick="fv('approved',this)">Ratificados</button>
+    <button class="fb on" type="button" data-f="all">Todos</button>
+    <button class="fb" type="button" data-f="N1">N1</button>
+    <button class="fb" type="button" data-f="N2">N2</button>
+    <button class="fb" type="button" data-f="N3">N3</button>
+    <button class="fb" type="button" data-f="N4">N4</button>
+    <button class="fb" type="button" data-f="pending">Aguardando</button>
+    <button class="fb" type="button" data-f="approved">Ratificados</button>
   </div>
   <div class="card" style="padding:0;overflow:hidden;">
     <table class="vt"><thead><tr><th>Chave</th><th>Modelo</th><th>Crit.</th><th>Status</th><th>Acao</th></tr></thead><tbody id="vtb"></tbody></table>
   </div>
 </div>
+
+<!-- BI -->
 
 <div class="page" id="page-bi" style="display:none;">
   <div class="ph"><div class="ph-e">Executivo</div><div class="ph-t">Inventario</div><div class="ph-d">Visao consolidada do portfolio.</div></div>
@@ -393,26 +420,16 @@ textarea{resize:vertical;min-height:80px;}
     <div class="br"><div class="br-l">Mat./Financeiro</div><div class="br-trk"><div class="br-f" style="width:25%;background:#F47920;">1</div></div><div class="br-v">1</div></div>
     <div class="br"><div class="br-l">IA Gen./LLM</div><div class="br-trk"><div class="br-f" style="width:25%;background:#B83232;">1</div></div><div class="br-v">1</div></div>
   </div>
-  <div class="card" style="padding:0;overflow:hidden;"><div style="display:flex;align-items:center;justify-content:space-between;padding:11px 13px;border-bottom:1px solid #ECEEF2;"><span style="font-size:13px;font-weight:700;">Inventario Completo</span><button class="bexp" type="button" onclick="csvBI()">CSV</button></div><table class="vt"><thead><tr><th>Chave</th><th>Modelo</th><th>Familia</th><th>Crit.</th><th>Pont.</th><th>Status</th></tr></thead><tbody id="biTb"></tbody></table></div>
+  <div class="card" style="padding:0;overflow:hidden;">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:11px 13px;border-bottom:1px solid #ECEEF2;">
+      <span style="font-size:13px;font-weight:700;">Inventario Completo</span>
+      <button class="bexp" type="button" id="btn-csv">CSV</button>
+    </div>
+    <table class="vt"><thead><tr><th>Chave</th><th>Modelo</th><th>Familia</th><th>Crit.</th><th>Pont.</th><th>Status</th></tr></thead><tbody id="biTb"></tbody></table>
+  </div>
 </div>
 
-<div class="page" id="page-saibamais" style="display:none;">
-  <div class="sm-hero"><div style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:5px;">Guia Completo</div><div style="font-size:21px;font-weight:800;margin-bottom:6px;">Como o ModelScan funciona?</div><div style="font-size:13px;color:rgba(255,255,255,.65);line-height:1.65;">Simples e transparente — dos agentes ao Model Card.</div></div>
-  <div class="card">
-    <div class="card-t">Jornada passo a passo</div>
-    <div class="sm-step"><div class="sm-num">1</div><div><div class="sm-t">Identificacao</div><div class="sm-d">Preencha nome, area, owner e e-mail. Os agentes complementam o restante.</div><div class="sm-n">O nome pode ser informal — a validacao padroniza depois.</div></div></div>
-    <div class="sm-step"><div class="sm-num">2</div><div><div class="sm-t">Indicacao das Fontes</div><div class="sm-d">PDF, Word, Jupyter, Python/R, SharePoint, GitLab, Databricks ou GCP.</div><div class="pills"><span class="pill">PDF</span><span class="pill">Python</span><span class="pill">R</span><span class="pill">SharePoint</span><span class="pill">Databricks</span><span class="pill">GCP</span></div></div></div>
-    <div class="sm-step"><div class="sm-num">3</div><div><div class="sm-t">5 Agentes de IA</div><div class="sm-d">Ingestao, RAG, Classificador, Criticidade e Sintese — cada um especializado.</div></div></div>
-    <div class="sm-step"><div class="sm-num">4</div><div><div class="sm-t">Model Card + Moderacao</div><div class="sm-d">Card com chave unica gerado em segundos. Revise e confirme.</div></div></div>
-    <div class="sm-step" style="border:none;"><div class="sm-num">5</div><div><div class="sm-t">Ratificacao</div><div class="sm-d">Validacao ratifica. Auditoria e Compliance podem manifestar-se.</div></div></div>
-  </div>
-  <div class="card">
-    <div class="card-t">Perguntas Frequentes</div>
-    <div class="faq-i"><div class="faq-q" onclick="this.closest('.faq-i').classList.toggle('open');">Preciso de documentacao formal? <span class="faq-ico">+</span></div><div class="faq-a">Nao! README, comentarios de codigo ou qualquer descricao servem.</div></div>
-    <div class="faq-i"><div class="faq-q" onclick="this.closest('.faq-i').classList.toggle('open');">O que e a chave unica? <span class="faq-ico">+</span></div><div class="faq-a">Cada modelo recebe um ID unico (ex: MDL-A3F9K2) — usado em todo o ciclo.</div></div>
-    <div class="faq-i"><div class="faq-q" onclick="this.closest('.faq-i').classList.toggle('open');">Quanto tempo leva? <span class="faq-ico">+</span></div><div class="faq-a">Analise: 15-45 segundos. Moderacao: 5-10 minutos. Total: menos de 20 minutos.</div></div>
-  </div>
-</div>
+<!-- STORAGE -->
 
 <div class="page" id="page-storage" style="display:none;">
   <div class="ph"><div class="ph-e">Transparencia</div><div class="ph-t">Onde ficam os arquivos?</div><div class="ph-d">Mapa de armazenamento por perfil.</div></div>
@@ -426,9 +443,11 @@ textarea{resize:vertical;min-height:80px;}
   </div>
 </div>
 
+<!-- MODAL VALIDACAO -->
+
 <div class="modal-bg" id="vmod">
   <div class="modal">
-    <button class="modal-x" type="button" onclick="document.getElementById('vmod').style.display='none';">&#215;</button>
+    <button class="modal-x" type="button" id="modal-close">&#215;</button>
     <div style="font-family:monospace;font-size:11px;color:#B8BEC9;margin-bottom:2px;" id="mid"></div>
     <div style="font-size:18px;font-weight:800;margin-bottom:2px;" id="mnm"></div>
     <div style="font-size:13px;color:#717A8C;margin-bottom:16px;" id="mar"></div>
@@ -441,7 +460,7 @@ textarea{resize:vertical;min-height:80px;}
         <div class="field" style="margin:0;"><label>Seu nome</label><input type="text" id="uperson" placeholder="Nome"></div>
       </div>
       <div class="field"><label>Manifestacao</label><textarea id="uobs" placeholder="Observacoes..."></textarea></div>
-      <button class="btn btn-s" style="width:auto;padding:10px 16px;margin-top:8px;" type="button" onclick="addCom()">+ Registrar</button>
+      <button class="btn-s" style="width:auto;padding:10px 16px;margin-top:8px;" type="button" id="btn-addcom">+ Registrar</button>
     </div>
     <div style="border-top:1px solid #ECEEF2;padding-top:14px;margin-top:14px;">
       <div style="font-size:13px;font-weight:700;margin-bottom:10px;">Decisao da Validacao</div>
@@ -451,8 +470,8 @@ textarea{resize:vertical;min-height:80px;}
       </div>
       <div class="field"><label>Parecer Tecnico (obrigatorio)</label><textarea id="vparecer" placeholder="Registre o parecer..."></textarea></div>
       <div class="dec-btns">
-        <button class="dec-btn ap" type="button" onclick="ratify('approve')">Ratificar</button>
-        <button class="dec-btn rj" type="button" onclick="ratify('reject')">Solicitar correcao</button>
+        <button class="dec-btn ap" type="button" id="btn-rat-ap">Ratificar</button>
+        <button class="dec-btn rj" type="button" id="btn-rat-rj">Solicitar correcao</button>
       </div>
     </div>
   </div>
@@ -472,37 +491,32 @@ var INV=[
 function G(id){return document.getElementById(id);}
 function GV(id){var e=G(id);return e&&e.value?e.value.trim():'';}
 
-function toggleMenu(){
-  var m=G('menu-drop'),b=G('hdr-btn');
-  var open=(m.style.display==='block');
-  m.style.display=open?'none':'block';
-  b.innerHTML=open?'&#9776;':'&#10005;';
-}
-
-function goPage(pid,btn){
-  var pages=['catalog','validation','bi','saibamais','storage'];
+function goPage(pid){
+  var pages=['intro','catalog','validation','bi','storage'];
   for(var i=0;i<pages.length;i++){
     var p=G('page-'+pages[i]);
-    if(p) p.style.display=(pages[i]===pid?'block':'none');
-    var t=G('ptab-'+pages[i]);
-    if(t) t.className='ptab'+(pages[i]===pid?' on':'');
+    if(p)p.style.display=(pages[i]===pid?'block':'none');
   }
-  var m=G('menu-drop');if(m)m.className='';
+  var tabs=document.querySelectorAll('.ptab');
+  for(var j=0;j<tabs.length;j++){
+    tabs[j].className='ptab'+(tabs[j].getAttribute('data-page')===pid?' on':'');
+  }
+  var m=G('menu-drop');if(m)m.style.display='none';
   var b=G('hdr-btn');if(b)b.innerHTML='&#9776;';
   var sb=G('step-bar');
-  if(sb) sb.style.display=(pid==='catalog'?'flex':'none');
-  if(pid==='validation') renderVT(INV);
-  if(pid==='bi') renderBI();
+  if(sb)sb.style.display=(pid==='catalog'?'flex':'none');
+  if(pid==='validation')renderVT(INV);
+  if(pid==='bi')renderBI();
   window.scrollTo(0,0);
 }
 
 function setPn(n){
   for(var i=1;i<=4;i++){
     var p=G('pn'+i);
-    if(p) p.style.display=(i===n?'block':'none');
+    if(p)p.style.display=(i===n?'block':'none');
   }
-  var st=G('step-text');if(st) st.textContent='Passo '+n+' de 4 - '+LABELS[n];
-  var sn=G('step-nums');if(sn) sn.textContent=n+'/4';
+  var st=G('step-text');if(st)st.textContent='Passo '+n+' de 4 - '+LABELS[n];
+  var sn=G('step-nums');if(sn)sn.textContent=n+'/4';
   window.scrollTo(0,0);
 }
 
@@ -512,44 +526,85 @@ function step2(){
   if(!ar){alert('Informe a Area.');return;}
   if(!ow){alert('Informe o Model Owner.');return;}
   if(!oe){alert('Informe seu e-mail.');return;}
-  var p2=G('pn2');
-  if(!p2){alert('ERRO: pn2 nao encontrado');return;}
-  var p1=G('pn1');
-  if(p1)p1.style.display='none';
-  p2.style.display='block';
-  var st=G('step-text');if(st)st.textContent='Passo 2 de 4 - Fontes';
-  var sn=G('step-nums');if(sn)sn.textContent='2/4';
-  window.scrollTo(0,0);
+  setPn(2);
 }
 
-function toggleKey(){
-  var i=G('api-key');
-  if(i) i.type=(i.type==='password'?'text':'password');
-}
+function bind(id,fn){var e=G(id);if(e)e.onclick=fn;}
 
-function togTile(el){
-  var s=el.getAttribute('data-s');
-  var on=el.className.indexOf(' on')>=0;
-  el.className=on?'tile':'tile on';
-  var idx=SOURCES.indexOf(s);
-  if(!on){if(idx<0)SOURCES.push(s);}
-  else{if(idx>=0)SOURCES.splice(idx,1);}
+function init(){
+  bind('hdr-btn',function(){
+    var m=G('menu-drop');
+    var open=(m.style.display==='block');
+    m.style.display=open?'none':'block';
+    G('hdr-btn').innerHTML=open?'&#9776;':'&#10005;';
+  });
+  var tabs=document.querySelectorAll('.ptab');
+  for(var i=0;i<tabs.length;i++){
+    (function(t){t.onclick=function(){goPage(t.getAttribute('data-page'));}})(tabs[i]);
+  }
+  var mitems=document.querySelectorAll('#menu-drop button');
+  for(var j=0;j<mitems.length;j++){
+    (function(m){m.onclick=function(){goPage(m.getAttribute('data-page'));}})(mitems[j]);
+  }
+  bind('btn-start',function(){goPage('catalog');});
+  bind('btn-pn2',step2);
+  bind('btn-back1',function(){setPn(1);});
+  bind('btn-analyze',runAnalysis);
+  bind('eye-btn',function(){var i=G('api-key');if(i)i.type=(i.type==='password'?'text':'password');});
+  bind('btn-addlink',addLink);
+  bind('modal-close',function(){G('vmod').style.display='none';});
+  bind('btn-addcom',addCom);
+  bind('btn-rat-ap',function(){ratify('approve');});
+  bind('btn-rat-rj',function(){ratify('reject');});
+  bind('btn-csv',csvBI);
+  var linp=G('linp');
+  if(linp)linp.onkeydown=function(e){if(e.key==='Enter'){e.preventDefault();addLink();}};
+  var tiles=document.querySelectorAll('.tile');
+  for(var k=0;k<tiles.length;k++){
+    (function(t){t.onclick=function(){
+      var on=t.className.indexOf(' on')>=0;
+      t.className=on?'tile':'tile on';
+      var s=t.getAttribute('data-s');
+      var idx=SOURCES.indexOf(s);
+      if(!on){if(idx<0)SOURCES.push(s);}else{if(idx>=0)SOURCES.splice(idx,1);}
+    };})(tiles[k]);
+  }
+  var faqs=document.querySelectorAll('.faq-q');
+  for(var f=0;f<faqs.length;f++){
+    (function(q){q.onclick=function(){
+      var fi=q.parentNode;
+      fi.className=fi.className.indexOf('open')>=0?'faq-i':'faq-i open';
+    };})(faqs[f]);
+  }
+  var vfbtns=document.querySelectorAll('.vf .fb');
+  for(var v=0;v<vfbtns.length;v++){
+    (function(btn){btn.onclick=function(){
+      for(var x=0;x<vfbtns.length;x++)vfbtns[x].className='fb';
+      btn.className='fb on';
+      var f=btn.getAttribute('data-f');
+      var data=INV;
+      if(f==='pending')data=INV.filter(function(m){return m.status==='pending';});
+      else if(f==='approved')data=INV.filter(function(m){return m.status==='approved';});
+      else if(f!=='all')data=INV.filter(function(m){return m.crit===f;});
+      renderVT(data);
+    };})(vfbtns[v]);
+  }
+  renderVT(INV);
+  renderBI();
 }
 
 function addFiles(fl){
   for(var i=0;i<fl.length;i++){
-    var f=fl[i];
-    var found=false;
+    var f=fl[i],found=false;
     for(var j=0;j<FILES.length;j++){if(FILES[j].name===f.name){found=true;break;}}
-    if(!found) FILES.push(f);
+    if(!found)FILES.push(f);
   }
   renderFiles();
 }
-
 function renderFiles(){
-  var h='',i;
-  for(i=0;i<FILES.length;i++){
-    h+='<div class="fi"><span style="font-size:13px;flex-shrink:0;">'+FILES[i].name.split('.').pop().toUpperCase()+'</span><span class="fi-n">'+FILES[i].name+'</span><button class="fi-r" type="button" onclick="rmF('+i+')">x</button></div>';
+  var h='';
+  for(var i=0;i<FILES.length;i++){
+    h+='<div class="fi"><span style="font-size:12px;flex-shrink:0;">'+FILES[i].name.split('.').pop().toUpperCase()+'</span><span class="fi-n">'+FILES[i].name+'</span><button class="fi-r" type="button" onclick="rmF('+i+')">x</button></div>';
   }
   G('flist').innerHTML=h;
 }
@@ -563,11 +618,10 @@ function addLink(){
   if(!found){LINKS.push(v);renderChips();}
   inp.value='';
 }
-
 function renderChips(){
-  var h='',i;
-  for(i=0;i<LINKS.length;i++){
-    h+='<div class="chip"><span class="chip-t">'+LINKS[i]+'</span><button class="chip-r" type="button" onclick="rmL('+i+')">x</button></div>';
+  var h='';
+  for(var i=0;i<LINKS.length;i++){
+    h+='<div class="chip"><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">'+LINKS[i]+'</span><button class="chip-r" type="button" onclick="rmL('+i+')">x</button></div>';
   }
   G('chips').innerHTML=h;
 }
@@ -598,24 +652,25 @@ async function callAPI(key){
   var nm=GV('nm'),ar=GV('ar'),ow=GV('ow');
   var txt='';
   for(var i=0;i<FILES.length;i++){
-    try{var t=await readTxt(FILES[i]);txt+='\nARQ:'+FILES[i].name+'\n'+t.substring(0,3000);}catch(e){}
+    try{var t=await readTxt(FILES[i]);txt+='ARQ:'+FILES[i].name+' '+t.substring(0,3000);}catch(e){}
   }
-  var prompt='Analise e gere Model Card em JSON puro sem markdown.\nModelo:'+nm+'\nArea:'+ar+'\nOwner:'+ow+'\nFontes:'+SOURCES.join(',')+'\nLinks:'+LINKS.join(',')+'\nCtx:'+GV('ctx')+(txt?'\n'+txt:'')+'\nRetorne SOMENTE este JSON:\n{"family":"string","technique":"string","description":"string","platform":"string","inputs":"string","outputs":"string","autonomy":"string","regulatory":"string","scores":{"D1":3,"D2":3,"D3":3,"D4":3,"D5":3,"D6":3},"weighted_score":3.0,"criticality_level":"N1","criticality_name":"Critico","tags":["tag"],"controls":[{"text":"texto","type":"crit"}],"validation_scope":"string","confidence":70,"confidence_note":"string"}';
+  var jsonTemplate='{"family":"string","technique":"string","description":"string","platform":"string","inputs":"string","outputs":"string","autonomy":"string","regulatory":"string","scores":{"D1":3,"D2":3,"D3":3,"D4":3,"D5":3,"D6":3},"weighted_score":3.0,"criticality_level":"N1","criticality_name":"Critico","tags":["tag"],"controls":[{"text":"texto","type":"crit"}],"validation_scope":"string","confidence":70,"confidence_note":"string"}';
+  var prompt='Analise e gere Model Card em JSON puro sem markdown.\nModelo:'+nm+'\nArea:'+ar+'\nOwner:'+ow+'\nFontes:'+SOURCES.join(',')+'\nLinks:'+LINKS.join(',')+'\nCtx:'+GV('ctx')+(txt?'\n'+txt:'')+'\nRetorne SOMENTE este JSON:\n'+jsonTemplate;
   try{
     var res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:2000,messages:[{role:'user',content:prompt}]})});
     var data=await res.json();
     if(data.error)throw new Error(data.error.message);
     var raw=data.content.map(function(b){return b.text||'';}).join('');
-    var clean=raw;try{var i1=raw.indexOf('{');var i2=raw.lastIndexOf('}');if(i1>=0&&i2>i1)clean=raw.substring(i1,i2+1);}catch(e){}clean=clean.trim();
-    var r=JSON.parse(clean);
+    var clean=raw;
+    try{var i1=raw.indexOf('{'),i2=raw.lastIndexOf('}');if(i1>=0&&i2>i1)clean=raw.substring(i1,i2+1);}catch(e){}
+    var r=JSON.parse(clean.trim());
     r.model_name=nm;r.model_area=ar;r.model_owner=ow;return r;
   }catch(e){console.error(e);var d=makeDemo();d.confidence=0;d.confidence_note='Erro API - demo.';return d;}
 }
 
 function makeDemo(){
-  return{model_name:GV('nm')||'Scoring de Credito PF',model_area:GV('ar')||'SUPEC',model_owner:GV('ow')||'Demo',family:'Machine Learning',technique:'Gradient Boosting (XGBoost)',description:'Modelo para estimacao de probabilidade de default em carteiras PF. Processa variaveis comportamentais e de bureau. Alcada automatica ate R$50 mil.',platform:'Python + Databricks',inputs:'Score bureau, historico, renda, tempo relacionamento',outputs:'Score PD (0-1000), faixa risco, limite recomendado',autonomy:'Automatico ate R$50 mil',regulatory:'Basileia III / IFRS 9',scores:{D1:4,D2:4,D3:4,D4:3,D5:5,D6:3},weighted_score:3.90,criticality_level:'N1',criticality_name:'Critico',tags:['credito-pf','pd-model','basileia-iii','xgboost'],controls:[{text:'Monitoramento continuo PSI/KS/Gini',type:'crit'},{text:'Validacao independente anual',type:'crit'},{text:'Plano de contingencia semestral',type:'crit'},{text:'Analise de vies a cada recalibracao',type:'warn'},{text:'SHAP values para contestacoes',type:'warn'},{text:'Aprovacao do Comite para alteracoes',type:'ok'}],validation_scope:'Validacao Profunda N1: revisao conceitual, backtesting 24 meses, stress test, fairness, SHAP/LIME.',confidence:72,confidence_note:'Confianca moderada-alta.'};
+  return{model_name:GV('nm')||'Scoring de Credito PF',model_area:GV('ar')||'SUPEC',model_owner:GV('ow')||'Demo',family:'Machine Learning',technique:'Gradient Boosting (XGBoost)',description:'Modelo para estimacao de probabilidade de default em carteiras PF. Processa variaveis comportamentais e de bureau. Alcada automatica ate R$50 mil.',platform:'Python + Databricks',inputs:'Score bureau, historico, renda',outputs:'Score PD (0-1000), faixa risco',autonomy:'Automatico ate R$50 mil',regulatory:'Basileia III / IFRS 9',scores:{D1:4,D2:4,D3:4,D4:3,D5:5,D6:3},weighted_score:3.90,criticality_level:'N1',criticality_name:'Critico',tags:['credito-pf','pd-model','xgboost'],controls:[{text:'Monitoramento continuo PSI/KS/Gini',type:'crit'},{text:'Validacao independente anual',type:'crit'},{text:'Plano de contingencia semestral',type:'crit'},{text:'Analise de vies a cada recalibracao',type:'warn'},{text:'Aprovacao do Comite para alteracoes',type:'ok'}],validation_scope:'Validacao Profunda N1: revisao conceitual, backtesting 24 meses, stress test, SHAP/LIME.',confidence:72,confidence_note:'Confianca moderada-alta.'};
 }
-
 function readTxt(f){return new Promise(function(res,rej){var r=new FileReader();r.onload=function(e){res(e.target.result);};r.onerror=rej;r.readAsText(f);});}
 
 function renderMC(r){
@@ -627,42 +682,85 @@ function renderMC(r){
   var scH=Object.keys(sc).map(function(k){return '<div class="scrow"><div class="scd">'+(dm[k]||k)+'</div><div class="sctrk"><div class="scf" style="width:'+((sc[k]/5)*100)+'%;"></div></div><div class="scv">'+sc[k]+'/5</div></div>';}).join('');
   var ctH=(r.controls||[]).map(function(c){return '<div class="ci '+(c.type||'')+'">'+(c.text||'')+'</div>';}).join('');
   var tgH=(r.tags||[]).map(function(t){return '<div class="tag">'+t+'</div>';}).join('');
-  var h='<div class="mc"><div class="mc-hd"><div class="mc-id">'+id+'</div><div class="mc-row"><div><div class="mc-name">'+r.model_name+'</div><div class="mc-fam">'+r.family+' - '+r.technique+'</div></div><div class="mc-lvl"><div class="mc-badge"><div class="mc-ln">'+(r.criticality_level||'N3')+'</div><div class="mc-ll">NIVEL</div></div><div class="mc-lname">'+(r.criticality_name||'')+'</div></div></div><div class="mc-meta"><div><div class="mc-ml">Area</div><div class="mc-mv">'+r.model_area+'</div></div><div><div class="mc-ml">Owner</div><div class="mc-mv">'+r.model_owner+'</div></div><div><div class="mc-ml">Gerado</div><div class="mc-mv">'+ts+'</div></div><div><div class="mc-ml">Confianca</div><div class="mc-mv">'+r.confidence+'%</div></div></div></div>'
+  var q="'";
+  var h='<div class="mc"><div class="mc-hd"><div class="mc-id">'+id+'</div>'
+    +'<div class="mc-row"><div><div class="mc-name">'+r.model_name+'</div><div class="mc-fam">'+r.family+' - '+r.technique+'</div></div>'
+    +'<div class="mc-lvl"><div class="mc-badge"><div class="mc-ln">'+(r.criticality_level||'N3')+'</div><div class="mc-ll">NIVEL</div></div><div class="mc-lname">'+(r.criticality_name||'')+'</div></div></div>'
+    +'<div class="mc-meta"><div><div class="mc-ml">Area</div><div class="mc-mv">'+r.model_area+'</div></div><div><div class="mc-ml">Owner</div><div class="mc-mv">'+r.model_owner+'</div></div><div><div class="mc-ml">Gerado</div><div class="mc-mv">'+ts+'</div></div><div><div class="mc-ml">Conf.</div><div class="mc-mv">'+r.confidence+'%</div></div></div></div>'
     +'<div class="mc-bd"><div class="sec"><div class="sec-t">Descricao</div><div class="txt">'+r.description+'</div></div>'
-    +'<div class="sec"><div class="sec-t">Identificacao</div><div class="ig"><div class="ic"><div class="ic-l">Tecnica</div><div class="ic-v">'+r.technique+'</div></div><div class="ic"><div class="ic-l">Plataforma</div><div class="ic-v">'+r.platform+'</div></div><div class="ic"><div class="ic-l">Inputs</div><div class="ic-v">'+r.inputs+'</div></div><div class="ic"><div class="ic-l">Outputs</div><div class="ic-v">'+r.outputs+'</div></div><div class="ic"><div class="ic-l">Autonomia</div><div class="ic-v">'+r.autonomy+'</div></div><div class="ic"><div class="ic-l">Regulatorio</div><div class="ic-v">'+r.regulatory+'</div></div><div class="ic"><div class="ic-l">Fontes</div><div class="ic-v">'+(SOURCES.length?SOURCES.join(', '):'nao especificadas')+'</div></div><div class="ic"><div class="ic-l">Chave</div><div class="ic-v" style="color:#005CA9;font-family:monospace;font-size:11px;">'+id+'</div></div></div></div>'
-    +'<div class="sec"><div class="sec-t">Criticidade</div>'+scH+'<div class="sctot"><div class="sctot-l">Pontuacao Ponderada</div><div class="sctot-v">'+((r.weighted_score||0).toFixed(2))+'</div></div><div style="font-size:11px;color:#B8BEC9;margin-top:4px;">'+(r.confidence_note||'')+'</div></div>'
+    +'<div class="sec"><div class="sec-t">Identificacao</div><div class="ig">'
+    +'<div class="ic"><div class="ic-l">Tecnica</div><div class="ic-v">'+r.technique+'</div></div>'
+    +'<div class="ic"><div class="ic-l">Plataforma</div><div class="ic-v">'+r.platform+'</div></div>'
+    +'<div class="ic"><div class="ic-l">Inputs</div><div class="ic-v">'+r.inputs+'</div></div>'
+    +'<div class="ic"><div class="ic-l">Outputs</div><div class="ic-v">'+r.outputs+'</div></div>'
+    +'<div class="ic"><div class="ic-l">Autonomia</div><div class="ic-v">'+r.autonomy+'</div></div>'
+    +'<div class="ic"><div class="ic-l">Regulatorio</div><div class="ic-v">'+r.regulatory+'</div></div>'
+    +'<div class="ic"><div class="ic-l">Fontes</div><div class="ic-v">'+(SOURCES.length?SOURCES.join(', '):'nao especificadas')+'</div></div>'
+    +'<div class="ic"><div class="ic-l">Chave</div><div class="ic-v" style="color:#005CA9;font-family:monospace;font-size:11px;">'+id+'</div></div>'
+    +'</div></div>'
+    +'<div class="sec"><div class="sec-t">Criticidade</div>'+scH
+    +'<div class="sctot"><div class="sctot-l">Pontuacao Ponderada</div><div class="sctot-v">'+((r.weighted_score||0).toFixed(2))+'</div></div>'
+    +'<div style="font-size:11px;color:#B8BEC9;margin-top:4px;">'+(r.confidence_note||'')+'</div></div>'
     +'<div class="sec"><div class="sec-t">Tags</div><div class="tags">'+tgH+'</div></div>'
     +'<div class="sec"><div class="sec-t">Controles</div>'+ctH+'</div>'
     +'<div class="sec"><div class="sec-t">Escopo de Validacao</div><div class="txt">'+r.validation_scope+'</div></div>'
-    +'<div class="sec"><div class="sec-t">Mensageria</div><div style="font-size:12px;color:#717A8C;margin-bottom:10px;">Notificacoes geradas ao confirmar.</div>'
-    +'<div class="mtabs"><div class="mtab on" id="mto" onclick="mTab(\'owner\',this)">Para o Owner</div><div class="mtab" id="mtv" onclick="mTab(\'val\',this)">Para Validacao</div></div>'
-    +'<div id="mco" class="mcont on"><div class="mrec"><div class="mrec-l">Para:</div><input type="text" id="to-owner" value="'+oe+'" inputmode="email" autocapitalize="none"></div><div class="mprev"><div class="mp-bar"><div class="mpd" style="background:#FF5F56;"></div><div class="mpd" style="background:#FFBD2E;"></div><div class="mpd" style="background:#27C93F;"></div></div><div class="mp-to">Para: '+oe+'</div><div class="mp-sub">[ModelScan] Catalogacao | '+r.criticality_level+'</div><div class="mp-body">'+eOwner(r,id,ts)+'</div></div></div>'
-    +'<div id="mcv" class="mcont"><div class="mrec"><div class="mrec-l">Para:</div><input type="text" id="to-val" value="'+ve+'" inputmode="email" autocapitalize="none"></div><div class="mprev"><div class="mp-bar"><div class="mpd" style="background:#FF5F56;"></div><div class="mpd" style="background:#FFBD2E;"></div><div class="mpd" style="background:#27C93F;"></div></div><div class="mp-to">Para: '+ve+'</div><div class="mp-sub">[ModelScan] Novo modelo | '+r.criticality_level+'</div><div class="mp-body">'+eVal(r,id,ts)+'</div></div></div>'
+    +'<div class="sec"><div class="sec-t">Mensageria</div>'
+    +'<div style="font-size:12px;color:#717A8C;margin-bottom:10px;">Notificacoes geradas ao confirmar.</div>'
+    +'<div class="mtabs"><div class="mtab on" id="mto">Para o Owner</div><div class="mtab" id="mtv">Para Validacao</div></div>'
+    +'<div id="mco" class="mcont on">'
+    +'<div class="mrec"><div class="mrec-l">Para:</div><input type="text" id="to-owner" value="'+oe+'" inputmode="email" autocapitalize="none"></div>'
+    +'<div class="mprev"><div class="mp-bar"><div class="mpd" style="background:#FF5F56;"></div><div class="mpd" style="background:#FFBD2E;"></div><div class="mpd" style="background:#27C93F;"></div></div>'
+    +'<div class="mp-to">Para: '+oe+'</div><div class="mp-sub">[ModelScan] Catalogacao | '+r.criticality_level+'</div>'
+    +'<div class="mp-body">'+eOwner(r,id,ts)+'</div></div></div>'
+    +'<div id="mcv" class="mcont">'
+    +'<div class="mrec"><div class="mrec-l">Para:</div><input type="text" id="to-val" value="'+ve+'" inputmode="email" autocapitalize="none"></div>'
+    +'<div class="mprev"><div class="mp-bar"><div class="mpd" style="background:#FF5F56;"></div><div class="mpd" style="background:#FFBD2E;"></div><div class="mpd" style="background:#27C93F;"></div></div>'
+    +'<div class="mp-to">Para: '+ve+'</div><div class="mp-sub">[ModelScan] Novo modelo | '+r.criticality_level+'</div>'
+    +'<div class="mp-body">'+eVal(r,id,ts)+'</div></div></div>'
     +'</div>'
-    +'<div style="border-top:1px solid #ECEEF2;padding-top:16px;margin-top:14px;"><div style="font-size:17px;font-weight:800;margin-bottom:3px;">Sua revisao faz a diferenca</div><div style="font-size:13px;color:#717A8C;margin-bottom:14px;">Confirme ou solicite revisao.</div>'
-    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;"><div class="field" style="margin:0;"><label>Corrigir Tecnica</label><input type="text" id="mtech" placeholder="Confirme..."></div><div class="field" style="margin:0;"><label>Corrigir Autonomia</label><select id="maut"><option value="">manter</option><option>100% automatizado</option><option>Revisao em excecoes</option><option>Aprovacao sistematica</option><option>Subsidio analitico</option><option>Apenas informativo</option></select></div></div>'
+    +'<div style="border-top:1px solid #ECEEF2;padding-top:16px;margin-top:14px;">'
+    +'<div style="font-size:17px;font-weight:800;margin-bottom:3px;">Sua revisao faz a diferenca</div>'
+    +'<div style="font-size:13px;color:#717A8C;margin-bottom:14px;">Confirme ou solicite revisao.</div>'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">'
+    +'<div class="field" style="margin:0;"><label>Corrigir Tecnica</label><input type="text" id="mtech" placeholder="Confirme..."></div>'
+    +'<div class="field" style="margin:0;"><label>Corrigir Autonomia</label><select id="maut"><option value="">manter</option><option>100% automatizado</option><option>Revisao em excecoes</option><option>Aprovacao sistematica</option><option>Subsidio analitico</option><option>Apenas informativo</option></select></div>'
+    +'</div>'
     +'<div class="field"><label>Observacoes (opcional)</label><textarea id="mnotes" placeholder="Correcoes ou contexto..."></textarea></div>'
 
 ```
 +'<label style="margin-bottom:7px;">Decisao</label>'
-+'<div class="dec-btns"><button class="dec-btn ap" id="bap" type="button" onclick="setD(\'approve\')">Confirmo!</button><button class="dec-btn rj" id="brj" type="button" onclick="setD(\'reject\')">Solicito revisao</button></div>'
-+'<div class="btn-row" style="margin-top:12px;"><button class="btn btn-s" type="button" onclick="setPn(2)">Reenviar Fontes</button><button class="btn btn-p" id="bfin" type="button" onclick="finish()" disabled style="opacity:.4;">Finalizar</button></div>'
++'<div class="dec-btns"><button class="dec-btn ap" id="bap" type="button">Confirmo!</button><button class="dec-btn rj" id="brj" type="button">Solicito revisao</button></div>'
++'<div class="btn-row" style="margin-top:12px;"><button class="btn-s" type="button" id="btn-back2">Reenviar Fontes</button><button class="btn-p" id="bfin" type="button" style="opacity:.4;" disabled>Finalizar</button></div>'
 +'</div></div>'
-+'<div class="mc-foot"><div class="mc-foot-l" id="mcfoot">Gerado '+ts+' - '+id+'</div><div class="mc-foot-r"><button class="bexp" type="button" onclick="expJ()">JSON</button><button class="bexp" type="button" onclick="expT()">TXT</button><button class="bexp" type="button" onclick="window.print()">PDF</button></div></div>'
-+'</div>';
++'<div class="mc-foot"><div class="mc-foot-l" id="mcfoot">Gerado '+ts+' - '+id+'</div>'
++'<div class="mc-foot-r"><button class="bexp" type="button" id="btn-expJ">JSON</button><button class="bexp" type="button" id="btn-expT">TXT</button><button class="bexp" type="button" id="btn-pdf">PDF</button></div>'
++'</div></div>';
 ```
 
 G(‘mcc’).innerHTML=h;
+var mto=G(‘mto’);if(mto)mto.onclick=function(){mTab(‘owner’);};
+var mtv=G(‘mtv’);if(mtv)mtv.onclick=function(){mTab(‘val’);};
+var bap=G(‘bap’);if(bap)bap.onclick=function(){setD(‘approve’);};
+var brj=G(‘brj’);if(brj)brj.onclick=function(){setD(‘reject’);};
+var bb2=G(‘btn-back2’);if(bb2)bb2.onclick=function(){setPn(2);};
+var bfin=G(‘bfin’);if(bfin)bfin.onclick=finish;
+var bej=G(‘btn-expJ’);if(bej)bej.onclick=expJ;
+var bet=G(‘btn-expT’);if(bet)bet.onclick=expT;
+var bpdf=G(‘btn-pdf’);if(bpdf)bpdf.onclick=function(){window.print();};
 }
 
-function eOwner(r,id,ts){return ‘Prezado(a) ‘+r.model_owner+’,\n\nCatalogacao concluida!\n\nID: ‘+id+’\nModelo: ‘+r.model_name+’\nNivel: ‘+r.criticality_level+’ - ‘+r.criticality_name+’\nPontuacao: ‘+((r.weighted_score||0).toFixed(2))+’/5\nGerado: ‘+ts+’\n\nProximos passos (5 dias):\n1. Revise o Model Card\n2. Confirme ou solicite revisao\n\nEquipe ModelScan’;}
-function eVal(r,id,ts){return ‘Equipe de Validacao,\n\nNovo modelo - ‘+r.criticality_level+’.\n\nID: ‘+id+’\nModelo: ‘+r.model_name+’\nArea: ‘+r.model_area+’\nOwner: ‘+r.model_owner+’\nNivel: ‘+r.criticality_level+’ - ‘+r.criticality_name+’\nPont.: ‘+((r.weighted_score||0).toFixed(2))+’/5\n\nModelScan’;}
+function eOwner(r,id,ts){
+return ‘Prezado(a) ‘+r.model_owner+’,\n\nCatalogacao concluida!\n\nID: ‘+id+’\nModelo: ‘+r.model_name+’\nNivel: ‘+r.criticality_level+’ - ‘+r.criticality_name+’\nPont: ‘+((r.weighted_score||0).toFixed(2))+’/5\nGerado: ‘+ts+’\n\nProximos passos: Revise e confirme.\n\nEquipe ModelScan’;
+}
+function eVal(r,id,ts){
+return ‘Equipe de Validacao,\n\nNovo modelo - ‘+r.criticality_level+’.\n\nID: ‘+id+’\nModelo: ‘+r.model_name+’\nArea: ‘+r.model_area+’\nOwner: ‘+r.model_owner+’\nNivel: ‘+r.criticality_level+’ - ‘+r.criticality_name+’\nPont: ‘+((r.weighted_score||0).toFixed(2))+’/5\n\nModelScan’;
+}
 
-function mTab(t,btn){
-var to=G(‘mto’),tv=G(‘mtv’),mco=G(‘mco’),mcv=G(‘mcv’);
-if(!to||!tv||!mco||!mcv)return;
-to.className=t===‘owner’?‘mtab on’:‘mtab’;
-tv.className=t===‘val’?‘mtab on’:‘mtab’;
+function mTab(t){
+var mto=G(‘mto’),mtv=G(‘mtv’),mco=G(‘mco’),mcv=G(‘mcv’);
+if(!mto||!mtv||!mco||!mcv)return;
+mto.className=t===‘owner’?‘mtab on’:‘mtab’;
+mtv.className=t===‘val’?‘mtab on’:‘mtab’;
 mco.className=t===‘owner’?‘mcont on’:‘mcont’;
 mcv.className=t===‘val’?‘mcont on’:‘mcont’;
 }
@@ -678,16 +776,13 @@ if(bf){bf.disabled=false;bf.style.opacity=‘1’;}
 function finish(){
 if(!DECISION)return;
 var ts=new Date().toLocaleString(‘pt-BR’),ow=GV(‘ow’);
-var mf=G(‘mcfoot’);
-if(mf)mf.textContent=(DECISION===‘approve’?‘Confirmado por ‘:‘Revisao por ‘)+ow+’ em ‘+ts;
-var bf=G(‘bfin’);
-if(bf){bf.textContent=DECISION===‘approve’?‘Registrado!’:‘Revisao solicitada’;bf.disabled=true;bf.style.opacity=’.4’;}
+var mf=G(‘mcfoot’);if(mf)mf.textContent=(DECISION===‘approve’?‘Confirmado por ‘:‘Revisao por ‘)+ow+’ em ‘+ts;
+var bf=G(‘bfin’);if(bf){bf.textContent=DECISION===‘approve’?‘Registrado!’:‘Revisao solicitada’;bf.disabled=true;bf.style.opacity=’.4’;}
 if(DECISION===‘approve’&&RESULT){
 INV.unshift({uid:RESULT.uid,name:RESULT.model_name,area:RESULT.model_area,family:RESULT.family,crit:RESULT.criticality_level,critN:RESULT.criticality_name,score:RESULT.weighted_score,reg:RESULT.regulatory,status:‘pending’,date:new Date().toLocaleDateString(‘pt-BR’),owner:RESULT.model_owner});
 }
-var ob=G(‘okb’),ot=G(‘okbtxt’);
-if(ob)ob.style.display=‘flex’;
-if(ot)ot.innerHTML=DECISION===‘approve’?’<strong>Registrado!</strong> Chave: <strong>’+(RESULT&&RESULT.uid||’’)+’</strong>’:’<strong>Revisao solicitada.</strong>’;
+var ob=G(‘okb’);if(ob)ob.style.display=‘flex’;
+var ot=G(‘okbtxt’);if(ot)ot.innerHTML=DECISION===‘approve’?’<strong>Registrado!</strong> Chave: <strong>’+(RESULT&&RESULT.uid||’’)+’</strong>’:’<strong>Revisao solicitada.</strong>’;
 window.scrollTo(0,0);
 }
 
@@ -695,20 +790,15 @@ function renderVT(data){
 var h=’’,i,m;
 for(i=0;i<data.length;i++){
 m=data[i];
-h+=’<tr><td style="font-family:monospace;font-size:10px;color:#005CA9;">’+m.uid+’</td><td style="font-weight:600;font-size:13px;">’+m.name+’</td><td><span class="badge b'+m.crit+'">’+m.crit+’</span></td><td>’+(m.status===‘approved’?’<span style="color:#1B7F4F;font-weight:600;font-size:12px;">Ratificado</span>’:’<span style="color:#F47920;font-weight:600;font-size:12px;">Aguardando</span>’)+’</td><td><button class="fb" style="font-size:11px;padding:5px 9px;" type="button" onclick="openM(\''+m.uid+'\')">Apreciar</button></td></tr>’;
+h+=’<tr>’;
+h+=’<td style="font-family:monospace;font-size:10px;color:#005CA9;">’+m.uid+’</td>’;
+h+=’<td style="font-weight:600;font-size:13px;">’+m.name+’</td>’;
+h+=’<td><span class="badge b'+m.crit+'">’+m.crit+’</span></td>’;
+h+=’<td>’+(m.status===‘approved’?’<span style="color:#1B7F4F;font-weight:600;font-size:12px;">Ratificado</span>’:’<span style="color:#F47920;font-weight:600;font-size:12px;">Aguardando</span>’)+’</td>’;
+h+=’<td><button class="fb" style="font-size:11px;padding:5px 9px;" type="button" onclick="openM(this.getAttribute(\'data-uid\'))" data-uid="'+m.uid+'">Apreciar</button></td>’;
+h+=’</tr>’;
 }
 G(‘vtb’).innerHTML=h;
-}
-
-function fv(f,btn){
-var btns=document.querySelectorAll(’.vf .fb’);
-for(var i=0;i<btns.length;i++) btns[i].className=‘fb’;
-btn.className=‘fb on’;
-var data=INV;
-if(f===‘pending’) data=INV.filter(function(m){return m.status===‘pending’;});
-else if(f===‘approved’) data=INV.filter(function(m){return m.status===‘approved’;});
-else if(f!==‘all’) data=INV.filter(function(m){return m.crit===f;});
-renderVT(data);
 }
 
 function openM(uid){
@@ -716,10 +806,8 @@ CID=uid;
 var m=null;
 for(var i=0;i<INV.length;i++){if(INV[i].uid===uid){m=INV[i];break;}}
 if(!m)return;
-G(‘mid’).textContent=uid;
-G(‘mnm’).textContent=m.name;
-G(‘mar’).textContent=m.area+’ - ‘+m.family+’ - Owner: ‘+m.owner;
-G(‘mprev’).innerHTML=’<div style="display:flex;align-items:center;gap:10px;padding:11px;background:#F8F9FA;border:1px solid #ECEEF2;border-radius:8px;"><div style="flex:1;"><div style="font-size:11px;color:#B8BEC9;margin-bottom:1px;">Criticidade pelos agentes</div><div style="font-size:14px;font-weight:700;">’+m.crit+’ - ‘+m.critN+’</div><div style="font-size:12px;color:#717A8C;">Pont: ‘+m.score+’ | ‘+m.reg+’</div></div><span class="badge b'+m.crit+'" style="font-size:13px;padding:5px 11px;">’+m.crit+’</span></div>’;
+G(‘mid’).textContent=uid;G(‘mnm’).textContent=m.name;G(‘mar’).textContent=m.area+’ - Owner: ‘+m.owner;
+G(‘mprev’).innerHTML=’<div style="display:flex;align-items:center;gap:10px;padding:11px;background:#F8F9FA;border:1px solid #ECEEF2;border-radius:8px;"><div style="flex:1;"><div style="font-size:11px;color:#B8BEC9;">Criticidade</div><div style="font-size:14px;font-weight:700;">’+m.crit+’ - ‘+m.critN+’</div><div style="font-size:12px;color:#717A8C;">Pont: ‘+m.score+’ | ‘+m.reg+’</div></div><span class="badge b'+m.crit+'" style="font-size:13px;padding:5px 11px;">’+m.crit+’</span></div>’;
 G(‘vmod’).style.display=‘flex’;
 }
 
@@ -734,14 +822,9 @@ function ratify(a){
 if(!CID)return;
 if(a===‘approve’&&!GV(‘vparecer’)){alert(‘Registre o parecer tecnico antes de ratificar.’);return;}
 for(var i=0;i<INV.length;i++){
-if(INV[i].uid===CID){
-var nc=GV(‘vcrit’);if(nc)INV[i].crit=nc;
-INV[i].status=a===‘approve’?‘approved’:‘pending’;
-break;
+if(INV[i].uid===CID){var nc=GV(‘vcrit’);if(nc)INV[i].crit=nc;INV[i].status=a===‘approve’?‘approved’:‘pending’;break;}
 }
-}
-G(‘vmod’).style.display=‘none’;
-renderVT(INV);
+G(‘vmod’).style.display=‘none’;renderVT(INV);
 alert(a===‘approve’?‘Ratificado!’:‘Correcao solicitada.’);
 }
 
@@ -749,7 +832,14 @@ function renderBI(){
 var h=’’,i,m;
 for(i=0;i<INV.length;i++){
 m=INV[i];
-h+=’<tr><td style="font-family:monospace;font-size:10px;color:#005CA9;">’+m.uid+’</td><td style="font-weight:600;font-size:13px;">’+m.name+’</td><td style="font-size:12px;color:#717A8C;">’+m.family+’</td><td><span class="badge b'+m.crit+'">’+m.crit+’</span></td><td style="font-family:monospace;font-size:12px;">’+m.score.toFixed(2)+’</td><td>’+(m.status===‘approved’?’<span style="color:#1B7F4F;font-weight:600;font-size:12px;">Ratificado</span>’:’<span style="color:#F47920;font-weight:600;font-size:12px;">Aguardando</span>’)+’</td></tr>’;
+h+=’<tr>’;
+h+=’<td style="font-family:monospace;font-size:10px;color:#005CA9;">’+m.uid+’</td>’;
+h+=’<td style="font-weight:600;font-size:13px;">’+m.name+’</td>’;
+h+=’<td style="font-size:12px;color:#717A8C;">’+m.family+’</td>’;
+h+=’<td><span class="badge b'+m.crit+'">’+m.crit+’</span></td>’;
+h+=’<td style="font-family:monospace;font-size:12px;">’+m.score.toFixed(2)+’</td>’;
+h+=’<td>’+(m.status===‘approved’?’<span style="color:#1B7F4F;font-weight:600;font-size:12px;">Ratificado</span>’:’<span style="color:#F47920;font-weight:600;font-size:12px;">Aguardando</span>’)+’</td>’;
+h+=’</tr>’;
 }
 G(‘biTb’).innerHTML=h;
 G(‘biT’).textContent=INV.length;
@@ -761,27 +851,42 @@ G(‘biP’).textContent=INV.filter(function(m){return m.status===‘pending’;
 function csvBI(){
 var rows=[‘Chave,Modelo,Familia,Criticidade,Pontuacao,Status’],i,m;
 for(i=0;i<INV.length;i++){m=INV[i];rows.push([m.uid,m.name,m.family,m.crit,m.score.toFixed(2),m.status===‘approved’?‘Ratificado’:‘Aguardando’].join(’,’));}
-var a=document.createElement(‘a’);a.href=URL.createObjectURL(new Blob([rows.join(’\n’)],{type:‘text/csv’}));a.download=‘inventario.csv’;document.body.appendChild(a);a.click();document.body.removeChild(a);
+var blob=new Blob([rows.join(’\n’)],{type:‘text/csv’});
+dl(blob,‘inventario.csv’);
 }
-
-function expJ(){if(!RESULT)return;var a=document.createElement(‘a’);a.href=URL.createObjectURL(new Blob([JSON.stringify(RESULT,null,2)],{type:‘application/json’}));a.download=‘model-card.json’;document.body.appendChild(a);a.click();document.body.removeChild(a);}
+function expJ(){
+if(!RESULT)return;
+dl(new Blob([JSON.stringify(RESULT,null,2)],{type:‘application/json’}),‘model-card.json’);
+}
 function expT(){
-if(!RESULT)return;var r=RESULT;
-var t=‘MODEL CARD: ‘+r.model_name+’\nChave: ‘+r.uid+’\nGerado: ‘+new Date().toLocaleString(‘pt-BR’)+’\nOwner: ‘+r.model_owner+’ | ‘+r.model_area+’\nNivel: ‘+r.criticality_level+’ - ‘+r.criticality_name+’\nPont: ‘+((r.weighted_score||0).toFixed(2))+’/5\n\nDescricao:\n’+r.description+’\n\nEscopo:\n’+r.validation_scope;
-var a=document.createElement(‘a’);a.href=URL.createObjectURL(new Blob([t],{type:‘text/plain’}));a.download=‘model-card.txt’;document.body.appendChild(a);a.click();document.body.removeChild(a);
+if(!RESULT)return;
+var r=RESULT;
+var lines=[
+’MODEL CARD: ’+r.model_name,
+’Chave: ’+r.uid,
+’Gerado: ’+new Date().toLocaleString(‘pt-BR’),
+’Owner: ‘+r.model_owner+’ | ’+r.model_area,
+‘Nivel: ‘+r.criticality_level+’ - ‘+r.criticality_name,
+‘Pont: ‘+((r.weighted_score||0).toFixed(2))+’/5’,
+‘’,
+‘Descricao:’,
+r.description,
+‘’,
+‘Escopo:’,
+r.validation_scope
+];
+dl(new Blob([lines.join(’\n’)],{type:‘text/plain’}),‘model-card.txt’);
+}
+function dl(blob,name){
+var a=document.createElement(‘a’);
+a.href=URL.createObjectURL(blob);
+a.download=name;
+document.body.appendChild(a);
+a.click();
+document.body.removeChild(a);
 }
 
-window.onload=function(){
-renderVT(INV);
-renderBI();
-var btn=document.getElementById(‘btn-next’);
-if(btn){
-btn.addEventListener(‘touchstart’,function(e){
-e.preventDefault();
-step2();
-},false);
-}
-};
+window.onload=init;
 </script>
 
 </body>

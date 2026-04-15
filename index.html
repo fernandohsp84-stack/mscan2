@@ -278,8 +278,8 @@ textarea{resize:vertical;min-height:88px;}
 
   <div class="card">
     <div id="step-indicator" style="display:flex;align-items:center;justify-content:space-between;padding:10px 0 14px;border-bottom:1px solid #E0E4EA;margin-bottom:16px;">
-      <div id="step-label" style="font-size:14px;font-weight:700;color:#005CA9;">Passo 1 de 4 — Identificacao</div>
-      <div id="sdots" style="font-size:12px;color:#005CA9;letter-spacing:2px;">&#9679;&#9675;&#9675;&#9675;</div>
+      <div id="step-label" style="font-size:14px;font-weight:700;color:#005CA9;">Passo 1 de 4 - Identificacao</div>
+      <div id="sdots" style="display:flex;gap:4px;align-items:center;"><div style="width:8px;height:8px;background:#005CA9;flex-shrink:0;"></div><div style="width:8px;height:8px;background:#D0D5DD;flex-shrink:0;"></div><div style="width:8px;height:8px;background:#D0D5DD;flex-shrink:0;"></div><div style="width:8px;height:8px;background:#D0D5DD;flex-shrink:0;"></div></div>
     </div>
 
 ```
@@ -481,12 +481,14 @@ function goPage(pid,btn){
 }
 
 function step2(){
-  var nm=GV('nm'),ar=GV('ar'),ow=GV('ow'),oe=GV('oe');
-  if(!nm){alert('Informe o Nome do Modelo.');return;}
-  if(!ar){alert('Informe a Area.');return;}
-  if(!ow){alert('Informe o seu nome (Model Owner).');return;}
-  if(!oe){alert('Informe seu e-mail.');return;}
-  setPn(2);
+  try{
+    var nm=GV('nm'),ar=GV('ar'),ow=GV('ow'),oe=GV('oe');
+    if(!nm){alert('Informe o Nome do Modelo.');return;}
+    if(!ar){alert('Informe a Area.');return;}
+    if(!ow){alert('Informe o seu nome (Model Owner).');return;}
+    if(!oe){alert('Informe seu e-mail.');return;}
+    setPn(2);
+  }catch(e){alert('Erro step2: '+e.message);}
 }
 
 function toggleKey(){
@@ -557,11 +559,14 @@ function setPn(n){
     // dots updated below
   }
   var lbl=G('step-label');
-  if(lbl) lbl.textContent='Passo '+n+' de 4 - '+STEP_LABELS[n];
+  if(lbl) lbl.textContent='Passo '+n+' de 4  '+STEP_LABELS[n];
   var dotsEl=G('sdots');
   if(dotsEl){
-    var dc=['&#9679;&#9675;&#9675;&#9675;','&#9679;&#9679;&#9675;&#9675;','&#9679;&#9679;&#9679;&#9675;','&#9679;&#9679;&#9679;&#9679;'];
-    dotsEl.innerHTML=dc[n-1]||dc[0];
+    var squares=dotsEl.querySelectorAll ? dotsEl.querySelectorAll('div') : [];
+    var sq=Array.prototype.slice.call(squares);
+    for(var di=0;di<sq.length;di++){
+      sq[di].style.background=(di<n?'#005CA9':'#D0D5DD');
+    }
   }
   window.scrollTo(0,0);
 }

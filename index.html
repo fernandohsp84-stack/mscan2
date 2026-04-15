@@ -279,12 +279,7 @@ textarea{resize:vertical;min-height:88px;}
   <div class="card">
     <div id="step-indicator" style="display:flex;align-items:center;justify-content:space-between;padding:10px 0 14px;border-bottom:1px solid #E0E4EA;margin-bottom:16px;">
       <div id="step-label" style="font-size:14px;font-weight:700;color:#005CA9;">Passo 1 de 4 — Identificacao</div>
-      <div style="display:flex;gap:5px;">
-        <div id="sdot1" style="width:8px;height:8px;border-radius:50%;background:#005CA9;"></div>
-        <div id="sdot2" style="width:8px;height:8px;border-radius:50%;background:#D0D5DD;"></div>
-        <div id="sdot3" style="width:8px;height:8px;border-radius:50%;background:#D0D5DD;"></div>
-        <div id="sdot4" style="width:8px;height:8px;border-radius:50%;background:#D0D5DD;"></div>
-      </div>
+      <div id="sdots" style="font-size:12px;color:#005CA9;letter-spacing:2px;">&#9679;&#9675;&#9675;&#9675;</div>
     </div>
 
 ```
@@ -559,11 +554,15 @@ function setPn(n){
   for(var i=1;i<=4;i++){
     var p=G('pn'+i);
     if(p) p.style.display=(i===n?'block':'none');
-    var dot=G('sdot'+i);
-    if(dot) dot.style.background=(i<=n?'#005CA9':'#D0D5DD');
+    // dots updated below
   }
   var lbl=G('step-label');
   if(lbl) lbl.textContent='Passo '+n+' de 4 - '+STEP_LABELS[n];
+  var dotsEl=G('sdots');
+  if(dotsEl){
+    var dc=['&#9679;&#9675;&#9675;&#9675;','&#9679;&#9679;&#9675;&#9675;','&#9679;&#9679;&#9679;&#9675;','&#9679;&#9679;&#9679;&#9679;'];
+    dotsEl.innerHTML=dc[n-1]||dc[0];
+  }
   window.scrollTo(0,0);
 }
 
@@ -594,7 +593,7 @@ function initFontes(){
   };
 
   // Links
-  G('btn-addlink').onclick=addLink;
+  var bal=G('btn-addlink'); if(bal) bal.onclick=addLink;
   var linpEl=G('linp');
   if(linpEl)linpEl.onkeydown=function(e){if(e.key==='Enter'){e.preventDefault();addLink();}};
 }
@@ -879,7 +878,7 @@ G(‘biP’).textContent=INV.filter(function(m){return m.status===‘pending’;
 }
 
 function initBI(){
-G(‘btn-csv’).onclick=function(){
+var bcsv=G(‘btn-csv’); if(bcsv) bcsv.onclick=function(){
 var rows=[‘Chave,Modelo,Familia,Criticidade,Pontuacao,Status’];
 INV.forEach(function(m){rows.push([m.uid,m.name,m.family,m.crit,m.score.toFixed(2),m.status===‘approved’?‘Ratificado’:‘Aguardando’].join(’,’));});
 var a=document.createElement(‘a’);a.href=URL.createObjectURL(new Blob([rows.join(’\n’)],{type:‘text/csv’}));a.download=‘inventario.csv’;document.body.appendChild(a);a.click();document.body.removeChild(a);
@@ -905,6 +904,7 @@ var a=document.createElement(‘a’);a.href=URL.createObjectURL(new Blob([t],{t
 
 // ========= INIT =========
 window.onload=function(){
+try {
 initMenu();
 initWizard();
 initFontes();
@@ -912,6 +912,7 @@ initValidacao();
 initModal();
 initBI();
 initFAQ();
+} catch(err) { /* init error: */ }
 };
 </script>
 

@@ -279,7 +279,7 @@ textarea{resize:vertical;min-height:80px;}
 
 <div class="page on" id="page-catalog">
 
-  <div class="pnl on" id="pn1">
+  <div class="pnl" id="pn1" style="display:block;">
     <div class="tip"><span style="font-size:18px;flex-shrink:0;">&#128075;</span><div><strong>Ola! Que bom ter voce aqui.</strong> Preencha as informacoes abaixo e indique onde esta a documentacao do seu modelo. O resto fica com a gente!</div></div>
     <div class="card">
       <div class="card-t">Acesso a API</div>
@@ -307,7 +307,7 @@ textarea{resize:vertical;min-height:80px;}
     <button class="btn btn-p" type="button" onclick="step2()">Proximo: Fontes &rarr;</button>
   </div>
 
-  <div class="pnl" id="pn2">
+  <div class="pnl" id="pn2" style="display:none;">
     <div class="card">
       <div class="card-t">Tipo de Fonte</div>
       <div class="tiles" id="tiles">
@@ -341,7 +341,7 @@ textarea{resize:vertical;min-height:80px;}
     </div>
   </div>
 
-  <div class="pnl" id="pn3">
+  <div class="pnl" id="pn3" style="display:none;">
     <div class="awrap">
       <div class="spin" id="spin"></div>
       <h3 id="atit">Agentes trabalhando...</h3>
@@ -356,7 +356,7 @@ textarea{resize:vertical;min-height:80px;}
     </div>
   </div>
 
-  <div class="pnl" id="pn4">
+  <div class="pnl" id="pn4" style="display:none;">
     <div class="ok-banner" id="okb"><div style="font-size:18px;">&#9989;</div><div id="okbtxt"></div></div>
     <div id="mcc"></div>
   </div>
@@ -499,7 +499,7 @@ function goPage(pid,btn){
 function setPn(n){
   for(var i=1;i<=4;i++){
     var p=G('pn'+i);
-    if(p) p.className='pnl'+(i===n?' on':'');
+    if(p) p.style.display=(i===n?'block':'none');
   }
   var st=G('step-text');if(st) st.textContent='Passo '+n+' de 4 - '+LABELS[n];
   var sn=G('step-nums');if(sn) sn.textContent=n+'/4';
@@ -512,7 +512,14 @@ function step2(){
   if(!ar){alert('Informe a Area.');return;}
   if(!ow){alert('Informe o Model Owner.');return;}
   if(!oe){alert('Informe seu e-mail.');return;}
-  setPn(2);
+  var p2=G('pn2');
+  if(!p2){alert('ERRO: pn2 nao encontrado');return;}
+  var p1=G('pn1');
+  if(p1)p1.style.display='none';
+  p2.style.display='block';
+  var st=G('step-text');if(st)st.textContent='Passo 2 de 4 - Fontes';
+  var sn=G('step-nums');if(sn)sn.textContent='2/4';
+  window.scrollTo(0,0);
 }
 
 function toggleKey(){

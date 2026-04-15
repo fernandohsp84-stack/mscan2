@@ -249,7 +249,7 @@ textarea{resize:vertical;min-height:80px;}
         <path d="M3 7h8M7 3v8" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
       </svg>
     </div>
-    <div id="hdr-name">ModelScan <span style="font-size:11px;opacity:0.6;">v4</span></div>
+    <div id="hdr-name">ModelScan <span style="font-size:11px;opacity:0.6;">v5</span></div>
   </div>
   <button id="hdr-btn" type="button" onclick="toggleMenu()">&#9776;</button>
 </div>
@@ -304,7 +304,7 @@ textarea{resize:vertical;min-height:80px;}
       <div class="field"><label>E-mail Validacao de Modelos</label><input type="text" id="ve" placeholder="validacao@email.com" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false"></div>
       <div class="field"><label>E-mail Comite (opcional)</label><input type="text" id="ce" placeholder="comite@email.com" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false"></div>
     </div>
-    <button class="btn btn-p" type="button" onclick="step2()">Proximo: Fontes &rarr;</button>
+    <button class="btn btn-p" type="button" id="btn-next" onclick="step2()" ontouchend="this._touched=true;" style="cursor:pointer;-webkit-tap-highlight-color:rgba(0,0,0,0.1);touch-action:manipulation;">Proximo: Fontes &rarr;</button>
   </div>
 
   <div class="pnl" id="pn2" style="display:none;">
@@ -507,7 +507,6 @@ function setPn(n){
 }
 
 function step2(){
-  alert("step2 executou! nm="+GV("nm"));
   var nm=GV('nm'),ar=GV('ar'),ow=GV('ow'),oe=GV('oe');
   if(!nm){alert('Informe o Nome do Modelo.');return;}
   if(!ar){alert('Informe a Area.');return;}
@@ -775,6 +774,13 @@ var a=document.createElement(‘a’);a.href=URL.createObjectURL(new Blob([t],{t
 window.onload=function(){
 renderVT(INV);
 renderBI();
+var btn=document.getElementById(‘btn-next’);
+if(btn){
+btn.addEventListener(‘touchstart’,function(e){
+e.preventDefault();
+step2();
+},false);
+}
 };
 </script>
 

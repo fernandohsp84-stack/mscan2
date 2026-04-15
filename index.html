@@ -254,7 +254,7 @@ textarea{resize:vertical;min-height:80px;}
   <button id="hdr-btn" type="button" onclick="toggleMenu()">&#9776;</button>
 </div>
 
-<div id="menu-drop">
+<div id="menu-drop" style="display:none;">
   <button type="button" onclick="goPage('catalog',this)">Catalogacao</button>
   <button type="button" onclick="goPage('validation',this)">Validacao</button>
   <button type="button" onclick="goPage('bi',this)">Painel BI</button>
@@ -277,7 +277,7 @@ textarea{resize:vertical;min-height:80px;}
   <div id="step-nums" style="font-size:13px;font-weight:700;color:#005CA9;">1/4</div>
 </div>
 
-<div class="page on" id="page-catalog">
+<div class="page" id="page-catalog" style="display:block;">
 
   <div class="pnl" id="pn1" style="display:block;">
     <div class="tip"><span style="font-size:18px;flex-shrink:0;">&#128075;</span><div><strong>Ola! Que bom ter voce aqui.</strong> Preencha as informacoes abaixo e indique onde esta a documentacao do seu modelo. O resto fica com a gente!</div></div>
@@ -363,7 +363,7 @@ textarea{resize:vertical;min-height:80px;}
 
 </div>
 
-<div class="page" id="page-validation">
+<div class="page" id="page-validation" style="display:none;">
   <div class="ph"><div class="ph-e">Validacao</div><div class="ph-t">Fila de Validacao</div><div class="ph-d">Analise e ratifique os Model Cards.</div></div>
   <div class="vf">
     <button class="fb on" type="button" onclick="fv('all',this)">Todos</button>
@@ -379,7 +379,7 @@ textarea{resize:vertical;min-height:80px;}
   </div>
 </div>
 
-<div class="page" id="page-bi">
+<div class="page" id="page-bi" style="display:none;">
   <div class="ph"><div class="ph-e">Executivo</div><div class="ph-t">Inventario</div><div class="ph-d">Visao consolidada do portfolio.</div></div>
   <div class="kpig">
     <div class="kpi kb"><div class="kpi-l">Total</div><div class="kpi-v" id="biT">5</div><div class="kpi-s">no inventario</div></div>
@@ -396,7 +396,7 @@ textarea{resize:vertical;min-height:80px;}
   <div class="card" style="padding:0;overflow:hidden;"><div style="display:flex;align-items:center;justify-content:space-between;padding:11px 13px;border-bottom:1px solid #ECEEF2;"><span style="font-size:13px;font-weight:700;">Inventario Completo</span><button class="bexp" type="button" onclick="csvBI()">CSV</button></div><table class="vt"><thead><tr><th>Chave</th><th>Modelo</th><th>Familia</th><th>Crit.</th><th>Pont.</th><th>Status</th></tr></thead><tbody id="biTb"></tbody></table></div>
 </div>
 
-<div class="page" id="page-saibamais">
+<div class="page" id="page-saibamais" style="display:none;">
   <div class="sm-hero"><div style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:5px;">Guia Completo</div><div style="font-size:21px;font-weight:800;margin-bottom:6px;">Como o ModelScan funciona?</div><div style="font-size:13px;color:rgba(255,255,255,.65);line-height:1.65;">Simples e transparente — dos agentes ao Model Card.</div></div>
   <div class="card">
     <div class="card-t">Jornada passo a passo</div>
@@ -414,7 +414,7 @@ textarea{resize:vertical;min-height:80px;}
   </div>
 </div>
 
-<div class="page" id="page-storage">
+<div class="page" id="page-storage" style="display:none;">
   <div class="ph"><div class="ph-e">Transparencia</div><div class="ph-t">Onde ficam os arquivos?</div><div class="ph-d">Mapa de armazenamento por perfil.</div></div>
   <div class="sg">
     <div class="si"><div class="si-t">Model Cards</div><div class="si-p">/inventario/model-cards/</div><div class="si-d">Ficha com metadados e historico.</div></div>
@@ -474,8 +474,8 @@ function GV(id){var e=G(id);return e&&e.value?e.value.trim():'';}
 
 function toggleMenu(){
   var m=G('menu-drop'),b=G('hdr-btn');
-  var open=m.className==='open';
-  m.className=open?'':'open';
+  var open=(m.style.display==='block');
+  m.style.display=open?'none':'block';
   b.innerHTML=open?'&#9776;':'&#10005;';
 }
 
@@ -483,7 +483,7 @@ function goPage(pid,btn){
   var pages=['catalog','validation','bi','saibamais','storage'];
   for(var i=0;i<pages.length;i++){
     var p=G('page-'+pages[i]);
-    if(p) p.className='page'+(pages[i]===pid?' on':'');
+    if(p) p.style.display=(pages[i]===pid?'block':'none');
     var t=G('ptab-'+pages[i]);
     if(t) t.className='ptab'+(pages[i]===pid?' on':'');
   }

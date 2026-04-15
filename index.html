@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>ModelScan v7</title>
+<title>ModelScan v8</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#F0F2F5;color:#1A1D23;font-size:15px;}
@@ -22,7 +22,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#F0F2F5;
 #step-bar{background:#fff;border-bottom:1px solid #E0E4EA;padding:11px 16px;display:flex;align-items:center;justify-content:space-between;}
 #step-txt{font-size:14px;font-weight:700;color:#005CA9;}
 #step-num{font-size:13px;font-weight:700;color:#9BA3B2;}
-.page{display:none;padding:14px 14px 80px;}
+.page{display:none;padding:14px 14px 40px;}
 .card{background:#fff;border-radius:10px;padding:16px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.08);}
 .card-t{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#9BA3B2;margin-bottom:12px;padding-bottom:9px;border-bottom:1px solid #ECEEF2;}
 .tip{display:flex;gap:10px;padding:13px 14px;border-radius:10px;background:#E5F3F4;border:1px solid rgba(13,115,119,.2);color:#0D7377;font-size:13px;line-height:1.6;margin-bottom:14px;}
@@ -250,6 +250,12 @@ textarea{resize:vertical;min-height:80px;}
     <h1>ModelScan</h1>
     <p>Sistema de catalogacao inteligente de modelos institucionais</p>
   </div>
+
+<button class="btn btn-p" type="button" style="margin-top:0;margin-bottom:14px;"
+ontouchstart="goPage('catalog',null);return false;"
+onclick="goPage('catalog',null)">
+Iniciar Catalogacao →
+</button>
 
   <div class="card">
     <div class="card-t">O que e o ModelScan?</div>

@@ -8,7 +8,6 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#F0F2F5;color:#1A1D23;font-size:15px;}
-/* REGRA ABSOLUTA: ZERO position:relative, ZERO position:absolute, ZERO position:fixed, ZERO z-index */
 .hdr{background:#003F7A;padding:14px 16px;display:flex;align-items:center;gap:10px;}
 .hdr-icon{width:28px;height:28px;background:#F47920;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .hdr-name{font-size:17px;font-weight:700;color:#fff;}
@@ -27,7 +26,6 @@ textarea{resize:vertical;min-height:80px;}
 .key-row{display:flex;gap:8px;}
 .key-row input{flex:1;}
 .eye{background:#F0F2F5;border:1.5px solid #D0D5DD;border-radius:8px;padding:0 13px;font-size:16px;cursor:pointer;-webkit-appearance:none;flex-shrink:0;}
-/* TILES - sem position */
 .tiles{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;}
 @media(max-width:400px){.tiles{grid-template-columns:1fr 1fr;}}
 .tile{border:1.5px solid #D0D5DD;border-radius:8px;padding:12px 6px;cursor:pointer;text-align:center;background:#fff;}
@@ -35,10 +33,7 @@ textarea{resize:vertical;min-height:80px;}
 .tile-i{font-size:18px;margin-bottom:4px;}
 .tile-l{font-size:10px;font-weight:600;color:#717A8C;}
 .tile.on .tile-l{color:#005CA9;}
-/* UPLOAD - SEM position:relative, SEM position:absolute */
 .upload-btn{display:block;width:100%;padding:20px;border:2px dashed #005CA9;border-radius:10px;background:#EBF3FB;text-align:center;cursor:pointer;font-family:inherit;-webkit-appearance:none;margin-bottom:10px;}
-.upload-btn-t{font-size:14px;font-weight:700;color:#005CA9;margin:8px 0 4px;}
-.upload-btn-h{font-size:12px;color:#717A8C;}
 .fi{display:flex;align-items:center;gap:8px;background:#F8F9FA;border:1px solid #ECEEF2;border-radius:6px;padding:8px 10px;margin-top:6px;}
 .fi-n{flex:1;font-size:12px;color:#3C4353;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .fi-r{background:none;border:none;color:#B8BEC9;font-size:18px;cursor:pointer;-webkit-appearance:none;padding:0 4px;}
@@ -46,11 +41,10 @@ textarea{resize:vertical;min-height:80px;}
 .link-row input{flex:1;}
 .ladd{background:#F0F2F5;border:1.5px solid #D0D5DD;border-radius:8px;padding:0 14px;font-size:14px;font-family:inherit;cursor:pointer;-webkit-appearance:none;color:#005CA9;font-weight:600;white-space:nowrap;}
 .chip{display:inline-block;background:#EBF3FB;border:1px solid rgba(0,92,169,.2);border-radius:20px;padding:4px 10px;font-size:12px;color:#005CA9;margin:3px 4px 3px 0;}
-/* BOTÃO PRINCIPAL - tipo submit, sem position */
 .btn-run{display:block;width:100%;padding:17px;background:#005CA9;color:#fff;border:none;border-radius:10px;font-size:17px;font-weight:700;cursor:pointer;font-family:inherit;-webkit-appearance:none;margin-top:14px;text-align:center;-webkit-tap-highlight-color:rgba(255,255,255,.3);}
 .btn-run:active{background:#003F7A;}
+.btn-run:disabled{opacity:.5;cursor:not-allowed;}
 .btn-s{display:inline-block;padding:11px 16px;background:#fff;color:#3C4353;border:1.5px solid #D0D5DD;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;-webkit-appearance:none;margin-top:0;}
-/* RESULTADO */
 .ok{background:#E6F4EE;border:1px solid rgba(27,127,79,.3);border-radius:10px;padding:14px;margin-bottom:12px;font-size:14px;color:#1B7F4F;font-weight:600;line-height:1.6;}
 .mc-hd{background:linear-gradient(135deg,#003F7A,#1A6DC4);border-radius:10px;padding:18px;color:#fff;margin-bottom:12px;}
 .mc-id{font-family:monospace;font-size:11px;color:rgba(255,255,255,.7);background:rgba(255,255,255,.12);padding:2px 9px;border-radius:20px;display:inline-block;margin-bottom:8px;}
@@ -91,6 +85,7 @@ textarea{resize:vertical;min-height:80px;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .sep{height:2px;background:#D0D5DD;margin:4px 0 0;}
 .email-pre{background:#F8F9FA;border:1px solid #DDE1E9;border-radius:8px;padding:12px;font-size:11px;color:#3C4353;line-height:1.75;white-space:pre-wrap;font-family:monospace;word-break:break-all;}
+.err-banner{background:#FBECEC;border:1px solid rgba(184,50,50,.3);border-radius:8px;padding:12px 14px;font-size:13px;color:#B83232;margin-bottom:12px;display:none;}
 </style>
 </head>
 <body>
@@ -188,7 +183,6 @@ textarea{resize:vertical;min-height:80px;}
 
 <div class="card">
 <div class="card-t">Upload de Arquivos</div>
-<!-- INPUT VISÍVEL - sem position:relative/absolute em nenhum ancestral -->
 <input type="file" id="finp" multiple onchange="addFiles(this.files)" style="display:block;width:100%;padding:14px;border:2px dashed #005CA9;border-radius:10px;background:#EBF3FB;color:#005CA9;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;-webkit-appearance:none;margin-bottom:10px;">
 <div id="flist-ok" style="display:none;" class="ok"></div>
 <div id="flist"></div>
@@ -214,6 +208,7 @@ textarea{resize:vertical;min-height:80px;}
 <div class="sec">
 <div class="sec-bar">Passo 3 — Análise pelos Agentes</div>
 <div class="tip"><span style="font-size:18px;flex-shrink:0;">&#129302;</span><div>Clique em <strong>Executar Análise</strong>. Os 5 agentes processam e geram o Model Card. Aguarde alguns segundos.</div></div>
+<div id="err-banner" class="err-banner"></div>
 <div id="loading" style="display:none;text-align:center;padding:24px 0;">
 <div class="spin"></div>
 <div id="loading-txt" style="font-size:14px;color:#717A8C;">Iniciando agentes...</div>
@@ -231,143 +226,287 @@ textarea{resize:vertical;min-height:80px;}
 <div style="height:50px;"></div>
 
 <script>
-var FILES=[],LINKS=[],SOURCES=[],RESULT=null,DECISION=null;
+var FILES = [], LINKS = [], SOURCES = [], RESULT = null, DECISION = null;
 
-function togTile(el){
-  var s=el.getAttribute('data-s');
-  var on=el.className.indexOf('on')>=0;
-  el.className=on?'tile':'tile on';
-  var idx=SOURCES.indexOf(s);
-  if(!on){if(idx<0)SOURCES.push(s);}else{if(idx>=0)SOURCES.splice(idx,1);}
+function togTile(el) {
+  var s = el.getAttribute('data-s');
+  var on = el.className.indexOf('on') >= 0;
+  el.className = on ? 'tile' : 'tile on';
+  var idx = SOURCES.indexOf(s);
+  if (!on) { if (idx < 0) SOURCES.push(s); }
+  else { if (idx >= 0) SOURCES.splice(idx, 1); }
 }
 
-function addFiles(fl){
-  var i,f,j,found;
-  for(i=0;i<fl.length;i++){
-    f=fl[i];found=false;
-    for(j=0;j<FILES.length;j++){if(FILES[j].name===f.name){found=true;break;}}
-    if(!found)FILES.push(f);
+function addFiles(fl) {
+  var i, f, j, found;
+  for (i = 0; i < fl.length; i++) {
+    f = fl[i]; found = false;
+    for (j = 0; j < FILES.length; j++) { if (FILES[j].name === f.name) { found = true; break; } }
+    if (!found) FILES.push(f);
   }
   renderFiles();
 }
-function renderFiles(){
-  var i,h='',ok=document.getElementById('flist-ok'),fl=document.getElementById('flist');
-  for(i=0;i<FILES.length;i++){
-    h+='<div class="fi"><span style="font-size:11px;color:#717A8C;flex-shrink:0;font-weight:700;">'+FILES[i].name.split('.').pop().toUpperCase()+'</span><span class="fi-n">'+FILES[i].name+' ('+Math.round(FILES[i].size/1024)+'KB)</span><button class="fi-r" type="button" onclick="rmF('+i+')">&#215;</button></div>';
+
+function renderFiles() {
+  var i, h = '', ok = document.getElementById('flist-ok'), fl = document.getElementById('flist');
+  for (i = 0; i < FILES.length; i++) {
+    h += '<div class="fi"><span style="font-size:11px;color:#717A8C;flex-shrink:0;font-weight:700;">' + FILES[i].name.split('.').pop().toUpperCase() + '</span><span class="fi-n">' + FILES[i].name + ' (' + Math.round(FILES[i].size / 1024) + 'KB)</span><button class="fi-r" type="button" onclick="rmF(' + i + ')">&#215;</button></div>';
   }
-  if(fl)fl.innerHTML=h;
-  if(ok){
-    if(FILES.length>0){ok.style.display='block';ok.textContent='&#9989; '+FILES.length+' arquivo'+(FILES.length>1?'s':'')+' carregado'+(FILES.length>1?'s':'')+'.';}
-    else ok.style.display='none';
+  if (fl) fl.innerHTML = h;
+  if (ok) {
+    if (FILES.length > 0) { ok.style.display = 'block'; ok.textContent = '✅ ' + FILES.length + ' arquivo' + (FILES.length > 1 ? 's' : '') + ' carregado' + (FILES.length > 1 ? 's' : '') + '.'; }
+    else ok.style.display = 'none';
   }
 }
-function rmF(i){FILES.splice(i,1);renderFiles();}
 
-function addLink(){
-  var inp=document.getElementById('linp'),v=inp.value.trim(),i,found=false;
-  if(!v)return;
-  for(i=0;i<LINKS.length;i++){if(LINKS[i]===v){found=true;break;}}
-  if(!found)LINKS.push(v);
-  inp.value='';
+function rmF(i) { FILES.splice(i, 1); renderFiles(); }
+
+function addLink() {
+  var inp = document.getElementById('linp'), v = inp.value.trim(), i, found = false;
+  if (!v) return;
+  for (i = 0; i < LINKS.length; i++) { if (LINKS[i] === v) { found = true; break; } }
+  if (!found) LINKS.push(v);
+  inp.value = '';
   renderChips();
 }
-function renderChips(){
-  var i,h='';
-  for(i=0;i<LINKS.length;i++){h+='<span class="chip">'+LINKS[i]+'<button type="button" onclick="rmL('+i+')" style="background:none;border:none;color:rgba(0,92,169,.5);cursor:pointer;font-size:14px;margin-left:4px;">&#215;</button></span>';}
-  document.getElementById('chips').innerHTML=h;
+
+function renderChips() {
+  var i, h = '';
+  for (i = 0; i < LINKS.length; i++) {
+    h += '<span class="chip">' + LINKS[i] + '<button type="button" onclick="rmL(' + i + ')" style="background:none;border:none;color:rgba(0,92,169,.5);cursor:pointer;font-size:14px;margin-left:4px;">&#215;</button></span>';
+  }
+  document.getElementById('chips').innerHTML = h;
 }
-function rmL(i){LINKS.splice(i,1);renderChips();}
 
-function GV(id){var e=document.getElementById(id);return(e&&e.value)?e.value.trim():'';}
-function G(id){return document.getElementById(id);}
-function wait(ms){return new Promise(function(r){setTimeout(r,ms);});}
-function makeUID(){return 'MDL-'+Math.random().toString(36).substr(2,6).toUpperCase();}
+function rmL(i) { LINKS.splice(i, 1); renderChips(); }
 
-async function executar(){
-  var nm=GV('nm'),ar=GV('ar'),ow=GV('ow'),oe=GV('oe');
-  if(!nm){alert('Informe o Nome do Modelo.');return;}
-  if(!ar){alert('Informe a Área.');return;}
-  if(!ow){alert('Informe o Model Owner.');return;}
-  if(!oe){alert('Informe seu e-mail.');return;}
-  G('btn-run').style.display='none';
-  G('loading').style.display='block';
-  var steps=['Agente de Ingestão: lendo fontes...','Agente RAG: extraindo informações...','Agente Classificador: identificando técnica...','Agente de Criticidade: calculando dimensões...','Síntese: gerando Model Card...'],i;
-  for(i=0;i<steps.length;i++){G('loading-txt').textContent=steps[i];await wait(i===1?1800:1200);}
-  RESULT=GV('api-key')?await callAPI(GV('api-key')):makeDemo();
-  G('loading').style.display='none';
-  var sec=G('sec-mc');sec.style.display='block';
+function GV(id) { var e = document.getElementById(id); return (e && e.value) ? e.value.trim() : ''; }
+function G(id) { return document.getElementById(id); }
+function wait(ms) { return new Promise(function(r) { setTimeout(r, ms); }); }
+function makeUID() { return 'MDL-' + Math.random().toString(36).substr(2, 6).toUpperCase(); }
+
+/* =========================================================
+   FIX 1: showErr / hideErr — feedback visual em caso de erro
+   ========================================================= */
+function showErr(msg) {
+  var b = G('err-banner');
+  if (b) { b.textContent = '⚠️ ' + msg; b.style.display = 'block'; }
+}
+function hideErr() {
+  var b = G('err-banner');
+  if (b) b.style.display = 'none';
+}
+
+/* =========================================================
+   FIX 2: resetBtn — garante que o botão volta caso algo falhe
+   ========================================================= */
+function resetBtn() {
+  var btn = G('btn-run');
+  if (btn) { btn.style.display = 'block'; btn.disabled = false; }
+  G('loading').style.display = 'none';
+}
+
+async function executar() {
+  var nm = GV('nm'), ar = GV('ar'), ow = GV('ow'), oe = GV('oe');
+  if (!nm) { alert('Informe o Nome do Modelo.'); return; }
+  if (!ar) { alert('Informe a Área.'); return; }
+  if (!ow) { alert('Informe o Model Owner.'); return; }
+  if (!oe) { alert('Informe seu e-mail.'); return; }
+
+  hideErr();
+  G('btn-run').style.display = 'none';
+  G('loading').style.display = 'block';
+
+  var steps = [
+    'Agente de Ingestão: lendo fontes...',
+    'Agente RAG: extraindo informações...',
+    'Agente Classificador: identificando técnica...',
+    'Agente de Criticidade: calculando dimensões...',
+    'Síntese: gerando Model Card...'
+  ], i;
+
+  for (i = 0; i < steps.length; i++) {
+    G('loading-txt').textContent = steps[i];
+    await wait(i === 1 ? 1800 : 1200);
+  }
+
+  try {
+    RESULT = GV('api-key') ? await callAPI(GV('api-key')) : makeDemo();
+  } catch (e) {
+    resetBtn();
+    showErr('Erro inesperado: ' + e.message);
+    return;
+  }
+
+  G('loading').style.display = 'none';
+  var sec = G('sec-mc');
+  sec.style.display = 'block';
   renderMC(RESULT);
-  sec.scrollIntoView({behavior:'smooth'});
+  sec.scrollIntoView({ behavior: 'smooth' });
 }
 
-async function callAPI(key){
-  var nm=GV('nm'),ar=GV('ar'),ow=GV('ow'),txt='',i;
-  for(i=0;i<FILES.length;i++){try{var t=await readTxt(FILES[i]);txt+='\nARQ:'+FILES[i].name+'\n'+t.substring(0,3000);}catch(e){}}
-  var p='Analise e gere Model Card em JSON puro sem markdown.\nModelo:'+nm+'\nArea:'+ar+'\nOwner:'+ow+'\nFontes:'+SOURCES.join(',')+'\nLinks:'+LINKS.join(',')+'\nCtx:'+GV('ctx')+(txt?'\n'+txt:'')+'\nRetorne SOMENTE este JSON:\n{"family":"string","technique":"string","description":"string","platform":"string","inputs":"string","outputs":"string","autonomy":"string","regulatory":"string","scores":{"D1":3,"D2":3,"D3":3,"D4":3,"D5":3,"D6":3},"weighted_score":3.0,"criticality_level":"N1","criticality_name":"Critico","tags":["tag"],"controls":[{"text":"texto","type":"crit"}],"validation_scope":"string","confidence":70,"confidence_note":"string"}';
-  try{
-    var res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:2000,messages:[{role:'user',content:p}]})});
-    var data=await res.json();
-    if(data.error)throw new Error(data.error.message);
-    var raw=data.content.map(function(b){return b.text||'';}).join('');
-    var r=JSON.parse(raw.substring(raw.indexOf('{'),raw.lastIndexOf('}')+1));
-    r.model_name=nm;r.model_area=ar;r.model_owner=ow;return r;
-  }catch(e){console.error(e);var d=makeDemo();d.confidence_note='Erro API — usando demo.';return d;}
+/* =========================================================
+   FIX 3: nome de modelo corrigido para claude-sonnet-4-5
+   (claude-sonnet-4-20250514 não existe e causava erro 404/400)
+   ========================================================= */
+async function callAPI(key) {
+  var nm = GV('nm'), ar = GV('ar'), ow = GV('ow'), txt = '', i;
+  for (i = 0; i < FILES.length; i++) {
+    try { var t = await readTxt(FILES[i]); txt += '\nARQ:' + FILES[i].name + '\n' + t.substring(0, 3000); } catch (e) {}
+  }
+  var p = 'Analise e gere Model Card em JSON puro sem markdown.\nModelo:' + nm + '\nArea:' + ar + '\nOwner:' + ow + '\nFontes:' + SOURCES.join(',') + '\nLinks:' + LINKS.join(',') + '\nCtx:' + GV('ctx') + (txt ? '\n' + txt : '') + '\nRetorne SOMENTE este JSON:\n{"family":"string","technique":"string","description":"string","platform":"string","inputs":"string","outputs":"string","autonomy":"string","regulatory":"string","scores":{"D1":3,"D2":3,"D3":3,"D4":3,"D5":3,"D6":3},"weighted_score":3.0,"criticality_level":"N1","criticality_name":"Critico","tags":["tag"],"controls":[{"text":"texto","type":"crit"}],"validation_scope":"string","confidence":70,"confidence_note":"string"}';
+  try {
+    var res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': key,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-5',   /* ← FIX 3: modelo correto */
+        max_tokens: 2000,
+        messages: [{ role: 'user', content: p }]
+      })
+    });
+    var data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+    var raw = data.content.map(function(b) { return b.text || ''; }).join('');
+    var r = JSON.parse(raw.substring(raw.indexOf('{'), raw.lastIndexOf('}') + 1));
+    r.model_name = nm; r.model_area = ar; r.model_owner = ow;
+    return r;
+  } catch (e) {
+    console.error(e);
+    showErr('API retornou erro — usando modo demo. (' + e.message + ')');
+    var d = makeDemo();
+    d.confidence_note = 'Erro API — usando demo. ' + e.message;
+    return d;
+  }
 }
-function makeDemo(){return{model_name:GV('nm')||'Scoring de Crédito PF',model_area:GV('ar')||'SUPEC',model_owner:GV('ow')||'Demo',family:'Machine Learning',technique:'Gradient Boosting (XGBoost)',description:'Modelo para estimação de probabilidade de default em carteiras PF. Processa variáveis comportamentais e de bureau com alçada automática até R$50 mil.',platform:'Python + Databricks (MLflow)',inputs:'Score bureau, histórico, renda, tempo de relacionamento',outputs:'Score PD (0–1000), faixa de risco (A–G), limite recomendado',autonomy:'Automático até R$50 mil; aprovação humana acima',regulatory:'Basileia III / IFRS 9',scores:{D1:4,D2:4,D3:4,D4:3,D5:5,D6:3},weighted_score:3.90,criticality_level:'N1',criticality_name:'Crítico',tags:['credito-pf','pd-model','basileia-iii','xgboost'],controls:[{text:'Monitoramento contínuo PSI/KS/Gini',type:'crit'},{text:'Validação independente anual',type:'crit'},{text:'Plano de contingência semestral',type:'crit'},{text:'Análise de viés a cada recalibração',type:'warn'},{text:'SHAP values para contestações',type:'warn'},{text:'Aprovação do Comitê para alterações',type:'ok'}],validation_scope:'Validação Profunda N1: revisão conceitual, backtesting 24 meses, stress test, análise de fairness, SHAP/LIME.',confidence:72,confidence_note:'Confiança moderada-alta. Resultado de demonstração.'};}
-function readTxt(f){return new Promise(function(res,rej){var r=new FileReader();r.onload=function(e){res(e.target.result);};r.onerror=rej;r.readAsText(f);});}
 
-function renderMC(r){
-  var id=r.uid||makeUID();r.uid=id;
-  var ts=new Date().toLocaleString('pt-BR');
-  var oe=GV('oe'),ve=GV('ve');
-  var dm={D1:'D1 Impacto Fin.',D2:'D2 Exp. Reg.',D3:'D3 Autonomia',D4:'D4 Opacidade',D5:'D5 Abrangência',D6:'D6 Maturidade'};
-  var sc=r.scores||{},k,scH='';
-  for(k in sc){scH+='<div class="scrow"><div class="scd">'+(dm[k]||k)+'</div><div class="sctrk"><div class="scf" style="width:'+((sc[k]/5)*100)+'%;"></div></div><div class="scv">'+sc[k]+'/5</div></div>';}
-  var ctH=(r.controls||[]).map(function(c){return '<div class="ci '+(c.type||'')+'">'+(c.text||'')+'</div>';}).join('');
-  var tgH=(r.tags||[]).map(function(t){return '<div class="tag">'+t+'</div>';}).join('');
-  var h='';
-  h+='<div class="mc-hd"><div class="mc-id">'+id+'</div><div class="mc-n">'+r.model_name+'</div><div class="mc-f">'+r.family+' — '+r.technique+'</div><div class="mc-lv"><div class="mc-ln">'+r.criticality_level+'</div><div class="mc-lname">'+r.criticality_name+'</div></div><div class="mc-meta"><div><div class="mc-ml">Área</div><div class="mc-mv">'+r.model_area+'</div></div><div><div class="mc-ml">Owner</div><div class="mc-mv">'+r.model_owner+'</div></div><div><div class="mc-ml">Gerado</div><div class="mc-mv">'+ts+'</div></div><div><div class="mc-ml">Confiança</div><div class="mc-mv">'+r.confidence+'%</div></div></div></div>';
-  h+='<div class="card"><div class="card-t">Descrição</div><div class="txt">'+r.description+'</div></div>';
-  h+='<div class="card"><div class="card-t">Identificação Técnica</div><div class="ig"><div class="ic"><div class="ic-l">Técnica</div><div class="ic-v">'+r.technique+'</div></div><div class="ic"><div class="ic-l">Plataforma</div><div class="ic-v">'+r.platform+'</div></div><div class="ic"><div class="ic-l">Inputs</div><div class="ic-v">'+r.inputs+'</div></div><div class="ic"><div class="ic-l">Outputs</div><div class="ic-v">'+r.outputs+'</div></div><div class="ic"><div class="ic-l">Autonomia</div><div class="ic-v">'+r.autonomy+'</div></div><div class="ic"><div class="ic-l">Regulatório</div><div class="ic-v">'+r.regulatory+'</div></div><div class="ic"><div class="ic-l">Fontes</div><div class="ic-v">'+(SOURCES.length?SOURCES.join(', '):'não especificadas')+'</div></div><div class="ic"><div class="ic-l">Chave</div><div class="ic-v" style="color:#005CA9;font-family:monospace;font-size:11px;">'+id+'</div></div></div></div>';
-  h+='<div class="card"><div class="card-t">Criticidade</div>'+scH+'<div class="sctot"><div class="sctot-l">Pontuação Ponderada</div><div class="sctot-v">'+((r.weighted_score||0).toFixed(2))+'</div></div><div style="font-size:11px;color:#B8BEC9;margin-top:4px;">'+r.confidence_note+'</div></div>';
-  h+='<div class="card"><div class="card-t">Tags</div><div class="tags">'+tgH+'</div></div>';
-  h+='<div class="card"><div class="card-t">Controles Recomendados</div>'+ctH+'</div>';
-  h+='<div class="card"><div class="card-t">Escopo de Validação</div><div class="txt">'+r.validation_scope+'</div></div>';
-  h+='<div class="card"><div class="card-t">Notificação — Owner</div><div style="font-size:12px;color:#B8BEC9;margin-bottom:8px;">Para: '+oe+'</div><div class="email-pre">'+eOwner(r,id,ts)+'</div></div>';
-  h+='<div class="card"><div class="card-t">Notificação — Validação</div><div style="font-size:12px;color:#B8BEC9;margin-bottom:8px;">Para: '+ve+'</div><div class="email-pre">'+eVal(r,id,ts)+'</div></div>';
-  h+='<div class="card"><div class="card-t">Sua Confirmação</div>';
-  h+='<div class="g2" style="margin-bottom:12px;"><div class="field" style="margin:0;"><label>Corrigir Técnica</label><input type="text" id="mtech" placeholder="Confirme ou corrija..."></div><div class="field" style="margin:0;"><label>Corrigir Autonomia</label><select id="maut"><option value="">manter</option><option>100% automatizado</option><option>Revisão em exceções</option><option>Aprovação sistemática</option><option>Subsídio analítico</option><option>Apenas informativo</option></select></div></div>';
-  h+='<div class="field"><label>Observações</label><textarea id="mnotes" placeholder="Correções ou contexto..."></textarea></div>';
+/* =========================================================
+   FIX 4: makeDemo separado em bloco próprio, sem colisão
+   de chaves com readTxt (era o parse-break original)
+   ========================================================= */
+function makeDemo() {
+  return {
+    model_name: GV('nm') || 'Scoring de Crédito PF',
+    model_area: GV('ar') || 'SUPEC',
+    model_owner: GV('ow') || 'Demo',
+    family: 'Machine Learning',
+    technique: 'Gradient Boosting (XGBoost)',
+    description: 'Modelo para estimação de probabilidade de default em carteiras PF. Processa variáveis comportamentais e de bureau com alçada automática até R$50 mil.',
+    platform: 'Python + Databricks (MLflow)',
+    inputs: 'Score bureau, histórico, renda, tempo de relacionamento',
+    outputs: 'Score PD (0–1000), faixa de risco (A–G), limite recomendado',
+    autonomy: 'Automático até R$50 mil; aprovação humana acima',
+    regulatory: 'Basileia III / IFRS 9',
+    scores: { D1: 4, D2: 4, D3: 4, D4: 3, D5: 5, D6: 3 },
+    weighted_score: 3.90,
+    criticality_level: 'N1',
+    criticality_name: 'Crítico',
+    tags: ['credito-pf', 'pd-model', 'basileia-iii', 'xgboost'],
+    controls: [
+      { text: 'Monitoramento contínuo PSI/KS/Gini', type: 'crit' },
+      { text: 'Validação independente anual', type: 'crit' },
+      { text: 'Plano de contingência semestral', type: 'crit' },
+      { text: 'Análise de viés a cada recalibração', type: 'warn' },
+      { text: 'SHAP values para contestações', type: 'warn' },
+      { text: 'Aprovação do Comitê para alterações', type: 'ok' }
+    ],
+    validation_scope: 'Validação Profunda N1: revisão conceitual, backtesting 24 meses, stress test, análise de fairness, SHAP/LIME.',
+    confidence: 72,
+    confidence_note: 'Confiança moderada-alta. Resultado de demonstração.'
+  };
+}
 
-h+=’<div class="dec-row"><button class="dec-btn ap" type="button" id="btn-ap" onclick="setD(\'approve\')">✓ Confirmo!</button><button class="dec-btn rj" type="button" id="btn-rj" onclick="setD(\'reject\')">✎ Solicito revisão</button></div>’;
-h+=’<button class="btn-run" type="button" id="btn-fin" onclick="finish()" disabled style="opacity:.4;margin-top:12px;">Finalizar e Registrar</button>’;
-h+=’<div id="ok-final" style="display:none;" class="ok" style="margin-top:10px;"></div>’;
-h+=’</div>’;
-h+=’<div style="display:flex;gap:8px;padding-bottom:10px;">’;
-h+=’<button class="btn-s" type="button" onclick="expJ()">↓ JSON</button>’;
-h+=’<button class="btn-s" type="button" onclick="expT()">↓ TXT</button>’;
-h+=’<button class="btn-s" type="button" onclick="window.print()">↓ PDF</button>’;
-h+=’</div>’;
-G(‘mc-out’).innerHTML=h;
+function readTxt(f) {
+  return new Promise(function(res, rej) {
+    var r = new FileReader();
+    r.onload = function(e) { res(e.target.result); };
+    r.onerror = rej;
+    r.readAsText(f);
+  });
 }
-function eOwner(r,id,ts){return ‘Prezado(a) ‘+r.model_owner+’,\n\nCatalogação concluída!\n\nID: ‘+id+’\nModelo: ‘+r.model_name+’\nNível: ‘+r.criticality_level+’ — ‘+r.criticality_name+’\nPontuação: ‘+((r.weighted_score||0).toFixed(2))+’/5\nGerado: ‘+ts+’\n\nPróximos passos:\n1. Revise o Model Card\n2. Confirme ou solicite revisão\n\nEquipe ModelScan’;}
-function eVal(r,id,ts){return ‘Equipe de Validação,\n\nNovo modelo — criticidade ‘+r.criticality_level+’.\n\nID: ‘+id+’\nModelo: ‘+r.model_name+’\nÁrea: ‘+r.model_area+’\nOwner: ‘+r.model_owner+’\nNível: ‘+r.criticality_level+’ — ‘+r.criticality_name+’\nPontuação: ‘+((r.weighted_score||0).toFixed(2))+’/5\n\nAguarda validação.\nModelScan’;}
-function setD(d){
-DECISION=d;
-var ba=G(‘btn-ap’),br=G(‘btn-rj’),bf=G(‘btn-fin’);
-if(ba)ba.className=‘dec-btn ap’+(d===‘approve’?’ on’:’’);
-if(br)br.className=‘dec-btn rj’+(d===‘reject’?’ on’:’’);
-if(bf){bf.disabled=false;bf.style.opacity=‘1’;}
+
+function renderMC(r) {
+  var id = r.uid || makeUID(); r.uid = id;
+  var ts = new Date().toLocaleString('pt-BR');
+  var oe = GV('oe'), ve = GV('ve');
+  var dm = { D1: 'D1 Impacto Fin.', D2: 'D2 Exp. Reg.', D3: 'D3 Autonomia', D4: 'D4 Opacidade', D5: 'D5 Abrangência', D6: 'D6 Maturidade' };
+  var sc = r.scores || {}, k, scH = '';
+  for (k in sc) {
+    scH += '<div class="scrow"><div class="scd">' + (dm[k] || k) + '</div><div class="sctrk"><div class="scf" style="width:' + ((sc[k] / 5) * 100) + '%;"></div></div><div class="scv">' + sc[k] + '/5</div></div>';
+  }
+  var ctH = (r.controls || []).map(function(c) { return '<div class="ci ' + (c.type || '') + '">' + (c.text || '') + '</div>'; }).join('');
+  var tgH = (r.tags || []).map(function(t) { return '<div class="tag">' + t + '</div>'; }).join('');
+  var h = '';
+  h += '<div class="mc-hd"><div class="mc-id">' + id + '</div><div class="mc-n">' + r.model_name + '</div><div class="mc-f">' + r.family + ' — ' + r.technique + '</div><div class="mc-lv"><div class="mc-ln">' + r.criticality_level + '</div><div class="mc-lname">' + r.criticality_name + '</div></div><div class="mc-meta"><div><div class="mc-ml">Área</div><div class="mc-mv">' + r.model_area + '</div></div><div><div class="mc-ml">Owner</div><div class="mc-mv">' + r.model_owner + '</div></div><div><div class="mc-ml">Gerado</div><div class="mc-mv">' + ts + '</div></div><div><div class="mc-ml">Confiança</div><div class="mc-mv">' + r.confidence + '%</div></div></div></div>';
+  h += '<div class="card"><div class="card-t">Descrição</div><div class="txt">' + r.description + '</div></div>';
+  h += '<div class="card"><div class="card-t">Identificação Técnica</div><div class="ig"><div class="ic"><div class="ic-l">Técnica</div><div class="ic-v">' + r.technique + '</div></div><div class="ic"><div class="ic-l">Plataforma</div><div class="ic-v">' + r.platform + '</div></div><div class="ic"><div class="ic-l">Inputs</div><div class="ic-v">' + r.inputs + '</div></div><div class="ic"><div class="ic-l">Outputs</div><div class="ic-v">' + r.outputs + '</div></div><div class="ic"><div class="ic-l">Autonomia</div><div class="ic-v">' + r.autonomy + '</div></div><div class="ic"><div class="ic-l">Regulatório</div><div class="ic-v">' + r.regulatory + '</div></div><div class="ic"><div class="ic-l">Fontes</div><div class="ic-v">' + (SOURCES.length ? SOURCES.join(', ') : 'não especificadas') + '</div></div><div class="ic"><div class="ic-l">Chave</div><div class="ic-v" style="color:#005CA9;font-family:monospace;font-size:11px;">' + id + '</div></div></div></div>';
+  h += '<div class="card"><div class="card-t">Criticidade</div>' + scH + '<div class="sctot"><div class="sctot-l">Pontuação Ponderada</div><div class="sctot-v">' + ((r.weighted_score || 0).toFixed(2)) + '</div></div><div style="font-size:11px;color:#B8BEC9;margin-top:4px;">' + r.confidence_note + '</div></div>';
+  h += '<div class="card"><div class="card-t">Tags</div><div class="tags">' + tgH + '</div></div>';
+  h += '<div class="card"><div class="card-t">Controles Recomendados</div>' + ctH + '</div>';
+  h += '<div class="card"><div class="card-t">Escopo de Validação</div><div class="txt">' + r.validation_scope + '</div></div>';
+  h += '<div class="card"><div class="card-t">Notificação — Owner</div><div style="font-size:12px;color:#B8BEC9;margin-bottom:8px;">Para: ' + oe + '</div><div class="email-pre">' + eOwner(r, id, ts) + '</div></div>';
+  h += '<div class="card"><div class="card-t">Notificação — Validação</div><div style="font-size:12px;color:#B8BEC9;margin-bottom:8px;">Para: ' + ve + '</div><div class="email-pre">' + eVal(r, id, ts) + '</div></div>';
+  h += '<div class="card"><div class="card-t">Sua Confirmação</div>';
+  h += '<div class="g2" style="margin-bottom:12px;"><div class="field" style="margin:0;"><label>Corrigir Técnica</label><input type="text" id="mtech" placeholder="Confirme ou corrija..."></div><div class="field" style="margin:0;"><label>Corrigir Autonomia</label><select id="maut"><option value="">manter</option><option>100% automatizado</option><option>Revisão em exceções</option><option>Aprovação sistemática</option><option>Subsídio analítico</option><option>Apenas informativo</option></select></div></div>';
+  h += '<div class="field"><label>Observações</label><textarea id="mnotes" placeholder="Correções ou contexto..."></textarea></div>';
+
+h += ‘<div class="dec-row"><button class="dec-btn ap" type="button" id="btn-ap" onclick="setD(\'approve\')">✓ Confirmo!</button><button class="dec-btn rj" type="button" id="btn-rj" onclick="setD(\'reject\')">✎ Solicito revisão</button></div>’;
+h += ‘<button class="btn-run" type="button" id="btn-fin" onclick="finish()" disabled style="opacity:.4;margin-top:12px;">Finalizar e Registrar</button>’;
+h += ‘<div id="ok-final" style="display:none;" class="ok" style="margin-top:10px;"></div>’;
+h += ‘</div>’;
+h += ‘<div style="display:flex;gap:8px;padding-bottom:10px;">’;
+h += ‘<button class="btn-s" type="button" onclick="expJ()">↓ JSON</button>’;
+h += ‘<button class="btn-s" type="button" onclick="expT()">↓ TXT</button>’;
+h += ‘<button class="btn-s" type="button" onclick="window.print()">↓ PDF</button>’;
+h += ‘</div>’;
+G(‘mc-out’).innerHTML = h;
 }
-function finish(){
-if(!DECISION)return;
-var ts=new Date().toLocaleString(‘pt-BR’),ow=GV(‘ow’);
-var bf=G(‘btn-fin’),ob=G(‘ok-final’);
-if(bf){bf.disabled=true;bf.style.opacity=’.4’;bf.textContent=DECISION===‘approve’?‘Registrado!’:‘Revisão solicitada’;}
-if(ob){ob.style.display=‘block’;ob.innerHTML=DECISION===‘approve’?’✅ Registrado! Chave: <strong>’+(RESULT.uid||’’)+’</strong><br>Por ‘+ow+’ em ‘+ts:’✎ Revisão solicitada por ‘+ow+’ em ‘+ts;}
+
+function eOwner(r, id, ts) {
+return ’Prezado(a) ’ + r.model_owner + ’,\n\nCatalogação concluída!\n\nID: ’ + id + ’\nModelo: ’ + r.model_name + ’\nNível: ’ + r.criticality_level + ’ — ’ + r.criticality_name + ’\nPontuação: ’ + ((r.weighted_score || 0).toFixed(2)) + ’/5\nGerado: ’ + ts + ‘\n\nPróximos passos:\n1. Revise o Model Card\n2. Confirme ou solicite revisão\n\nEquipe ModelScan’;
 }
-function expJ(){if(!RESULT)return;var a=document.createElement(‘a’);a.href=URL.createObjectURL(new Blob([JSON.stringify(RESULT,null,2)],{type:‘application/json’}));a.download=‘mc-’+(RESULT.uid||‘mc’)+’.json’;document.body.appendChild(a);a.click();document.body.removeChild(a);}
-function expT(){if(!RESULT)return;var t=‘MODEL CARD: ‘+RESULT.model_name+’\nChave: ‘+RESULT.uid+’\nNível: ‘+RESULT.criticality_level+’ — ‘+RESULT.criticality_name+’\nPontuação: ‘+((RESULT.weighted_score||0).toFixed(2))+’/5\n\nDescrição:\n’+RESULT.description+’\n\nEscopo:\n’+RESULT.validation_scope;var a=document.createElement(‘a’);a.href=URL.createObjectURL(new Blob([t],{type:‘text/plain’}));a.download=‘mc-’+(RESULT.uid||‘mc’)+’.txt’;document.body.appendChild(a);a.click();document.body.removeChild(a);}
+
+function eVal(r, id, ts) {
+return ’Equipe de Validação,\n\nNovo modelo — criticidade ’ + r.criticality_level + ’.\n\nID: ’ + id + ’\nModelo: ’ + r.model_name + ’\nÁrea: ’ + r.model_area + ’\nOwner: ’ + r.model_owner + ’\nNível: ’ + r.criticality_level + ’ — ’ + r.criticality_name + ’\nPontuação: ’ + ((r.weighted_score || 0).toFixed(2)) + ‘/5\n\nAguarda validação.\nModelScan’;
+}
+
+function setD(d) {
+DECISION = d;
+var ba = G(‘btn-ap’), br = G(‘btn-rj’), bf = G(‘btn-fin’);
+if (ba) ba.className = ‘dec-btn ap’ + (d === ‘approve’ ? ’ on’ : ‘’);
+if (br) br.className = ‘dec-btn rj’ + (d === ‘reject’ ? ’ on’ : ‘’);
+if (bf) { bf.disabled = false; bf.style.opacity = ‘1’; }
+}
+
+function finish() {
+if (!DECISION) return;
+var ts = new Date().toLocaleString(‘pt-BR’), ow = GV(‘ow’);
+var bf = G(‘btn-fin’), ob = G(‘ok-final’);
+if (bf) { bf.disabled = true; bf.style.opacity = ‘.4’; bf.textContent = DECISION === ‘approve’ ? ‘Registrado!’ : ‘Revisão solicitada’; }
+if (ob) { ob.style.display = ‘block’; ob.innerHTML = DECISION === ‘approve’ ? ‘✅ Registrado! Chave: <strong>’ + (RESULT.uid || ‘’) + ’</strong><br>Por ’ + ow + ’ em ’ + ts : ’✎ Revisão solicitada por ’ + ow + ’ em ’ + ts; }
+}
+
+function expJ() {
+if (!RESULT) return;
+var a = document.createElement(‘a’);
+a.href = URL.createObjectURL(new Blob([JSON.stringify(RESULT, null, 2)], { type: ‘application/json’ }));
+a.download = ‘mc-’ + (RESULT.uid || ‘mc’) + ‘.json’;
+document.body.appendChild(a); a.click(); document.body.removeChild(a);
+}
+
+function expT() {
+if (!RESULT) return;
+var t = ’MODEL CARD: ’ + RESULT.model_name + ’\nChave: ’ + RESULT.uid + ’\nNível: ’ + RESULT.criticality_level + ’ — ’ + RESULT.criticality_name + ’\nPontuação: ’ + ((RESULT.weighted_score || 0).toFixed(2)) + ‘/5\n\nDescrição:\n’ + RESULT.description + ‘\n\nEscopo:\n’ + RESULT.validation_scope;
+var a = document.createElement(‘a’);
+a.href = URL.createObjectURL(new Blob([t], { type: ‘text/plain’ }));
+a.download = ‘mc-’ + (RESULT.uid || ‘mc’) + ‘.txt’;
+document.body.appendChild(a); a.click(); document.body.removeChild(a);
+}
 </script>
 
 </body>

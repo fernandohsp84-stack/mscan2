@@ -8,11 +8,12 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#F0F2F5;color:#1A1D23;font-size:15px;}
+/* REGRA ABSOLUTA: ZERO position:relative, ZERO position:absolute, ZERO position:fixed, ZERO z-index */
 .hdr{background:#003F7A;padding:14px 16px;display:flex;align-items:center;gap:10px;}
 .hdr-icon{width:28px;height:28px;background:#F47920;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .hdr-name{font-size:17px;font-weight:700;color:#fff;}
-.section{padding:16px 14px;}
-.section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#fff;background:#005CA9;padding:8px 14px;margin:0 -14px 14px;}
+.sec{padding:16px 14px;}
+.sec-bar{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#fff;background:#005CA9;padding:8px 14px;margin:0 -14px 14px;}
 .card{background:#fff;border-radius:10px;padding:16px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.08);}
 .card-t{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#9BA3B2;margin-bottom:12px;padding-bottom:9px;border-bottom:1px solid #ECEEF2;}
 .tip{display:flex;gap:10px;padding:13px 14px;border-radius:10px;background:#E5F3F4;border:1px solid rgba(13,115,119,.2);color:#0D7377;font-size:13px;line-height:1.6;margin-bottom:14px;}
@@ -20,45 +21,42 @@ body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#F0F2F5;
 .field:last-child{margin-bottom:0;}
 label{display:block;font-size:13px;font-weight:600;color:#3C4353;margin-bottom:5px;}
 .req{color:#F47920;}
-input,textarea,select{width:100%;border:1.5px solid #D0D5DD;border-radius:8px;padding:12px;font-size:15px;color:#1A1D23;background:#fff;font-family:inherit;-webkit-appearance:none;outline:none;}
+input[type=text],input[type=password],input[type=email],input[type=url],textarea,select{width:100%;border:1.5px solid #D0D5DD;border-radius:8px;padding:12px;font-size:15px;color:#1A1D23;background:#fff;font-family:inherit;-webkit-appearance:none;outline:none;display:block;}
 input:focus,textarea:focus{border-color:#005CA9;}
 textarea{resize:vertical;min-height:80px;}
 .key-row{display:flex;gap:8px;}
 .key-row input{flex:1;}
 .eye{background:#F0F2F5;border:1.5px solid #D0D5DD;border-radius:8px;padding:0 13px;font-size:16px;cursor:pointer;-webkit-appearance:none;flex-shrink:0;}
-.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+/* TILES - sem position */
+.tiles{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;}
 @media(max-width:400px){.tiles{grid-template-columns:1fr 1fr;}}
 .tile{border:1.5px solid #D0D5DD;border-radius:8px;padding:12px 6px;cursor:pointer;text-align:center;background:#fff;}
 .tile.on{border-color:#005CA9;background:#EBF3FB;}
 .tile-i{font-size:18px;margin-bottom:4px;}
 .tile-l{font-size:10px;font-weight:600;color:#717A8C;}
 .tile.on .tile-l{color:#005CA9;}
-.upz{border:2px dashed #B8BEC9;border-radius:8px;padding:20px;text-align:center;background:#F8F9FA;position:relative;}
-.upz input[type=file]{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer;}
-.upz-t{font-size:13px;color:#717A8C;margin:6px 0 3px;}
-.flist{margin-top:8px;}
+/* UPLOAD - SEM position:relative, SEM position:absolute */
+.upload-btn{display:block;width:100%;padding:20px;border:2px dashed #005CA9;border-radius:10px;background:#EBF3FB;text-align:center;cursor:pointer;font-family:inherit;-webkit-appearance:none;margin-bottom:10px;}
+.upload-btn-t{font-size:14px;font-weight:700;color:#005CA9;margin:8px 0 4px;}
+.upload-btn-h{font-size:12px;color:#717A8C;}
 .fi{display:flex;align-items:center;gap:8px;background:#F8F9FA;border:1px solid #ECEEF2;border-radius:6px;padding:8px 10px;margin-top:6px;}
-.fi-n{flex:1;font-size:12px;color:#717A8C;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.fi-r{background:none;border:none;color:#B8BEC9;font-size:16px;cursor:pointer;-webkit-appearance:none;}
+.fi-n{flex:1;font-size:12px;color:#3C4353;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.fi-r{background:none;border:none;color:#B8BEC9;font-size:18px;cursor:pointer;-webkit-appearance:none;padding:0 4px;}
 .link-row{display:flex;gap:8px;margin-bottom:8px;}
 .link-row input{flex:1;}
-.ladd{background:#F0F2F5;border:1.5px solid #D0D5DD;border-radius:8px;padding:0 14px;font-size:14px;font-family:inherit;cursor:pointer;-webkit-appearance:none;color:#717A8C;}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;}
-.chip{background:#EBF3FB;border:1px solid rgba(0,92,169,.2);border-radius:20px;padding:4px 10px;font-size:12px;color:#005CA9;display:inline-flex;align-items:center;gap:4px;}
-.chip-r{background:none;border:none;color:rgba(0,92,169,.5);cursor:pointer;font-size:14px;-webkit-appearance:none;}
-/* BOTÃO DE AÇÃO — único tipo de botão, tipo submit */
-.btn-action{display:block;width:100%;padding:16px;background:#005CA9;color:#fff;border:none;border-radius:8px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;-webkit-appearance:none;margin-top:14px;text-align:center;}
-.btn-action:active{background:#003F7A;}
-.btn-action.sec{background:#fff;color:#3C4353;border:1.5px solid #D0D5DD;}
+.ladd{background:#F0F2F5;border:1.5px solid #D0D5DD;border-radius:8px;padding:0 14px;font-size:14px;font-family:inherit;cursor:pointer;-webkit-appearance:none;color:#005CA9;font-weight:600;white-space:nowrap;}
+.chip{display:inline-block;background:#EBF3FB;border:1px solid rgba(0,92,169,.2);border-radius:20px;padding:4px 10px;font-size:12px;color:#005CA9;margin:3px 4px 3px 0;}
+/* BOTÃO PRINCIPAL - tipo submit, sem position */
+.btn-run{display:block;width:100%;padding:17px;background:#005CA9;color:#fff;border:none;border-radius:10px;font-size:17px;font-weight:700;cursor:pointer;font-family:inherit;-webkit-appearance:none;margin-top:14px;text-align:center;-webkit-tap-highlight-color:rgba(255,255,255,.3);}
+.btn-run:active{background:#003F7A;}
+.btn-s{display:inline-block;padding:11px 16px;background:#fff;color:#3C4353;border:1.5px solid #D0D5DD;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;-webkit-appearance:none;margin-top:0;}
 /* RESULTADO */
-.result-box{background:#E6F4EE;border:1px solid rgba(27,127,79,.3);border-radius:10px;padding:16px;margin-bottom:12px;}
-.result-box h3{font-size:16px;font-weight:700;color:#1B7F4F;margin-bottom:6px;}
-.result-box p{font-size:13px;color:#3C4353;line-height:1.6;}
+.ok{background:#E6F4EE;border:1px solid rgba(27,127,79,.3);border-radius:10px;padding:14px;margin-bottom:12px;font-size:14px;color:#1B7F4F;font-weight:600;line-height:1.6;}
 .mc-hd{background:linear-gradient(135deg,#003F7A,#1A6DC4);border-radius:10px;padding:18px;color:#fff;margin-bottom:12px;}
 .mc-id{font-family:monospace;font-size:11px;color:rgba(255,255,255,.7);background:rgba(255,255,255,.12);padding:2px 9px;border-radius:20px;display:inline-block;margin-bottom:8px;}
-.mc-name{font-size:18px;font-weight:700;margin-bottom:3px;}
-.mc-fam{font-size:12px;color:rgba(255,255,255,.6);margin-bottom:12px;}
-.mc-level{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border-radius:8px;padding:8px 12px;}
+.mc-n{font-size:18px;font-weight:700;margin-bottom:3px;}
+.mc-f{font-size:12px;color:rgba(255,255,255,.6);margin-bottom:12px;}
+.mc-lv{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border-radius:8px;padding:8px 12px;}
 .mc-ln{font-size:22px;font-weight:800;}
 .mc-lname{font-size:12px;color:rgba(255,255,255,.8);}
 .mc-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
@@ -73,7 +71,7 @@ textarea{resize:vertical;min-height:80px;}
 .sctrk{flex:1;height:5px;background:#ECEEF2;border-radius:3px;overflow:hidden;}
 .scf{height:100%;border-radius:3px;background:#005CA9;}
 .scv{font-size:11px;color:#B8BEC9;width:24px;text-align:right;flex-shrink:0;}
-.sctot{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:#EBF3FB;border-radius:6px;margin-top:8px;margin-bottom:4px;}
+.sctot{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:#EBF3FB;border-radius:6px;margin-top:8px;}
 .sctot-l{font-size:12px;font-weight:700;color:#005CA9;}
 .sctot-v{font-size:20px;font-weight:800;color:#005CA9;}
 .tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;}
@@ -83,23 +81,19 @@ textarea{resize:vertical;min-height:80px;}
 .ci.warn{background:#FDF5E6;border-color:#9A6200;}
 .ci.ok{background:#E6F4EE;border-color:#1B7F4F;}
 .txt{font-size:13px;color:#717A8C;line-height:1.7;}
-.spin{width:36px;height:36px;border:3px solid #ECEEF2;border-top-color:#005CA9;border-radius:50%;margin:0 auto 14px;animation:spin .8s linear infinite;display:none;}
-@keyframes spin{to{transform:rotate(360deg);}}
-.loading-box{text-align:center;padding:30px;display:none;}
-.loading-box p{font-size:14px;color:#717A8C;}
-.sep{height:2px;background:#E0E4EA;margin:4px 0 16px;}
 .dec-row{display:flex;gap:8px;margin-top:10px;}
 .dec-btn{flex:1;padding:13px;border-radius:8px;border:1.5px solid #D0D5DD;background:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;-webkit-appearance:none;color:#717A8C;}
 .dec-btn.ap.on{border-color:#1B7F4F;background:#E6F4EE;color:#1B7F4F;}
 .dec-btn.rj.on{border-color:#9A6200;background:#FDF5E6;color:#9A6200;}
-.ok-box{display:none;background:#E6F4EE;border:1px solid rgba(27,127,79,.3);border-radius:10px;padding:16px;margin-top:12px;font-size:14px;color:#1B7F4F;font-weight:600;}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 @media(max-width:440px){.g2{grid-template-columns:1fr;}}
+.spin{width:36px;height:36px;border:3px solid #ECEEF2;border-top-color:#005CA9;border-radius:50%;margin:0 auto 12px;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.sep{height:2px;background:#D0D5DD;margin:4px 0 0;}
+.email-pre{background:#F8F9FA;border:1px solid #DDE1E9;border-radius:8px;padding:12px;font-size:11px;color:#3C4353;line-height:1.75;white-space:pre-wrap;font-family:monospace;word-break:break-all;}
 </style>
 </head>
 <body>
-
-<!-- CABEÇALHO -->
 
 <div class="hdr">
   <div class="hdr-icon">
@@ -111,151 +105,130 @@ textarea{resize:vertical;min-height:80px;}
   <div class="hdr-name">ModelScan</div>
 </div>
 
-<!-- SEÇÃO 1: SOBRE -->
+<div class="sec">
+<div class="sec-bar">Sobre o ModelScan</div>
 
-<div class="section">
-  <div class="section-title">Sobre o ModelScan</div>
+<div class="card">
+<div class="card-t">O que é?</div>
+<p class="txt">O ModelScan <strong style="color:#1A1D23;">substitui formulários de autodeclaração</strong> por um processo guiado assistido por <strong style="color:#1A1D23;">5 agentes de IA</strong>. Você informa onde está a documentação e os agentes leem, classificam e geram o <strong style="color:#1A1D23;">Model Card completo</strong> automaticamente.</p>
+<div style="background:#EBF3FB;border-radius:8px;padding:11px 14px;margin-top:12px;font-size:13px;color:#005CA9;"><strong>Tempo estimado:</strong> 5 a 20 minutos por modelo.</div>
+</div>
 
-  <div class="card">
-    <div class="card-t">O que é?</div>
-    <p class="txt">O ModelScan <strong style="color:#1A1D23;">substitui formulários de autodeclaração</strong> por um processo guiado assistido por <strong style="color:#1A1D23;">5 agentes de IA</strong>. Você informa onde está a documentação do modelo e os agentes leem, classificam e geram o <strong style="color:#1A1D23;">Model Card completo</strong> automaticamente.</p>
-    <div style="background:#EBF3FB;border-radius:8px;padding:11px 14px;margin-top:12px;font-size:13px;color:#005CA9;"><strong>Tempo estimado:</strong> 5 a 20 minutos por modelo.</div>
-  </div>
+<div class="card">
+<div class="card-t">Como funciona — 4 passos</div>
+<div style="display:flex;flex-direction:column;gap:12px;">
+<div style="display:flex;gap:12px;"><div style="min-width:28px;height:28px;background:#005CA9;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;">1</div><div><div style="font-size:14px;font-weight:700;margin-bottom:3px;">Identificação</div><div style="font-size:13px;color:#717A8C;">Preencha nome, área, owner e e-mail.</div></div></div>
+<div style="display:flex;gap:12px;"><div style="min-width:28px;height:28px;background:#005CA9;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;">2</div><div><div style="font-size:14px;font-weight:700;margin-bottom:3px;">Fontes</div><div style="font-size:13px;color:#717A8C;">Arquivos (PDF, .py, .ipynb) ou links de repositórios.</div></div></div>
+<div style="display:flex;gap:12px;"><div style="min-width:28px;height:28px;background:#005CA9;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;">3</div><div><div style="font-size:14px;font-weight:700;margin-bottom:3px;">Análise pelos Agentes</div><div style="font-size:13px;color:#717A8C;">5 agentes calculam criticidade N1–N5.</div></div></div>
+<div style="display:flex;gap:12px;"><div style="min-width:28px;height:28px;background:#005CA9;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;">4</div><div><div style="font-size:14px;font-weight:700;margin-bottom:3px;">Model Card + Aprovação</div><div style="font-size:13px;color:#717A8C;">Revise e confirme. Validação recebe automaticamente.</div></div></div>
+</div>
+</div>
 
-  <div class="card">
-    <div class="card-t">Como funciona — 4 passos</div>
-    <div style="display:flex;flex-direction:column;gap:12px;">
-      <div style="display:flex;gap:12px;align-items:flex-start;"><div style="width:28px;height:28px;background:#005CA9;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;">1</div><div><div style="font-size:14px;font-weight:700;margin-bottom:3px;">Identificação</div><div style="font-size:13px;color:#717A8C;line-height:1.6;">Preencha nome do modelo, área, owner e e-mail.</div></div></div>
-      <div style="display:flex;gap:12px;align-items:flex-start;"><div style="width:28px;height:28px;background:#005CA9;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;">2</div><div><div style="font-size:14px;font-weight:700;margin-bottom:3px;">Fontes</div><div style="font-size:13px;color:#717A8C;line-height:1.6;">Envie arquivos (PDF, Word, Python, R, Jupyter) ou links de repositórios.</div></div></div>
-      <div style="display:flex;gap:12px;align-items:flex-start;"><div style="width:28px;height:28px;background:#005CA9;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;">3</div><div><div style="font-size:14px;font-weight:700;margin-bottom:3px;">Análise pelos Agentes</div><div style="font-size:13px;color:#717A8C;line-height:1.6;">5 agentes processam as fontes e calculam o nível de criticidade N1–N5.</div></div></div>
-      <div style="display:flex;gap:12px;align-items:flex-start;"><div style="width:28px;height:28px;background:#005CA9;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;">4</div><div><div style="font-size:14px;font-weight:700;margin-bottom:3px;">Model Card + Aprovação</div><div style="font-size:13px;color:#717A8C;line-height:1.6;">O Model Card é revisado por você e enviado para a Área de Validação.</div></div></div>
-    </div>
-  </div>
-
-  <div class="card" style="background:#FDF5E6;">
-    <div class="card-t" style="color:#9A6200;">Antes de começar</div>
-    <div style="display:flex;flex-direction:column;gap:7px;">
-      <div style="font-size:13px;color:#3C4353;">&#8226; Documentação técnica do modelo (PDF, Word ou link)</div>
-      <div style="font-size:13px;color:#3C4353;">&#8226; Código-fonte ou notebook (opcional, recomendado)</div>
-      <div style="font-size:13px;color:#3C4353;">&#8226; Chave API Anthropic — gere em console.anthropic.com</div>
-      <div style="font-size:13px;color:#3C4353;">&#8226; E-mail da Área de Validação de Modelos</div>
-    </div>
-  </div>
+<div class="card" style="background:#FDF5E6;">
+<div class="card-t" style="color:#9A6200;">Antes de começar</div>
+<div style="font-size:13px;color:#3C4353;line-height:2;">
+&#8226; Documentação técnica do modelo (PDF, Word ou link)<br>
+&#8226; Código-fonte ou notebook (opcional, recomendado)<br>
+&#8226; Chave API Anthropic — console.anthropic.com<br>
+&#8226; E-mail da Área de Validação de Modelos
+</div>
+</div>
 </div>
 
 <div class="sep"></div>
 
-<!-- SEÇÃO 2: IDENTIFICAÇÃO -->
+<div class="sec">
+<div class="sec-bar">Passo 1 — Identificação</div>
 
-<div class="section">
-  <div class="section-title">Passo 1 — Identificação</div>
+<div class="card">
+<div class="card-t">Acesso à API</div>
+<div class="field">
+<label>Chave API Anthropic</label>
+<div class="key-row">
+<input type="password" id="api-key" placeholder="sk-ant-... (vazio = modo demo)" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false">
+<button class="eye" type="button" onclick="var i=document.getElementById('api-key');i.type=i.type==='password'?'text':'password';">&#128065;</button>
+</div>
+<div style="font-size:11px;color:#B8BEC9;margin-top:5px;">Gere em <a href="https://console.anthropic.com" style="color:#005CA9;">console.anthropic.com</a></div>
+</div>
+</div>
 
-  <div class="card">
-    <div class="card-t">Acesso à API</div>
-    <div class="field">
-      <label>Chave API Anthropic</label>
-      <div class="key-row">
-        <input type="password" id="api-key" placeholder="sk-ant-... (vazio = modo demo)" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false">
-        <button class="eye" type="button" onclick="var i=document.getElementById('api-key');i.type=i.type==='password'?'text':'password';">&#128065;</button>
-      </div>
-      <div style="font-size:11px;color:#B8BEC9;margin-top:5px;">Gere em <a href="https://console.anthropic.com" style="color:#005CA9;">console.anthropic.com</a> &gt; API Keys</div>
-    </div>
-  </div>
+<div class="card">
+<div class="card-t">Dados do Modelo</div>
+<div class="field"><label>Nome do Modelo <span class="req">*</span></label><input type="text" id="nm" placeholder="ex: Scoring de Crédito PF"></div>
+<div class="field"><label>Área / Superintendência <span class="req">*</span></label><input type="text" id="ar" placeholder="ex: SUPEC"></div>
+<div class="field"><label>Model Owner — seu nome <span class="req">*</span></label><input type="text" id="ow" placeholder="Nome completo"></div>
+<div class="field"><label>Seu e-mail <span class="req">*</span></label><input type="text" id="oe" placeholder="seu@email.com" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false"></div>
+</div>
 
-  <div class="card">
-    <div class="card-t">Dados do Modelo</div>
-    <div class="field"><label>Nome do Modelo <span class="req">*</span></label><input type="text" id="nm" placeholder="ex: Scoring de Crédito PF"></div>
-    <div class="field"><label>Área / Superintendência <span class="req">*</span></label><input type="text" id="ar" placeholder="ex: SUPEC"></div>
-    <div class="field"><label>Model Owner (seu nome) <span class="req">*</span></label><input type="text" id="ow" placeholder="Nome completo"></div>
-    <div class="field"><label>Seu e-mail <span class="req">*</span></label><input type="text" id="oe" placeholder="seu@email.com" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false"></div>
-  </div>
-
-  <div class="card">
-    <div class="card-t">Contato Validação</div>
-    <div class="field"><label>E-mail Validação de Modelos</label><input type="text" id="ve" placeholder="validacao@email.com" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false"></div>
-    <div class="field"><label>E-mail Comitê (opcional)</label><input type="text" id="ce" placeholder="comite@email.com" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false"></div>
-  </div>
+<div class="card">
+<div class="card-t">Contato Validação</div>
+<div class="field"><label>E-mail Validação de Modelos</label><input type="text" id="ve" placeholder="validacao@email.com" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false"></div>
+<div class="field"><label>E-mail Comitê (opcional)</label><input type="text" id="ce" placeholder="comite@email.com" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false"></div>
+</div>
 </div>
 
 <div class="sep"></div>
 
-<!-- SEÇÃO 3: FONTES -->
+<div class="sec">
+<div class="sec-bar">Passo 2 — Fontes de Documentação</div>
 
-<div class="section">
-  <div class="section-title">Passo 2 — Fontes de Documentação</div>
+<div class="card">
+<div class="card-t">Tipo de Fonte</div>
+<div class="tiles" id="tiles">
+<div class="tile" data-s="pdf" onclick="togTile(this)"><div class="tile-i">&#128196;</div><div class="tile-l">PDF/Word</div></div>
+<div class="tile" data-s="sharepoint" onclick="togTile(this)"><div class="tile-i">&#9729;</div><div class="tile-l">SharePoint</div></div>
+<div class="tile" data-s="databricks" onclick="togTile(this)"><div class="tile-i">&#9889;</div><div class="tile-l">Databricks</div></div>
+<div class="tile" data-s="gcp" onclick="togTile(this)"><div class="tile-i">&#128309;</div><div class="tile-l">GCP</div></div>
+<div class="tile" data-s="python" onclick="togTile(this)"><div class="tile-i">&#128013;</div><div class="tile-l">Python/Jupyter</div></div>
+<div class="tile" data-s="r" onclick="togTile(this)"><div class="tile-i">&#128202;</div><div class="tile-l">R/RMarkdown</div></div>
+<div class="tile" data-s="git" onclick="togTile(this)"><div class="tile-i">&#128193;</div><div class="tile-l">Git/GitLab</div></div>
+<div class="tile" data-s="link" onclick="togTile(this)"><div class="tile-i">&#128279;</div><div class="tile-l">Link/URL</div></div>
+</div>
+</div>
 
-  <div class="card">
-    <div class="card-t">Tipo de Fonte</div>
-    <div class="tiles" id="tiles">
-      <div class="tile" data-s="pdf" onclick="togTile(this)"><div class="tile-i">&#128196;</div><div class="tile-l">PDF/Word</div></div>
-      <div class="tile" data-s="sharepoint" onclick="togTile(this)"><div class="tile-i">&#9729;</div><div class="tile-l">SharePoint</div></div>
-      <div class="tile" data-s="databricks" onclick="togTile(this)"><div class="tile-i">&#9889;</div><div class="tile-l">Databricks</div></div>
-      <div class="tile" data-s="gcp" onclick="togTile(this)"><div class="tile-i">&#128309;</div><div class="tile-l">GCP</div></div>
-      <div class="tile" data-s="python" onclick="togTile(this)"><div class="tile-i">&#128013;</div><div class="tile-l">Python/Jupyter</div></div>
-      <div class="tile" data-s="r" onclick="togTile(this)"><div class="tile-i">&#128202;</div><div class="tile-l">R/RMarkdown</div></div>
-      <div class="tile" data-s="git" onclick="togTile(this)"><div class="tile-i">&#128193;</div><div class="tile-l">Git/GitLab</div></div>
-      <div class="tile" data-s="link" onclick="togTile(this)"><div class="tile-i">&#128279;</div><div class="tile-l">Link/URL</div></div>
-    </div>
-  </div>
+<div class="card">
+<div class="card-t">Upload de Arquivos</div>
+<!-- INPUT VISÍVEL - sem position:relative/absolute em nenhum ancestral -->
+<input type="file" id="finp" multiple onchange="addFiles(this.files)" style="display:block;width:100%;padding:14px;border:2px dashed #005CA9;border-radius:10px;background:#EBF3FB;color:#005CA9;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;-webkit-appearance:none;margin-bottom:10px;">
+<div id="flist-ok" style="display:none;" class="ok"></div>
+<div id="flist"></div>
+</div>
 
-  <div class="card">
-    <div class="card-t">Upload de Arquivos</div>
-    <div style="margin-bottom:10px;">
-      <label for="finp" style="display:block;border:2px dashed #005CA9;border-radius:10px;padding:20px;text-align:center;background:#EBF3FB;cursor:pointer;">
-        <div style="font-size:28px;margin-bottom:8px;">&#11014;</div>
-        <div style="font-size:14px;font-weight:700;color:#005CA9;margin-bottom:4px;">Toque aqui para selecionar arquivos</div>
-        <div style="font-size:12px;color:#717A8C;">PDF, DOCX, .py, .ipynb, .txt e outros</div>
-      </label>
-      <input type="file" id="finp" multiple style="position:absolute;width:1px;height:1px;opacity:0;" onchange="addFiles(this.files)">
-    </div>
-    <div id="flist-count" style="display:none;background:#E6F4EE;border:1px solid rgba(27,127,79,.3);border-radius:8px;padding:10px 14px;margin-bottom:8px;font-size:14px;color:#1B7F4F;font-weight:600;"></div>
-    <div id="flist"></div>
-  </div>
+<div class="card">
+<div class="card-t">Links de Repositórios</div>
+<div class="link-row">
+<input type="text" id="linp" placeholder="https://..." inputmode="url" autocapitalize="none" autocorrect="off">
+<button class="ladd" type="button" onclick="addLink()">+ Add</button>
+</div>
+<div id="chips"></div>
+</div>
 
-  <div class="card">
-    <div class="card-t">Links de Repositórios</div>
-    <div class="link-row">
-      <input type="text" id="linp" placeholder="https://..." inputmode="url" autocapitalize="none" autocorrect="off">
-      <button class="ladd" type="button" onclick="addLink()">+ Add</button>
-    </div>
-    <div class="chips" id="chips"></div>
-  </div>
-
-  <div class="card">
-    <div class="card-t">Contexto Adicional (opcional)</div>
-    <textarea id="ctx" placeholder="Cole trechos de código ou descrições..."></textarea>
-  </div>
+<div class="card">
+<div class="card-t">Contexto Adicional (opcional)</div>
+<textarea id="ctx" placeholder="Cole trechos de código ou descrições do modelo..."></textarea>
+</div>
 </div>
 
 <div class="sep"></div>
 
-<!-- SEÇÃO 4: ANÁLISE -->
-
-<div class="section">
-  <div class="section-title">Passo 3 — Análise pelos Agentes</div>
-
-  <div class="tip"><span style="font-size:18px;flex-shrink:0;">&#129302;</span><div>Clique em <strong>Executar Análise</strong> abaixo. Os 5 agentes vão processar as informações e gerar o Model Card. Aguarde alguns segundos.</div></div>
-
-  <div class="loading-box" id="loading-box">
-    <div class="spin" id="spin" style="display:block;"></div>
-    <p id="loading-txt">Agentes trabalhando...</p>
-  </div>
-
-  <button class="btn-action" type="button" id="btn-analisar" onclick="executar()">
-    &#9654; Executar Análise
-  </button>
+<div class="sec">
+<div class="sec-bar">Passo 3 — Análise pelos Agentes</div>
+<div class="tip"><span style="font-size:18px;flex-shrink:0;">&#129302;</span><div>Clique em <strong>Executar Análise</strong>. Os 5 agentes processam e geram o Model Card. Aguarde alguns segundos.</div></div>
+<div id="loading" style="display:none;text-align:center;padding:24px 0;">
+<div class="spin"></div>
+<div id="loading-txt" style="font-size:14px;color:#717A8C;">Iniciando agentes...</div>
+</div>
+<button class="btn-run" type="button" id="btn-run" onclick="executar()">&#9654; Executar Análise</button>
 </div>
 
 <div class="sep"></div>
 
-<!-- SEÇÃO 5: MODEL CARD -->
-
-<div class="section" id="sec-mc" style="display:none;">
-  <div class="section-title">Passo 4 — Model Card Gerado</div>
-  <div id="mc-output"></div>
+<div class="sec" id="sec-mc" style="display:none;">
+<div class="sec-bar">Passo 4 — Model Card Gerado</div>
+<div id="mc-out"></div>
 </div>
 
-<div style="height:40px;"></div>
+<div style="height:50px;"></div>
 
 <script>
 var FILES=[],LINKS=[],SOURCES=[],RESULT=null,DECISION=null;
@@ -265,8 +238,7 @@ function togTile(el){
   var on=el.className.indexOf('on')>=0;
   el.className=on?'tile':'tile on';
   var idx=SOURCES.indexOf(s);
-  if(!on){if(idx<0)SOURCES.push(s);}
-  else{if(idx>=0)SOURCES.splice(idx,1);}
+  if(!on){if(idx<0)SOURCES.push(s);}else{if(idx>=0)SOURCES.splice(idx,1);}
 }
 
 function addFiles(fl){
@@ -279,42 +251,35 @@ function addFiles(fl){
   renderFiles();
 }
 function renderFiles(){
-  var h='',i;
+  var i,h='',ok=document.getElementById('flist-ok'),fl=document.getElementById('flist');
   for(i=0;i<FILES.length;i++){
-    h+='<div class="fi"><span style="font-size:12px;color:#717A8C;flex-shrink:0;">'+FILES[i].name.split('.').pop().toUpperCase()+'</span><span class="fi-n">'+FILES[i].name+'</span><button class="fi-r" type="button" onclick="rmF('+i+')">&#215;</button></div>';
+    h+='<div class="fi"><span style="font-size:11px;color:#717A8C;flex-shrink:0;font-weight:700;">'+FILES[i].name.split('.').pop().toUpperCase()+'</span><span class="fi-n">'+FILES[i].name+' ('+Math.round(FILES[i].size/1024)+'KB)</span><button class="fi-r" type="button" onclick="rmF('+i+')">&#215;</button></div>';
   }
-  document.getElementById('flist').innerHTML=h;
-  var fc=document.getElementById('flist-count');
-  if(fc){
-    if(FILES.length>0){
-      fc.style.display='block';
-      fc.innerHTML='&#9989; '+FILES.length+' arquivo'+(FILES.length>1?'s':'')+ ' carregado'+(FILES.length>1?'s':'')+':<br>'+FILES.map(function(f){return '&#8226; '+f.name+' ('+Math.round(f.size/1024)+'KB)';}).join('<br>');
-    } else {
-      fc.style.display='none';
-    }
+  if(fl)fl.innerHTML=h;
+  if(ok){
+    if(FILES.length>0){ok.style.display='block';ok.textContent='&#9989; '+FILES.length+' arquivo'+(FILES.length>1?'s':'')+' carregado'+(FILES.length>1?'s':'')+'.';}
+    else ok.style.display='none';
   }
 }
 function rmF(i){FILES.splice(i,1);renderFiles();}
 
 function addLink(){
-  var inp=document.getElementById('linp');
-  var v=inp.value.trim();if(!v)return;
-  var i,found=false;
+  var inp=document.getElementById('linp'),v=inp.value.trim(),i,found=false;
+  if(!v)return;
   for(i=0;i<LINKS.length;i++){if(LINKS[i]===v){found=true;break;}}
-  if(!found){LINKS.push(v);}
+  if(!found)LINKS.push(v);
   inp.value='';
   renderChips();
 }
 function renderChips(){
-  var h='',i;
-  for(i=0;i<LINKS.length;i++){
-    h+='<span class="chip">'+LINKS[i]+'<button class="chip-r" type="button" onclick="rmL('+i+')">&#215;</button></span> ';
-  }
+  var i,h='';
+  for(i=0;i<LINKS.length;i++){h+='<span class="chip">'+LINKS[i]+'<button type="button" onclick="rmL('+i+')" style="background:none;border:none;color:rgba(0,92,169,.5);cursor:pointer;font-size:14px;margin-left:4px;">&#215;</button></span>';}
   document.getElementById('chips').innerHTML=h;
 }
 function rmL(i){LINKS.splice(i,1);renderChips();}
 
 function GV(id){var e=document.getElementById(id);return(e&&e.value)?e.value.trim():'';}
+function G(id){return document.getElementById(id);}
 function wait(ms){return new Promise(function(r){setTimeout(r,ms);});}
 function makeUID(){return 'MDL-'+Math.random().toString(36).substr(2,6).toUpperCase();}
 
@@ -324,37 +289,23 @@ async function executar(){
   if(!ar){alert('Informe a Área.');return;}
   if(!ow){alert('Informe o Model Owner.');return;}
   if(!oe){alert('Informe seu e-mail.');return;}
-
-  var btn=document.getElementById('btn-analisar');
-  var lb=document.getElementById('loading-box');
-  var lt=document.getElementById('loading-txt');
-  btn.style.display='none';
-  lb.style.display='block';
-
-  var steps=['Agente de Ingestão: lendo fontes...','Agente RAG: extraindo informações...','Agente Classificador: identificando família e técnica...','Agente de Criticidade: calculando 6 dimensões...','Síntese: gerando Model Card...'];
-  var i;
-  for(i=0;i<steps.length;i++){
-    lt.textContent=steps[i];
-    await wait(i===1?1800:1200);
-  }
-
+  G('btn-run').style.display='none';
+  G('loading').style.display='block';
+  var steps=['Agente de Ingestão: lendo fontes...','Agente RAG: extraindo informações...','Agente Classificador: identificando técnica...','Agente de Criticidade: calculando dimensões...','Síntese: gerando Model Card...'],i;
+  for(i=0;i<steps.length;i++){G('loading-txt').textContent=steps[i];await wait(i===1?1800:1200);}
   RESULT=GV('api-key')?await callAPI(GV('api-key')):makeDemo();
-  lb.style.display='none';
-
-  var sec=document.getElementById('sec-mc');
-  sec.style.display='block';
+  G('loading').style.display='none';
+  var sec=G('sec-mc');sec.style.display='block';
   renderMC(RESULT);
   sec.scrollIntoView({behavior:'smooth'});
 }
 
 async function callAPI(key){
   var nm=GV('nm'),ar=GV('ar'),ow=GV('ow'),txt='',i;
-  for(i=0;i<FILES.length;i++){
-    try{var t=await readTxt(FILES[i]);txt+='\nARQ:'+FILES[i].name+'\n'+t.substring(0,3000);}catch(e){}
-  }
-  var prompt='Analise e gere Model Card em JSON puro sem markdown.\nModelo:'+nm+'\nArea:'+ar+'\nOwner:'+ow+'\nFontes:'+SOURCES.join(',')+'\nLinks:'+LINKS.join(',')+'\nCtx:'+GV('ctx')+(txt?'\n'+txt:'')+'\nRetorne SOMENTE este JSON:\n{"family":"string","technique":"string","description":"string","platform":"string","inputs":"string","outputs":"string","autonomy":"string","regulatory":"string","scores":{"D1":3,"D2":3,"D3":3,"D4":3,"D5":3,"D6":3},"weighted_score":3.0,"criticality_level":"N1","criticality_name":"Critico","tags":["tag"],"controls":[{"text":"texto","type":"crit"}],"validation_scope":"string","confidence":70,"confidence_note":"string"}';
+  for(i=0;i<FILES.length;i++){try{var t=await readTxt(FILES[i]);txt+='\nARQ:'+FILES[i].name+'\n'+t.substring(0,3000);}catch(e){}}
+  var p='Analise e gere Model Card em JSON puro sem markdown.\nModelo:'+nm+'\nArea:'+ar+'\nOwner:'+ow+'\nFontes:'+SOURCES.join(',')+'\nLinks:'+LINKS.join(',')+'\nCtx:'+GV('ctx')+(txt?'\n'+txt:'')+'\nRetorne SOMENTE este JSON:\n{"family":"string","technique":"string","description":"string","platform":"string","inputs":"string","outputs":"string","autonomy":"string","regulatory":"string","scores":{"D1":3,"D2":3,"D3":3,"D4":3,"D5":3,"D6":3},"weighted_score":3.0,"criticality_level":"N1","criticality_name":"Critico","tags":["tag"],"controls":[{"text":"texto","type":"crit"}],"validation_scope":"string","confidence":70,"confidence_note":"string"}';
   try{
-    var res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:2000,messages:[{role:'user',content:prompt}]})});
+    var res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:2000,messages:[{role:'user',content:p}]})});
     var data=await res.json();
     if(data.error)throw new Error(data.error.message);
     var raw=data.content.map(function(b){return b.text||'';}).join('');
@@ -362,10 +313,7 @@ async function callAPI(key){
     r.model_name=nm;r.model_area=ar;r.model_owner=ow;return r;
   }catch(e){console.error(e);var d=makeDemo();d.confidence_note='Erro API — usando demo.';return d;}
 }
-
-function makeDemo(){
-  return{model_name:GV('nm')||'Scoring de Crédito PF',model_area:GV('ar')||'SUPEC',model_owner:GV('ow')||'Demo',family:'Machine Learning',technique:'Gradient Boosting (XGBoost)',description:'Modelo para estimação de probabilidade de default em carteiras PF. Processa variáveis comportamentais e de bureau com alçada automática até R$50 mil.',platform:'Python + Databricks (MLflow)',inputs:'Score bureau, histórico de pagamentos, renda, tempo de relacionamento',outputs:'Score PD (0–1000), faixa de risco (A–G), limite recomendado',autonomy:'Automático até R$50 mil; aprovação humana acima',regulatory:'Basileia III / IFRS 9',scores:{D1:4,D2:4,D3:4,D4:3,D5:5,D6:3},weighted_score:3.90,criticality_level:'N1',criticality_name:'Crítico',tags:['credito-pf','pd-model','basileia-iii','xgboost'],controls:[{text:'Monitoramento contínuo PSI/KS/Gini',type:'crit'},{text:'Validação independente anual',type:'crit'},{text:'Plano de contingência semestral',type:'crit'},{text:'Análise de viés a cada recalibração',type:'warn'},{text:'SHAP values para contestações',type:'warn'},{text:'Aprovação do Comitê para alterações',type:'ok'}],validation_scope:'Validação Profunda N1: revisão conceitual, backtesting 24 meses, stress test, análise de fairness, SHAP/LIME.',confidence:72,confidence_note:'Confiança moderada-alta. Resultado de demonstração.'};
-}
+function makeDemo(){return{model_name:GV('nm')||'Scoring de Crédito PF',model_area:GV('ar')||'SUPEC',model_owner:GV('ow')||'Demo',family:'Machine Learning',technique:'Gradient Boosting (XGBoost)',description:'Modelo para estimação de probabilidade de default em carteiras PF. Processa variáveis comportamentais e de bureau com alçada automática até R$50 mil.',platform:'Python + Databricks (MLflow)',inputs:'Score bureau, histórico, renda, tempo de relacionamento',outputs:'Score PD (0–1000), faixa de risco (A–G), limite recomendado',autonomy:'Automático até R$50 mil; aprovação humana acima',regulatory:'Basileia III / IFRS 9',scores:{D1:4,D2:4,D3:4,D4:3,D5:5,D6:3},weighted_score:3.90,criticality_level:'N1',criticality_name:'Crítico',tags:['credito-pf','pd-model','basileia-iii','xgboost'],controls:[{text:'Monitoramento contínuo PSI/KS/Gini',type:'crit'},{text:'Validação independente anual',type:'crit'},{text:'Plano de contingência semestral',type:'crit'},{text:'Análise de viés a cada recalibração',type:'warn'},{text:'SHAP values para contestações',type:'warn'},{text:'Aprovação do Comitê para alterações',type:'ok'}],validation_scope:'Validação Profunda N1: revisão conceitual, backtesting 24 meses, stress test, análise de fairness, SHAP/LIME.',confidence:72,confidence_note:'Confiança moderada-alta. Resultado de demonstração.'};}
 function readTxt(f){return new Promise(function(res,rej){var r=new FileReader();r.onload=function(e){res(e.target.result);};r.onerror=rej;r.readAsText(f);});}
 
 function renderMC(r){
@@ -377,113 +325,49 @@ function renderMC(r){
   for(k in sc){scH+='<div class="scrow"><div class="scd">'+(dm[k]||k)+'</div><div class="sctrk"><div class="scf" style="width:'+((sc[k]/5)*100)+'%;"></div></div><div class="scv">'+sc[k]+'/5</div></div>';}
   var ctH=(r.controls||[]).map(function(c){return '<div class="ci '+(c.type||'')+'">'+(c.text||'')+'</div>';}).join('');
   var tgH=(r.tags||[]).map(function(t){return '<div class="tag">'+t+'</div>';}).join('');
-
   var h='';
-  h+='<div class="mc-hd">';
-  h+='<div class="mc-id">'+id+'</div>';
-  h+='<div class="mc-name">'+r.model_name+'</div>';
-  h+='<div class="mc-fam">'+r.family+' — '+r.technique+'</div>';
-  h+='<div class="mc-level"><div class="mc-ln">'+(r.criticality_level||'N3')+'</div><div class="mc-lname">'+(r.criticality_name||'')+'</div></div>';
-  h+='<div class="mc-meta">';
-  h+='<div><div class="mc-ml">Área</div><div class="mc-mv">'+r.model_area+'</div></div>';
-  h+='<div><div class="mc-ml">Owner</div><div class="mc-mv">'+r.model_owner+'</div></div>';
-  h+='<div><div class="mc-ml">Gerado</div><div class="mc-mv">'+ts+'</div></div>';
-  h+='<div><div class="mc-ml">Confiança</div><div class="mc-mv">'+r.confidence+'%</div></div>';
-  h+='</div></div>';
-
+  h+='<div class="mc-hd"><div class="mc-id">'+id+'</div><div class="mc-n">'+r.model_name+'</div><div class="mc-f">'+r.family+' — '+r.technique+'</div><div class="mc-lv"><div class="mc-ln">'+r.criticality_level+'</div><div class="mc-lname">'+r.criticality_name+'</div></div><div class="mc-meta"><div><div class="mc-ml">Área</div><div class="mc-mv">'+r.model_area+'</div></div><div><div class="mc-ml">Owner</div><div class="mc-mv">'+r.model_owner+'</div></div><div><div class="mc-ml">Gerado</div><div class="mc-mv">'+ts+'</div></div><div><div class="mc-ml">Confiança</div><div class="mc-mv">'+r.confidence+'%</div></div></div></div>';
   h+='<div class="card"><div class="card-t">Descrição</div><div class="txt">'+r.description+'</div></div>';
-
-  h+='<div class="card"><div class="card-t">Identificação Técnica</div><div class="ig">';
-  h+='<div class="ic"><div class="ic-l">Técnica</div><div class="ic-v">'+r.technique+'</div></div>';
-  h+='<div class="ic"><div class="ic-l">Plataforma</div><div class="ic-v">'+r.platform+'</div></div>';
-  h+='<div class="ic"><div class="ic-l">Inputs</div><div class="ic-v">'+r.inputs+'</div></div>';
-  h+='<div class="ic"><div class="ic-l">Outputs</div><div class="ic-v">'+r.outputs+'</div></div>';
-  h+='<div class="ic"><div class="ic-l">Autonomia</div><div class="ic-v">'+r.autonomy+'</div></div>';
-  h+='<div class="ic"><div class="ic-l">Regulatório</div><div class="ic-v">'+r.regulatory+'</div></div>';
-  h+='<div class="ic"><div class="ic-l">Fontes</div><div class="ic-v">'+(SOURCES.length?SOURCES.join(', '):'não especificadas')+'</div></div>';
-  h+='<div class="ic"><div class="ic-l">Chave</div><div class="ic-v" style="color:#005CA9;font-family:monospace;font-size:11px;">'+id+'</div></div>';
-  h+='</div></div>';
-
-  h+='<div class="card"><div class="card-t">Criticidade — Pontuação por Dimensão</div>'+scH;
-  h+='<div class="sctot"><div class="sctot-l">Pontuação Ponderada</div><div class="sctot-v">'+((r.weighted_score||0).toFixed(2))+'</div></div>';
-  h+='<div style="font-size:11px;color:#B8BEC9;margin-top:4px;">'+(r.confidence_note||'')+'</div></div>';
-
+  h+='<div class="card"><div class="card-t">Identificação Técnica</div><div class="ig"><div class="ic"><div class="ic-l">Técnica</div><div class="ic-v">'+r.technique+'</div></div><div class="ic"><div class="ic-l">Plataforma</div><div class="ic-v">'+r.platform+'</div></div><div class="ic"><div class="ic-l">Inputs</div><div class="ic-v">'+r.inputs+'</div></div><div class="ic"><div class="ic-l">Outputs</div><div class="ic-v">'+r.outputs+'</div></div><div class="ic"><div class="ic-l">Autonomia</div><div class="ic-v">'+r.autonomy+'</div></div><div class="ic"><div class="ic-l">Regulatório</div><div class="ic-v">'+r.regulatory+'</div></div><div class="ic"><div class="ic-l">Fontes</div><div class="ic-v">'+(SOURCES.length?SOURCES.join(', '):'não especificadas')+'</div></div><div class="ic"><div class="ic-l">Chave</div><div class="ic-v" style="color:#005CA9;font-family:monospace;font-size:11px;">'+id+'</div></div></div></div>';
+  h+='<div class="card"><div class="card-t">Criticidade</div>'+scH+'<div class="sctot"><div class="sctot-l">Pontuação Ponderada</div><div class="sctot-v">'+((r.weighted_score||0).toFixed(2))+'</div></div><div style="font-size:11px;color:#B8BEC9;margin-top:4px;">'+r.confidence_note+'</div></div>';
   h+='<div class="card"><div class="card-t">Tags</div><div class="tags">'+tgH+'</div></div>';
   h+='<div class="card"><div class="card-t">Controles Recomendados</div>'+ctH+'</div>';
   h+='<div class="card"><div class="card-t">Escopo de Validação</div><div class="txt">'+r.validation_scope+'</div></div>';
-
-  // E-mail owner
-  h+='<div class="card"><div class="card-t">Notificação — Model Owner</div>';
-  h+='<div style="font-size:12px;color:#B8BEC9;margin-bottom:8px;">Para: '+oe+'</div>';
-  h+='<div style="background:#F8F9FA;border:1px solid #DDE1E9;border-radius:8px;padding:12px;font-size:11px;color:#3C4353;line-height:1.75;white-space:pre-wrap;font-family:monospace;">'+eOwner(r,id,ts)+'</div></div>';
-
-  // E-mail validação
-  h+='<div class="card"><div class="card-t">Notificação — Validação de Modelos</div>';
-  h+='<div style="font-size:12px;color:#B8BEC9;margin-bottom:8px;">Para: '+ve+'</div>';
-  h+='<div style="background:#F8F9FA;border:1px solid #DDE1E9;border-radius:8px;padding:12px;font-size:11px;color:#3C4353;line-height:1.75;white-space:pre-wrap;font-family:monospace;">'+eVal(r,id,ts)+'</div></div>';
-
-  // Confirmação
+  h+='<div class="card"><div class="card-t">Notificação — Owner</div><div style="font-size:12px;color:#B8BEC9;margin-bottom:8px;">Para: '+oe+'</div><div class="email-pre">'+eOwner(r,id,ts)+'</div></div>';
+  h+='<div class="card"><div class="card-t">Notificação — Validação</div><div style="font-size:12px;color:#B8BEC9;margin-bottom:8px;">Para: '+ve+'</div><div class="email-pre">'+eVal(r,id,ts)+'</div></div>';
   h+='<div class="card"><div class="card-t">Sua Confirmação</div>';
-  h+='<div class="g2" style="margin-bottom:12px;">';
-  h+='<div class="field" style="margin:0;"><label>Corrigir Técnica</label><input type="text" id="mtech" placeholder="Confirme ou corrija..."></div>';
-  h+='<div class="field" style="margin:0;"><label>Corrigir Autonomia</label><select id="maut"><option value="">manter</option><option>100% automatizado</option><option>Revisão em exceções</option><option>Aprovação sistemática</option><option>Subsídio analítico</option><option>Apenas informativo</option></select></div>';
-  h+='</div>';
-  h+='<div class="field"><label>Observações</label><textarea id="mnotes" placeholder="Correções ou contexto adicional..."></textarea></div>';
+  h+='<div class="g2" style="margin-bottom:12px;"><div class="field" style="margin:0;"><label>Corrigir Técnica</label><input type="text" id="mtech" placeholder="Confirme ou corrija..."></div><div class="field" style="margin:0;"><label>Corrigir Autonomia</label><select id="maut"><option value="">manter</option><option>100% automatizado</option><option>Revisão em exceções</option><option>Aprovação sistemática</option><option>Subsídio analítico</option><option>Apenas informativo</option></select></div></div>';
+  h+='<div class="field"><label>Observações</label><textarea id="mnotes" placeholder="Correções ou contexto..."></textarea></div>';
 
-h+=’<div class="dec-row">’;
-h+=’<button class="dec-btn ap" type="button" id="btn-ap" onclick="setD(\'approve\')">✓ Confirmo!</button>’;
-h+=’<button class="dec-btn rj" type="button" id="btn-rj" onclick="setD(\'reject\')">✎ Solicito revisão</button>’;
+h+=’<div class="dec-row"><button class="dec-btn ap" type="button" id="btn-ap" onclick="setD(\'approve\')">✓ Confirmo!</button><button class="dec-btn rj" type="button" id="btn-rj" onclick="setD(\'reject\')">✎ Solicito revisão</button></div>’;
+h+=’<button class="btn-run" type="button" id="btn-fin" onclick="finish()" disabled style="opacity:.4;margin-top:12px;">Finalizar e Registrar</button>’;
+h+=’<div id="ok-final" style="display:none;" class="ok" style="margin-top:10px;"></div>’;
 h+=’</div>’;
-h+=’<button class="btn-action" type="button" id="btn-fin" onclick="finish()" disabled style="opacity:.4;">Finalizar e Registrar</button>’;
-h+=’<div class="ok-box" id="ok-box"></div>’;
+h+=’<div style="display:flex;gap:8px;padding-bottom:10px;">’;
+h+=’<button class="btn-s" type="button" onclick="expJ()">↓ JSON</button>’;
+h+=’<button class="btn-s" type="button" onclick="expT()">↓ TXT</button>’;
+h+=’<button class="btn-s" type="button" onclick="window.print()">↓ PDF</button>’;
 h+=’</div>’;
-
-// Exportar
-h+=’<div style="display:flex;gap:8px;padding:0 0 20px;">’;
-h+=’<button class="btn-action sec" style="font-size:13px;padding:10px;margin-top:0;" type="button" onclick="expJ()">↓ JSON</button>’;
-h+=’<button class="btn-action sec" style="font-size:13px;padding:10px;margin-top:0;" type="button" onclick="expT()">↓ TXT</button>’;
-h+=’<button class="btn-action sec" style="font-size:13px;padding:10px;margin-top:0;" type="button" onclick="window.print()">↓ PDF</button>’;
-h+=’</div>’;
-
-document.getElementById(‘mc-output’).innerHTML=h;
+G(‘mc-out’).innerHTML=h;
 }
-
 function eOwner(r,id,ts){return ‘Prezado(a) ‘+r.model_owner+’,\n\nCatalogação concluída!\n\nID: ‘+id+’\nModelo: ‘+r.model_name+’\nNível: ‘+r.criticality_level+’ — ‘+r.criticality_name+’\nPontuação: ‘+((r.weighted_score||0).toFixed(2))+’/5\nGerado: ‘+ts+’\n\nPróximos passos:\n1. Revise o Model Card\n2. Confirme ou solicite revisão\n\nEquipe ModelScan’;}
-function eVal(r,id,ts){return ‘Equipe de Validação,\n\nNovo modelo catalogado — Criticidade ‘+r.criticality_level+’.\n\nID: ‘+id+’\nModelo: ‘+r.model_name+’\nÁrea: ‘+r.model_area+’\nOwner: ‘+r.model_owner+’\nNível: ‘+r.criticality_level+’ — ‘+r.criticality_name+’\nPontuação: ‘+((r.weighted_score||0).toFixed(2))+’/5\n\nAguarda validação.\nModelScan’;}
-
+function eVal(r,id,ts){return ‘Equipe de Validação,\n\nNovo modelo — criticidade ‘+r.criticality_level+’.\n\nID: ‘+id+’\nModelo: ‘+r.model_name+’\nÁrea: ‘+r.model_area+’\nOwner: ‘+r.model_owner+’\nNível: ‘+r.criticality_level+’ — ‘+r.criticality_name+’\nPontuação: ‘+((r.weighted_score||0).toFixed(2))+’/5\n\nAguarda validação.\nModelScan’;}
 function setD(d){
 DECISION=d;
-var ba=document.getElementById(‘btn-ap’);
-var br=document.getElementById(‘btn-rj’);
-var bf=document.getElementById(‘btn-fin’);
+var ba=G(‘btn-ap’),br=G(‘btn-rj’),bf=G(‘btn-fin’);
 if(ba)ba.className=‘dec-btn ap’+(d===‘approve’?’ on’:’’);
 if(br)br.className=‘dec-btn rj’+(d===‘reject’?’ on’:’’);
 if(bf){bf.disabled=false;bf.style.opacity=‘1’;}
 }
-
 function finish(){
 if(!DECISION)return;
-var ts=new Date().toLocaleString(‘pt-BR’);
-var ow=GV(‘ow’);
-var ob=document.getElementById(‘ok-box’);
-var bf=document.getElementById(‘btn-fin’);
+var ts=new Date().toLocaleString(‘pt-BR’),ow=GV(‘ow’);
+var bf=G(‘btn-fin’),ob=G(‘ok-final’);
 if(bf){bf.disabled=true;bf.style.opacity=’.4’;bf.textContent=DECISION===‘approve’?‘Registrado!’:‘Revisão solicitada’;}
-if(ob){
-ob.style.display=‘block’;
-ob.innerHTML=DECISION===‘approve’
-?’✅ <strong>Registrado com sucesso!</strong><br>Chave: <strong>’+(RESULT&&RESULT.uid||’’)+’</strong><br>Confirmado por ‘+ow+’ em ‘+ts
-:’✎ <strong>Revisão solicitada.</strong><br>Notificação enviada ao Owner em ’+ts;
-ob.scrollIntoView({behavior:‘smooth’});
+if(ob){ob.style.display=‘block’;ob.innerHTML=DECISION===‘approve’?’✅ Registrado! Chave: <strong>’+(RESULT.uid||’’)+’</strong><br>Por ‘+ow+’ em ‘+ts:’✎ Revisão solicitada por ‘+ow+’ em ‘+ts;}
 }
-}
-
-function expJ(){if(!RESULT)return;var a=document.createElement(‘a’);a.href=URL.createObjectURL(new Blob([JSON.stringify(RESULT,null,2)],{type:‘application/json’}));a.download=‘model-card-’+(RESULT.uid||‘mc’)+’.json’;document.body.appendChild(a);a.click();document.body.removeChild(a);}
-function expT(){
-if(!RESULT)return;
-var r=RESULT;
-var t=‘MODEL CARD — ‘+r.model_name+’\nChave: ‘+r.uid+’\nGerado: ‘+new Date().toLocaleString(‘pt-BR’)+’\nOwner: ‘+r.model_owner+’ | ‘+r.model_area+’\nNível: ‘+r.criticality_level+’ — ‘+r.criticality_name+’\nPontuação: ‘+((r.weighted_score||0).toFixed(2))+’/5\n\nDescrição:\n’+r.description+’\n\nEscopo de Validação:\n’+r.validation_scope;
-var a=document.createElement(‘a’);a.href=URL.createObjectURL(new Blob([t],{type:‘text/plain’}));a.download=‘model-card-’+(RESULT.uid||‘mc’)+’.txt’;document.body.appendChild(a);a.click();document.body.removeChild(a);
-}
+function expJ(){if(!RESULT)return;var a=document.createElement(‘a’);a.href=URL.createObjectURL(new Blob([JSON.stringify(RESULT,null,2)],{type:‘application/json’}));a.download=‘mc-’+(RESULT.uid||‘mc’)+’.json’;document.body.appendChild(a);a.click();document.body.removeChild(a);}
+function expT(){if(!RESULT)return;var t=‘MODEL CARD: ‘+RESULT.model_name+’\nChave: ‘+RESULT.uid+’\nNível: ‘+RESULT.criticality_level+’ — ‘+RESULT.criticality_name+’\nPontuação: ‘+((RESULT.weighted_score||0).toFixed(2))+’/5\n\nDescrição:\n’+RESULT.description+’\n\nEscopo:\n’+RESULT.validation_scope;var a=document.createElement(‘a’);a.href=URL.createObjectURL(new Blob([t],{type:‘text/plain’}));a.download=‘mc-’+(RESULT.uid||‘mc’)+’.txt’;document.body.appendChild(a);a.click();document.body.removeChild(a);}
 </script>
 
 </body>

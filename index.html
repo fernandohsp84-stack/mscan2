@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ModelScan [DEBUG]</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#F0F2F5;color:#1A1D23;font-size:15px;}
+.hdr{background:#003F7A;padding:14px 16px;display:flex;align-items:center;gap:10px;}
+.hdr-icon{width:28px;height:28px;background:#F47920;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hdr-name{font-size:17px;font-weight:700;color:#fff;}
+.hdr-dbg{font-size:10px;font-weight:700;color:#F47920;background:rgba(244,121,32,.2);border-radius:4px;padding:2px 7px;margin-left:4px;}
+.sec{padding:16px 14px;}
+.sec-bar{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#fff;background:#005CA9;padding:8px 14px;margin:0 -14px 14px;}
+.card{background:#fff;border-radius:10px;padding:16px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.08);}
+.card-t{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#9BA3B2;margin-bottom:12px;padding-bottom:9px;border-bottom:1px solid #ECEEF2;}
+.tip{display:flex;gap:10px;padding:13px 14px;border-radius:10px;background:#E5F3F4;border:1px solid rgba(13,115,119,.2);color:#0D7377;font-size:13px;line-height:1.6;margin-bottom:14px;}
+.field{margin-bottom:14px;}
+.field:last-child{margin-bottom:0;}
+label{display:block;font-size:13px;font-weight:600;color:#3C4353;margin-bottom:5px;}
+.req{color:#F47920;}
+input[type=text],input[type=password],input[type=email],input[type=url],textarea,select{width:100%;border:1.5px solid #D0D5DD;border-radius:8px;padding:12px;font-size:15px;color:#1A1D23;background:#fff;font-family:inherit;-webkit-appearance:none;outline:none;display:block;}
+input:focus,textarea:focus{border-color:#005CA9;}
+textarea{resize:vertical;min-height:80px;}
+.key-row{display:flex;gap:8px;}
+.key-row input{flex:1;}
+.eye{background:#F0F2F5;border:1.5px solid #D0D5DD;border-radius:8px;padding:0 13px;font-size:16px;cursor:pointer;-webkit-appearance:none;flex-shrink:0;}
+.tiles{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;}
+@media(max-width:400px){.tiles{grid-template-columns:1fr 1fr;}}
+.tile{border:1.5px solid #D0D5DD;border-radius:8px;padding:12px 6px;cursor:pointer;text-align:center;background:#fff;}
+.tile.on{border-color:#005CA9;background:#EBF3FB;}
+.tile-i{font-size:18px;margin-bottom:4px;}
+.tile-l{font-size:10px;font-weight:600;color:#717A8C;}
+.tile.on .tile-l{color:#005CA9;}
+.fi{display:flex;align-items:center;gap:8px;background:#F8F9FA;border:1px solid #ECEEF2;border-radius:6px;padding:8px 10px;margin-top:6px;}
+.fi-n{flex:1;font-size:12px;color:#3C4353;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.fi-r{background:none;border:none;color:#B8BEC9;font-size:18px;cursor:pointer;-webkit-appearance:none;padding:0 4px;}
+.link-row{display:flex;gap:8px;margin-bottom:8px;}
+.link-row input{flex:1;}
+.ladd{background:#F0F2F5;border:1.5px solid #D0D5DD;border-radius:8px;padding:0 14px;font-size:14px;font-family:inherit;cursor:pointer;-webkit-appearance:none;color:#005CA9;font-weight:600;white-space:nowrap;}
+.chip{display:inline-block;background:#EBF3FB;border:1px solid rgba(0,92,169,.2);border-radius:20px;padding:4px 10px;font-size:12px;color:#005CA9;margin:3px 4px 3px 0;}
+.btn-run{display:block;width:100%;padding:17px;background:#005CA9;color:#fff;border:none;border-radius:10px;font-size:17px;font-weight:700;cursor:pointer;font-family:inherit;-webkit-appearance:none;margin-top:14px;text-align:center;-webkit-tap-highlight-color:rgba(255,255,255,.3);}
+.btn-run:active{background:#003F7A;}
+.btn-run:disabled{opacity:.5;cursor:not-allowed;}
+.btn-s{display:inline-block;padding:11px 16px;background:#fff;color:#3C4353;border:1.5px solid #D0D5DD;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;-webkit-appearance:none;margin-top:0;}
+.ok{background:#E6F4EE;border:1px solid rgba(27,127,79,.3);border-radius:10px;padding:14px;margin-bottom:12px;font-size:14px;color:#1B7F4F;font-weight:600;line-height:1.6;}
+.mc-hd{background:linear-gradient(135deg,#003F7A,#1A6DC4);border-radius:10px;padding:18px;color:#fff;margin-bottom:12px;}
+.mc-id{font-family:monospace;font-size:11px;color:rgba(255,255,255,.7);background:rgba(255,255,255,.12);padding:2px 9px;border-radius:20px;display:inline-block;margin-bottom:8px;}
+.mc-n{font-size:18px;font-weight:700;margin-bottom:3px;}
+.mc-f{font-size:12px;color:rgba(255,255,255,.6);margin-bottom:12px;}
+.mc-lv{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border-radius:8px;padding:8px 12px;}
+.mc-ln{font-size:22px;font-weight:800;}
+.mc-lname{font-size:12px;color:rgba(255,255,255,.8);}
+.mc-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+.mc-ml{font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;margin-bottom:1px;}
+.mc-mv{font-size:12px;color:rgba(255,255,255,.85);}
+.ig{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px;}
+.ic{background:#F8F9FA;border:1px solid #ECEEF2;border-radius:7px;padding:9px 11px;}
+.ic-l{font-size:9px;font-weight:700;color:#B8BEC9;text-transform:uppercase;margin-bottom:2px;}
+.ic-v{font-size:12px;color:#1A1D23;line-height:1.4;}
+.scrow{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.scd{font-size:11px;color:#717A8C;width:110px;flex-shrink:0;}
+.sctrk{flex:1;height:5px;background:#ECEEF2;border-radius:3px;overflow:hidden;}
+.scf{height:100%;border-radius:3px;background:#005CA9;}
+.scv{font-size:11px;color:#B8BEC9;width:24px;text-align:right;flex-shrink:0;}
+.sctot{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:#EBF3FB;border-radius:6px;margin-top:8px;}
+.sctot-l{font-size:12px;font-weight:700;color:#005CA9;}
+.sctot-v{font-size:20px;font-weight:800;color:#005CA9;}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;}
+.tag{background:#ECEEF2;border-radius:20px;padding:3px 9px;font-size:11px;color:#717A8C;}
+.ci{padding:9px 11px;border-radius:6px;border-left:3px solid;font-size:13px;color:#3C4353;line-height:1.5;margin-bottom:5px;}
+.ci.crit{background:#FBECEC;border-color:#B83232;}
+.ci.warn{background:#FDF5E6;border-color:#9A6200;}
+.ci.ok{background:#E6F4EE;border-color:#1B7F4F;}
+.txt{font-size:13px;color:#717A8C;line-height:1.7;}
+.dec-row{display:flex;gap:8px;margin-top:10px;}
+.dec-btn{flex:1;padding:13px;border-radius:8px;border:1.5px solid #D0D5DD;background:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;-webkit-appearance:none;color:#717A8C;}
+.dec-btn.ap.on{border-color:#1B7F4F;background:#E6F4EE;color:#1B7F4F;}
+.dec-btn.rj.on{border-color:#9A6200;background:#FDF5E6;color:#9A6200;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:440px){.g2{grid-template-columns:1fr;}}
+.spin{width:36px;height:36px;border:3px solid #ECEEF2;border-top-color:#005CA9;border-radius:50%;margin:0 auto 12px;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.sep{height:2px;background:#D0D5DD;margin:4px 0 0;}
+.email-pre{background:#F8F9FA;border:1px solid #DDE1E9;border-radius:8px;padding:12px;font-size:11px;color:#3C4353;line-height:1.75;white-space:pre-wrap;font-family:monospace;word-break:break-all;}
+.err-banner{background:#FBECEC;border:1px solid rgba(184,50,50,.3);border-radius:8px;padding:12px 14px;font-size:13px;color:#B83232;margin-bottom:12px;display:none;}
+
+/* ── PAINEL DE DEBUG ── */
+#dbg-panel{background:#0D1117;border-radius:10px;padding:12px;margin-bottom:12px;}
+#dbg-panel .dbg-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#F47920;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+#dbg-log{font-family:monospace;font-size:11px;color:#E6EDF3;line-height:1.8;max-height:220px;overflow-y:auto;word-break:break-all;}
+#dbg-log .d-ok  {color:#3FB950;}
+#dbg-log .d-err {color:#F85149;}
+#dbg-log .d-inf {color:#58A6FF;}
+#dbg-log .d-warn{color:#D29922;}
+.dbg-clear{background:none;border:1px solid #30363D;border-radius:4px;color:#8B949E;font-size:10px;padding:2px 8px;cursor:pointer;font-family:inherit;}
+</style>
+
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-icon">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <rect x=".5" y=".5" width="13" height="13" rx="2" stroke="white" stroke-width="1.2" fill="none"/>
+      <path d="M3 7h8M7 3v8" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="hdr-name">ModelScan</div>
+  <span class="hdr-dbg">DEBUG</span>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAINEL DE DEBUG — visível na tela do iPhone
+     ═══════════════════════════════════════ -->
+
+<div class="sec">
+  <div class="sec-bar">🔍 Painel de Debug</div>
+  <div id="dbg-panel">
+    <div class="dbg-title">
+      <span>LOG EM TEMPO REAL</span>
+      <button class="dbg-clear" onclick="clearLog()">Limpar</button>
+    </div>
+    <div id="dbg-log"><span class="d-inf">▶ Aguardando ação...</span></div>
+  </div>
+  <div style="font-size:11px;color:#B8BEC9;margin-bottom:4px;">
+    Após o teste, tire um print desta tela e envie para diagnóstico.
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<div class="sec">
+<div class="sec-bar">Sobre o ModelScan</div>
+<div class="card">
+<div class="card-t">O que é?</div>
+<p class="txt">O ModelScan <strong style="color:#1A1D23;">substitui formulários de autodeclaração</strong> por um processo guiado assistido por <strong style="color:#1A1D23;">5 agentes de IA</strong>. Você informa onde está a documentação e os agentes leem, classificam e geram o <strong style="color:#1A1D23;">Model Card completo</strong> automaticamente.</p>
+</div>
+</div>
+
+<div class="sep"></div>
+
+<div class="sec">
+<div class="sec-bar">Passo 1 — Identificação</div>
+
+<div class="card">
+<div class="card-t">Acesso à API</div>
+<div class="field">
+<label>Chave API Anthropic</label>
+<div class="key-row">
+<input type="password" id="api-key" placeholder="sk-ant-... (vazio = modo demo)" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false">
+<button class="eye" type="button" onclick="var i=document.getElementById('api-key');i.type=i.type==='password'?'text':'password';">👁</button>
+</div>
+<div style="font-size:11px;color:#B8BEC9;margin-top:5px;">Gere em <a href="https://console.anthropic.com" style="color:#005CA9;">console.anthropic.com</a></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-t">Dados do Modelo</div>
+<div class="field"><label>Nome do Modelo <span class="req">*</span></label><input type="text" id="nm" placeholder="ex: Scoring de Crédito PF"></div>
+<div class="field"><label>Área / Superintendência <span class="req">*</span></label><input type="text" id="ar" placeholder="ex: SUPEC"></div>
+<div class="field"><label>Model Owner — seu nome <span class="req">*</span></label><input type="text" id="ow" placeholder="Nome completo"></div>
+<div class="field"><label>Seu e-mail <span class="req">*</span></label><input type="text" id="oe" placeholder="seu@email.com" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false"></div>
+</div>
+
+<div class="card">
+<div class="card-t">Contato Validação</div>
+<div class="field"><label>E-mail Validação de Modelos</label><input type="text" id="ve" placeholder="validacao@email.com" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false"></div>
+<div class="field"><label>E-mail Comitê (opcional)</label><input type="text" id="ce" placeholder="comite@email.com" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false"></div>
+</div>
+</div>
+
+<div class="sep"></div>
+
+<div class="sec">
+<div class="sec-bar">Passo 2 — Fontes de Documentação</div>
+<div class="card">
+<div class="card-t">Tipo de Fonte</div>
+<div class="tiles" id="tiles">
+<div class="tile" data-s="pdf"        onclick="togTile(this)"><div class="tile-i">📄</div><div class="tile-l">PDF/Word</div></div>
+<div class="tile" data-s="sharepoint" onclick="togTile(this)"><div class="tile-i">☁</div><div class="tile-l">SharePoint</div></div>
+<div class="tile" data-s="databricks" onclick="togTile(this)"><div class="tile-i">⚡</div><div class="tile-l">Databricks</div></div>
+<div class="tile" data-s="gcp"        onclick="togTile(this)"><div class="tile-i">🔵</div><div class="tile-l">GCP</div></div>
+<div class="tile" data-s="python"     onclick="togTile(this)"><div class="tile-i">🐍</div><div class="tile-l">Python/Jupyter</div></div>
+<div class="tile" data-s="r"          onclick="togTile(this)"><div class="tile-i">📊</div><div class="tile-l">R/RMarkdown</div></div>
+<div class="tile" data-s="git"        onclick="togTile(this)"><div class="tile-i">📁</div><div class="tile-l">Git/GitLab</div></div>
+<div class="tile" data-s="link"       onclick="togTile(this)"><div class="tile-i">🔗</div><div class="tile-l">Link/URL</div></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-t">Upload de Arquivos</div>
+<input type="file" id="finp" multiple onchange="addFiles(this.files)" style="display:block;width:100%;padding:14px;border:2px dashed #005CA9;border-radius:10px;background:#EBF3FB;color:#005CA9;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;-webkit-appearance:none;margin-bottom:10px;">
+<div id="flist-ok" style="display:none;" class="ok"></div>
+<div id="flist"></div>
+</div>
+
+<div class="card">
+<div class="card-t">Links de Repositórios</div>
+<div class="link-row">
+<input type="text" id="linp" placeholder="https://..." inputmode="url" autocapitalize="none" autocorrect="off">
+<button class="ladd" type="button" onclick="addLink()">+ Add</button>
+</div>
+<div id="chips"></div>
+</div>
+
+<div class="card">
+<div class="card-t">Contexto Adicional (opcional)</div>
+<textarea id="ctx" placeholder="Cole trechos de código ou descrições do modelo..."></textarea>
+</div>
+</div>
+
+<div class="sep"></div>
+
+<div class="sec">
+<div class="sec-bar">Passo 3 — Análise pelos Agentes</div>
+<div class="tip"><span style="font-size:18px;flex-shrink:0;">🤖</span><div>Clique em <strong>Executar Análise</strong>. Os 5 agentes processam e geram o Model Card.</div></div>
+<div id="err-banner" class="err-banner"></div>
+<div id="loading" style="display:none;text-align:center;padding:24px 0;">
+<div class="spin"></div>
+<div id="loading-txt" style="font-size:14px;color:#717A8C;">Iniciando agentes...</div>
+</div>
+<button class="btn-run" type="button" id="btn-run" onclick="executar()">▶ Executar Análise</button>
+</div>
+
+<div class="sep"></div>
+
+<div class="sec" id="sec-mc" style="display:none;">
+<div class="sec-bar">Passo 4 — Model Card Gerado</div>
+<div id="mc-out"></div>
+</div>
+
+<div style="height:50px;"></div>
+
+<script>
+/* ═══════════════════════════════════════════
+   SISTEMA DE DEBUG VISUAL
+   Substitui console.log — aparece na tela
+   ═══════════════════════════════════════════ */
+var _dbgLines = [];
+function dbg(msg, type) {
+  type = type || 'inf';
+  var ts = new Date().toLocaleTimeString('pt-BR');
+  var cls = {ok:'d-ok', err:'d-err', inf:'d-inf', warn:'d-warn'}[type] || 'd-inf';
+  var icon = {ok:'✓', err:'✗', inf:'•', warn:'⚠'}[type] || '•';
+  _dbgLines.push('<span class="' + cls + '">[' + ts + '] ' + icon + ' ' + msg + '</span>');
+  if (_dbgLines.length > 60) _dbgLines.shift();
+  var el = document.getElementById('dbg-log');
+  if (el) { el.innerHTML = _dbgLines.join('<br>'); el.scrollTop = el.scrollHeight; }
+}
+function clearLog() { _dbgLines = []; var el = document.getElementById('dbg-log'); if(el) el.innerHTML = '<span class="d-inf">▶ Log limpo.</span>'; }
+
+/* Captura erros globais não tratados */
+window.onerror = function(msg, src, line, col, err) {
+  dbg('ERRO GLOBAL: ' + msg + ' (linha ' + line + ')', 'err');
+  return false;
+};
+window.onunhandledrejection = function(e) {
+  dbg('PROMISE REJEITADA: ' + (e.reason && e.reason.message ? e.reason.message : String(e.reason)), 'err');
+};
+
+/* Log inicial — confirma que o JS carregou */
+dbg('Script carregado. Safari: ' + /Safari/.test(navigator.userAgent) + ' | iOS: ' + /iPhone|iPad/.test(navigator.userAgent), 'ok');
+dbg('URL: ' + window.location.href, 'inf');
+
+/* ═══════════════════════════════════════════
+   VARIÁVEIS GLOBAIS
+   ═══════════════════════════════════════════ */
+var FILES = [], LINKS = [], SOURCES = [], RESULT = null, DECISION = null;
+
+function togTile(el) {
+  var s = el.getAttribute('data-s');
+  var on = el.className.indexOf('on') >= 0;
+  el.className = on ? 'tile' : 'tile on';
+  var idx = SOURCES.indexOf(s);
+  if (!on) { if (idx < 0) SOURCES.push(s); }
+  else { if (idx >= 0) SOURCES.splice(idx, 1); }
+  dbg('Fonte toggled: ' + s + ' → ' + (!on ? 'ON' : 'OFF'), 'inf');
+}
+
+function addFiles(fl) {
+  var i, f, j, found;
+  for (i = 0; i < fl.length; i++) {
+    f = fl[i]; found = false;
+    for (j = 0; j < FILES.length; j++) { if (FILES[j].name === f.name) { found = true; break; } }
+    if (!found) FILES.push(f);
+  }
+  dbg('Arquivos: ' + FILES.length + ' carregado(s)', 'ok');
+  renderFiles();
+}
+
+function renderFiles() {
+  var i, h = '', ok = document.getElementById('flist-ok'), fl = document.getElementById('flist');
+  for (i = 0; i < FILES.length; i++) {
+    h += '<div class="fi"><span style="font-size:11px;color:#717A8C;flex-shrink:0;font-weight:700;">' + FILES[i].name.split('.').pop().toUpperCase() + '</span><span class="fi-n">' + FILES[i].name + ' (' + Math.round(FILES[i].size / 1024) + 'KB)</span><button class="fi-r" type="button" onclick="rmF(' + i + ')">✕</button></div>';
+  }
+  if (fl) fl.innerHTML = h;
+  if (ok) {
+    if (FILES.length > 0) { ok.style.display = 'block'; ok.textContent = '✅ ' + FILES.length + ' arquivo(s) carregado(s).'; }
+    else ok.style.display = 'none';
+  }
+}
+function rmF(i) { FILES.splice(i, 1); renderFiles(); }
+
+function addLink() {
+  var inp = document.getElementById('linp'), v = inp.value.trim(), i, found = false;
+  if (!v) return;
+  for (i = 0; i < LINKS.length; i++) { if (LINKS[i] === v) { found = true; break; } }
+  if (!found) LINKS.push(v);
+  inp.value = '';
+  dbg('Link adicionado: ' + v, 'inf');
+  renderChips();
+}
+function renderChips() {
+  var i, h = '';
+  for (i = 0; i < LINKS.length; i++) {
+    h += '<span class="chip">' + LINKS[i] + '<button type="button" onclick="rmL(' + i + ')" style="background:none;border:none;color:rgba(0,92,169,.5);cursor:pointer;font-size:14px;margin-left:4px;">✕</button></span>';
+  }
+  document.getElementById('chips').innerHTML = h;
+}
+function rmL(i) { LINKS.splice(i, 1); renderChips(); }
+
+function GV(id) { var e = document.getElementById(id); return (e && e.value) ? e.value.trim() : ''; }
+function G(id)  { return document.getElementById(id); }
+function wait(ms) { return new Promise(function(r) { setTimeout(r, ms); }); }
+function makeUID() { return 'MDL-' + Math.random().toString(36).substr(2, 6).toUpperCase(); }
+
+function showErr(msg) {
+  dbg(msg, 'err');
+  var b = G('err-banner');
+  if (b) { b.textContent = '⚠️ ' + msg; b.style.display = 'block'; }
+}
+function hideErr() {
+  var b = G('err-banner');
+  if (b) b.style.display = 'none';
+}
+function resetBtn() {
+  dbg('Botão restaurado.', 'warn');
+  var btn = G('btn-run');
+  if (btn) { btn.style.display = 'block'; btn.disabled = false; }
+  G('loading').style.display = 'none';
+}
+
+/* ═══════════════════════════════════════════
+   EXECUTAR ANÁLISE
+   ═══════════════════════════════════════════ */
+async function executar() {
+  dbg('executar() chamado.', 'inf');
+
+  var nm = GV('nm'), ar = GV('ar'), ow = GV('ow'), oe = GV('oe');
+  dbg('nm="' + nm + '" ar="' + ar + '" ow="' + ow + '" oe="' + oe + '"', 'inf');
+
+  if (!nm) { dbg('BLOQUEIO: Nome do modelo vazio.', 'err'); alert('Informe o Nome do Modelo.'); return; }
+  if (!ar) { dbg('BLOQUEIO: Área vazia.', 'err'); alert('Informe a Área.'); return; }
+  if (!ow) { dbg('BLOQUEIO: Owner vazio.', 'err'); alert('Informe o Model Owner.'); return; }
+  if (!oe) { dbg('BLOQUEIO: E-mail vazio.', 'err'); alert('Informe seu e-mail.'); return; }
+
+  var hasKey = !!GV('api-key');
+  dbg('Chave API presente: ' + hasKey, hasKey ? 'ok' : 'warn');
+
+  hideErr();
+  G('btn-run').style.display = 'none';
+  G('loading').style.display = 'block';
+  dbg('Spinner exibido. Iniciando steps...', 'inf');
+
+  var steps = [
+    'Agente de Ingestão: lendo fontes...',
+    'Agente RAG: extraindo informações...',
+    'Agente Classificador: identificando técnica...',
+    'Agente de Criticidade: calculando dimensões...',
+    'Síntese: gerando Model Card...'
+  ], i;
+
+  for (i = 0; i < steps.length; i++) {
+    G('loading-txt').textContent = steps[i];
+    dbg('Step ' + (i+1) + '/5: ' + steps[i], 'inf');
+    await wait(i === 1 ? 1800 : 1200);
+  }
+
+  dbg('Steps concluídos. Chamando ' + (hasKey ? 'callAPI()' : 'makeDemo()'), 'inf');
+
+  try {
+    RESULT = hasKey ? await callAPI(GV('api-key')) : makeDemo();
+    dbg('Resultado obtido. Renderizando Model Card...', 'ok');
+  } catch (e) {
+    dbg('EXCEÇÃO em executar(): ' + e.message, 'err');
+    resetBtn();
+    showErr('Erro inesperado: ' + e.message);
+    return;
+  }
+
+  G('loading').style.display = 'none';
+  var sec = G('sec-mc');
+  sec.style.display = 'block';
+  dbg('sec-mc exibido. Chamando renderMC()...', 'inf');
+  renderMC(RESULT);
+  dbg('renderMC() concluído. ✅ Fluxo completo.', 'ok');
+  sec.scrollIntoView({ behavior: 'smooth' });
+}
+
+/* ═══════════════════════════════════════════
+   CHAMADA À API
+   ═══════════════════════════════════════════ */
+async function callAPI(key) {
+  dbg('callAPI() iniciado.', 'inf');
+  var nm = GV('nm'), ar = GV('ar'), ow = GV('ow'), txt = '', i;
+
+  for (i = 0; i < FILES.length; i++) {
+    try {
+      dbg('Lendo arquivo: ' + FILES[i].name, 'inf');
+      var t = await readTxt(FILES[i]);
+      txt += '\nARQ:' + FILES[i].name + '\n' + t.substring(0, 3000);
+      dbg('Arquivo lido: ' + FILES[i].name + ' (' + t.length + ' chars)', 'ok');
+    } catch (e) {
+      dbg('Erro ao ler ' + FILES[i].name + ': ' + e.message, 'warn');
+    }
+  }
+
+  var p = 'Analise e gere Model Card em JSON puro sem markdown.\nModelo:' + nm + '\nArea:' + ar + '\nOwner:' + ow + '\nFontes:' + SOURCES.join(',') + '\nLinks:' + LINKS.join(',') + '\nCtx:' + GV('ctx') + (txt ? '\n' + txt : '') + '\nRetorne SOMENTE este JSON:\n{"family":"string","technique":"string","description":"string","platform":"string","inputs":"string","outputs":"string","autonomy":"string","regulatory":"string","scores":{"D1":3,"D2":3,"D3":3,"D4":3,"D5":3,"D6":3},"weighted_score":3.0,"criticality_level":"N1","criticality_name":"Critico","tags":["tag"],"controls":[{"text":"texto","type":"crit"}],"validation_scope":"string","confidence":70,"confidence_note":"string"}';
+
+  dbg('Prompt montado (' + p.length + ' chars). Enviando fetch...', 'inf');
+
+  try {
+    var controller = new AbortController();
+    var timer = setTimeout(function() {
+      dbg('TIMEOUT 55s atingido — abortando fetch.', 'err');
+      controller.abort();
+    }, 55000);
+
+    dbg('fetch() disparado para api.anthropic.com...', 'inf');
+    var res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      signal: controller.signal,
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': key,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 2000,
+        messages: [{ role: 'user', content: p }]
+      })
+    });
+    clearTimeout(timer);
+
+    dbg('fetch() respondeu. HTTP status: ' + res.status, res.ok ? 'ok' : 'err');
+
+    var data = await res.json();
+    dbg('JSON parseado. Campos: ' + Object.keys(data).join(', '), 'inf');
+
+    if (!res.ok || data.error) {
+      var errMsg = (data.error && data.error.message) || 'HTTP ' + res.status;
+      dbg('API retornou erro: ' + errMsg, 'err');
+      throw new Error(errMsg);
+    }
+
+    var raw = data.content.map(function(b) { return b.text || ''; }).join('');
+    dbg('Resposta raw (' + raw.length + ' chars). Parseando JSON...', 'inf');
+
+    var jsonStart = raw.indexOf('{');
+    var jsonEnd = raw.lastIndexOf('}') + 1;
+    if (jsonStart < 0 || jsonEnd <= 0) {
+      dbg('JSON não encontrado na resposta! Raw: ' + raw.substring(0, 100), 'err');
+      throw new Error('Resposta não contém JSON válido');
+    }
+
+    var r = JSON.parse(raw.substring(jsonStart, jsonEnd));
+    r.model_name = nm; r.model_area = ar; r.model_owner = ow;
+    dbg('JSON parseado com sucesso. Criticidade: ' + r.criticality_level, 'ok');
+    return r;
+
+  } catch (e) {
+    dbg('CATCH em callAPI(): ' + e.name + ' — ' + e.message, 'err');
+    showErr('API: ' + e.message + ' — usando modo demo.');
+    var d = makeDemo();
+    d.confidence_note = 'Erro API (' + e.message + ') — modo demo.';
+    return d;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   MODO DEMO
+   ═══════════════════════════════════════════ */
+function makeDemo() {
+  dbg('makeDemo() chamado.', 'warn');
+  return {
+    model_name: GV('nm') || 'Scoring de Crédito PF',
+    model_area: GV('ar') || 'SUPEC',
+    model_owner: GV('ow') || 'Demo',
+    family: 'Machine Learning',
+    technique: 'Gradient Boosting (XGBoost)',
+    description: 'Modelo para estimação de probabilidade de default em carteiras PF. Processa variáveis comportamentais e de bureau com alçada automática até R$50 mil.',
+    platform: 'Python + Databricks (MLflow)',
+    inputs: 'Score bureau, histórico, renda, tempo de relacionamento',
+    outputs: 'Score PD (0–1000), faixa de risco (A–G), limite recomendado',
+    autonomy: 'Automático até R$50 mil; aprovação humana acima',
+    regulatory: 'Basileia III / IFRS 9',
+    scores: { D1: 4, D2: 4, D3: 4, D4: 3, D5: 5, D6: 3 },
+    weighted_score: 3.90,
+    criticality_level: 'N1',
+    criticality_name: 'Crítico',
+    tags: ['credito-pf', 'pd-model', 'basileia-iii', 'xgboost'],
+    controls: [
+      { text: 'Monitoramento contínuo PSI/KS/Gini', type: 'crit' },
+      { text: 'Validação independente anual', type: 'crit' },
+      { text: 'Plano de contingência semestral', type: 'crit' },
+      { text: 'Análise de viés a cada recalibração', type: 'warn' },
+      { text: 'SHAP values para contestações', type: 'warn' },
+      { text: 'Aprovação do Comitê para alterações', type: 'ok' }
+    ],
+    validation_scope: 'Validação Profunda N1: revisão conceitual, backtesting 24 meses, stress test, análise de fairness, SHAP/LIME.',
+    confidence: 72,
+    confidence_note: 'Confiança moderada-alta. Resultado de demonstração.'
+  };
+}
+
+function readTxt(f) {
+  return new Promise(function(res, rej) {
+    var r = new FileReader();
+    r.onload = function(e) { res(e.target.result); };
+    r.onerror = function(e) { rej(new Error('FileReader error')); };
+    r.readAsText(f);
+  });
+}
+
+/* ═══════════════════════════════════════════
+   RENDER MODEL CARD
+   ═══════════════════════════════════════════ */
+function renderMC(r) {
+  dbg('renderMC() iniciado.', 'inf');
+  var id = r.uid || makeUID(); r.uid = id;
+  var ts = new Date().toLocaleString('pt-BR');
+  var oe = GV('oe'), ve = GV('ve');
+  var dm = { D1: 'D1 Impacto Fin.', D2: 'D2 Exp. Reg.', D3: 'D3 Autonomia', D4: 'D4 Opacidade', D5: 'D5 Abrangência', D6: 'D6 Maturidade' };
+  var sc = r.scores || {}, k, scH = '';
+  for (k in sc) {
+    scH += '<div class="scrow"><div class="scd">' + (dm[k]||k) + '</div><div class="sctrk"><div class="scf" style="width:'+((sc[k]/5)*100)+'%;"></div></div><div class="scv">'+sc[k]+'/5</div></div>';
+  }
+  var ctH = (r.controls||[]).map(function(c){return '<div class="ci '+(c.type||'')+'">'+( c.text||'')+'</div>';}).join('');
+  var tgH = (r.tags||[]).map(function(t){return '<div class="tag">'+t+'</div>';}).join('');
+  var h = '';
+  h += '<div class="mc-hd"><div class="mc-id">'+id+'</div><div class="mc-n">'+r.model_name+'</div><div class="mc-f">'+r.family+' — '+r.technique+'</div><div class="mc-lv"><div class="mc-ln">'+r.criticality_level+'</div><div class="mc-lname">'+r.criticality_name+'</div></div><div class="mc-meta"><div><div class="mc-ml">Área</div><div class="mc-mv">'+r.model_area+'</div></div><div><div class="mc-ml">Owner</div><div class="mc-mv">'+r.model_owner+'</div></div><div><div class="mc-ml">Gerado</div><div class="mc-mv">'+ts+'</div></div><div><div class="mc-ml">Confiança</div><div class="mc-mv">'+r.confidence+'%</div></div></div></div>';
+  h += '<div class="card"><div class="card-t">Descrição</div><div class="txt">'+r.description+'</div></div>';
+  h += '<div class="card"><div class="card-t">Identificação Técnica</div><div class="ig"><div class="ic"><div class="ic-l">Técnica</div><div class="ic-v">'+r.technique+'</div></div><div class="ic"><div class="ic-l">Plataforma</div><div class="ic-v">'+r.platform+'</div></div><div class="ic"><div class="ic-l">Inputs</div><div class="ic-v">'+r.inputs+'</div></div><div class="ic"><div class="ic-l">Outputs</div><div class="ic-v">'+r.outputs+'</div></div><div class="ic"><div class="ic-l">Autonomia</div><div class="ic-v">'+r.autonomy+'</div></div><div class="ic"><div class="ic-l">Regulatório</div><div class="ic-v">'+r.regulatory+'</div></div><div class="ic"><div class="ic-l">Fontes</div><div class="ic-v">'+(SOURCES.length?SOURCES.join(', '):'não especificadas')+'</div></div><div class="ic"><div class="ic-l">Chave</div><div class="ic-v" style="color:#005CA9;font-family:monospace;font-size:11px;">'+id+'</div></div></div></div>';
+  h += '<div class="card"><div class="card-t">Criticidade</div>'+scH+'<div class="sctot"><div class="sctot-l">Pontuação Ponderada</div><div class="sctot-v">'+((r.weighted_score||0).toFixed(2))+'</div></div><div style="font-size:11px;color:#B8BEC9;margin-top:4px;">'+r.confidence_note+'</div></div>';
+  h += '<div class="card"><div class="card-t">Tags</div><div class="tags">'+tgH+'</div></div>';
+  h += '<div class="card"><div class="card-t">Controles Recomendados</div>'+ctH+'</div>';
+  h += '<div class="card"><div class="card-t">Escopo de Validação</div><div class="txt">'+r.validation_scope+'</div></div>';
+  h += '<div class="card"><div class="card-t">Notificação — Owner</div><div style="font-size:12px;color:#B8BEC9;margin-bottom:8px;">Para: '+oe+'</div><div class="email-pre">'+eOwner(r,id,ts)+'</div></div>';
+  h += '<div class="card"><div class="card-t">Notificação — Validação</div><div style="font-size:12px;color:#B8BEC9;margin-bottom:8px;">Para: '+ve+'</div><div class="email-pre">'+eVal(r,id,ts)+'</div></div>';
+  h += '<div class="card"><div class="card-t">Sua Confirmação</div>';
+  h += '<div class="g2" style="margin-bottom:12px;"><div class="field" style="margin:0;"><label>Corrigir Técnica</label><input type="text" id="mtech" placeholder="Confirme ou corrija..."></div><div class="field" style="margin:0;"><label>Corrigir Autonomia</label><select id="maut"><option value="">manter</option><option>100% automatizado</option><option>Revisão em exceções</option><option>Aprovação sistemática</option><option>Subsídio analítico</option><option>Apenas informativo</option></select></div></div>';
+  h += '<div class="field"><label>Observações</label><textarea id="mnotes" placeholder="Correções ou contexto..."></textarea></div>';
+
+h += ‘<div class="dec-row"><button class="dec-btn ap" type="button" id="btn-ap" onclick="setD(\'approve\')">✓ Confirmo!</button><button class="dec-btn rj" type="button" id="btn-rj" onclick="setD(\'reject\')">✎ Solicito revisão</button></div>’;
+h += ‘<button class="btn-run" type="button" id="btn-fin" onclick="finish()" disabled style="opacity:.4;margin-top:12px;">Finalizar e Registrar</button>’;
+h += ‘<div id="ok-final" style="display:none;" class="ok"></div>’;
+h += ‘</div>’;
+h += ‘<div style="display:flex;gap:8px;padding-bottom:10px;">’;
+h += ‘<button class="btn-s" type="button" onclick="expJ()">↓ JSON</button>’;
+h += ‘<button class="btn-s" type="button" onclick="expT()">↓ TXT</button>’;
+h += ‘<button class="btn-s" type="button" onclick="window.print()">↓ PDF</button>’;
+h += ‘</div>’;
+G(‘mc-out’).innerHTML = h;
+dbg(’renderMC() concluído. ID: ’ + id, ‘ok’);
+}
+
+function eOwner(r,id,ts){return ‘Prezado(a) ‘+r.model_owner+’,\n\nCatalogação concluída!\n\nID: ‘+id+’\nModelo: ‘+r.model_name+’\nNível: ‘+r.criticality_level+’ — ‘+r.criticality_name+’\nPontuação: ‘+((r.weighted_score||0).toFixed(2))+’/5\nGerado: ‘+ts+’\n\nPróximos passos:\n1. Revise o Model Card\n2. Confirme ou solicite revisão\n\nEquipe ModelScan’;}
+function eVal(r,id,ts){return ‘Equipe de Validação,\n\nNovo modelo — criticidade ‘+r.criticality_level+’.\n\nID: ‘+id+’\nModelo: ‘+r.model_name+’\nÁrea: ‘+r.model_area+’\nOwner: ‘+r.model_owner+’\nNível: ‘+r.criticality_level+’ — ‘+r.criticality_name+’\nPontuação: ‘+((r.weighted_score||0).toFixed(2))+’/5\n\nAguarda validação.\nModelScan’;}
+
+function setD(d) {
+DECISION = d;
+dbg(‘Decisão: ’ + d, ‘ok’);
+var ba=G(‘btn-ap’),br=G(‘btn-rj’),bf=G(‘btn-fin’);
+if(ba) ba.className=‘dec-btn ap’+(d===‘approve’?’ on’:’’);
+if(br) br.className=‘dec-btn rj’+(d===‘reject’?’ on’:’’);
+if(bf){bf.disabled=false;bf.style.opacity=‘1’;}
+}
+
+function finish() {
+if(!DECISION) return;
+dbg(‘finish() chamado. Decisão: ’ + DECISION, ‘ok’);
+var ts=new Date().toLocaleString(‘pt-BR’),ow=GV(‘ow’);
+var bf=G(‘btn-fin’),ob=G(‘ok-final’);
+if(bf){bf.disabled=true;bf.style.opacity=’.4’;bf.textContent=DECISION===‘approve’?‘Registrado!’:‘Revisão solicitada’;}
+if(ob){ob.style.display=‘block’;ob.innerHTML=DECISION===‘approve’?‘✅ Registrado! Chave: <strong>’+(RESULT.uid||’’)+’</strong><br>Por ‘+ow+’ em ’+ts:’✎ Revisão solicitada por ‘+ow+’ em ’+ts;}
+}
+
+function expJ(){if(!RESULT)return;var a=document.createElement(‘a’);a.href=URL.createObjectURL(new Blob([JSON.stringify(RESULT,null,2)],{type:‘application/json’}));a.download=‘mc-’+(RESULT.uid||‘mc’)+’.json’;document.body.appendChild(a);a.click();document.body.removeChild(a);dbg(‘JSON exportado.’,‘ok’);}
+function expT(){if(!RESULT)return;var t=‘MODEL CARD: ‘+RESULT.model_name+’\nChave: ‘+RESULT.uid+’\nNível: ‘+RESULT.criticality_level+’ — ‘+RESULT.criticality_name+’\nPontuação: ‘+((RESULT.weighted_score||0).toFixed(2))+’/5\n\nDescrição:\n’+RESULT.description+’\n\nEscopo:\n’+RESULT.validation_scope;var a=document.createElement(‘a’);a.href=URL.createObjectURL(new Blob([t],{type:‘text/plain’}));a.download=‘mc-’+(RESULT.uid||‘mc’)+’.txt’;document.body.appendChild(a);a.click();document.body.removeChild(a);dbg(‘TXT exportado.’,‘ok’);}
+
+dbg(‘Todos os handlers registrados. Pronto.’, ‘ok’);
+</script>
+
+</body>
+</html>

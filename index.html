@@ -4,19 +4,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>ModelScan v8</title>
+<title>ModelScan v9</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
+#sticky-top{position:sticky;top:0;z-index:99;}
 body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#F0F2F5;color:#1A1D23;font-size:15px;}
-#hdr{background:#003F7A;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;position:sticky;top:0;z-index:99;}
+#hdr{background:#003F7A;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;}
 #hdr-logo{display:flex;align-items:center;gap:10px;}
 #hdr-icon{width:28px;height:28px;background:#F47920;border-radius:6px;display:flex;align-items:center;justify-content:center;}
 #hdr-name{font-size:17px;font-weight:700;color:#fff;}
 #hdr-btn{background:rgba(255,255,255,.15);border:none;border-radius:6px;width:36px;height:36px;color:#fff;font-size:20px;cursor:pointer;-webkit-appearance:none;display:flex;align-items:center;justify-content:center;touch-action:manipulation;}
-#menu-drop{display:none;background:#002F5A;border-bottom:3px solid #F47920;position:sticky;top:52px;z-index:98;}
+#menu-drop{display:none;background:#002F5A;border-bottom:3px solid #F47920;}
 #menu-drop button{display:block;width:100%;text-align:left;padding:14px 20px;background:none;border:none;color:rgba(255,255,255,.85);font-size:15px;font-family:inherit;cursor:pointer;-webkit-appearance:none;touch-action:manipulation;border-left:3px solid transparent;}
 #menu-drop button.mact{color:#fff;font-weight:700;border-left-color:#F47920;background:rgba(255,255,255,.08);}
-#ptabs{display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid #E0E4EA;-webkit-overflow-scrolling:touch;position:sticky;top:52px;z-index:97;}
+#ptabs{display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid #E0E4EA;-webkit-overflow-scrolling:touch;}
 .ptab{padding:12px 16px;font-size:13px;font-weight:600;color:#9BA3B2;white-space:nowrap;cursor:pointer;border-bottom:3px solid transparent;flex-shrink:0;touch-action:manipulation;}
 .ptab.on{color:#005CA9;border-bottom-color:#005CA9;}
 #step-bar{background:#fff;border-bottom:1px solid #E0E4EA;padding:11px 16px;display:flex;align-items:center;justify-content:space-between;}
@@ -208,6 +209,7 @@ textarea{resize:vertical;min-height:80px;}
 </head>
 <body>
 
+<div id="sticky-top">
 <div id="hdr">
   <div id="hdr-logo">
     <div id="hdr-icon">
@@ -240,6 +242,7 @@ textarea{resize:vertical;min-height:80px;}
 <div id="step-bar" style="display:none;">
   <div id="step-txt">Passo 1 de 4 - Identificacao</div>
   <div id="step-num">1/4</div>
+</div>
 </div>
 
 <!-- INTRO PAGE -->

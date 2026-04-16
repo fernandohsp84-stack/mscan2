@@ -356,8 +356,12 @@ async function callAPI(key) {
   }
   var p = 'Analise e gere Model Card em JSON puro sem markdown.\nModelo:' + nm + '\nArea:' + ar + '\nOwner:' + ow + '\nFontes:' + SOURCES.join(',') + '\nLinks:' + LINKS.join(',') + '\nCtx:' + GV('ctx') + (txt ? '\n' + txt : '') + '\nRetorne SOMENTE este JSON:\n{"family":"string","technique":"string","description":"string","platform":"string","inputs":"string","outputs":"string","autonomy":"string","regulatory":"string","scores":{"D1":3,"D2":3,"D3":3,"D4":3,"D5":3,"D6":3},"weighted_score":3.0,"criticality_level":"N1","criticality_name":"Critico","tags":["tag"],"controls":[{"text":"texto","type":"crit"}],"validation_scope":"string","confidence":70,"confidence_note":"string"}';
   try {
+    /* AbortController timeout: evita que Safari iOS trave silenciosamente em fetch cross-origin */
+    var controller = new AbortController();
+    var timer = setTimeout(function() { controller.abort(); }, 55000); /* 55s timeout */
     var res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
+      signal: controller.signal,
       headers: {
         'Content-Type': 'application/json',
         'x-api-key': key,
@@ -365,13 +369,14 @@ async function callAPI(key) {
         'anthropic-dangerous-direct-browser-access': 'true'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-5',   /* ← FIX 3: modelo correto */
+        model: 'claude-sonnet-4-20250514',  /* ← modelo correto Sonnet 4 */
         max_tokens: 2000,
         messages: [{ role: 'user', content: p }]
       })
     });
+    clearTimeout(timer);
     var data = await res.json();
-    if (data.error) throw new Error(data.error.message);
+    if (!res.ok || data.error) throw new Error((data.error && data.error.message) || 'HTTP ' + res.status);
     var raw = data.content.map(function(b) { return b.text || ''; }).join('');
     var r = JSON.parse(raw.substring(raw.indexOf('{'), raw.lastIndexOf('}') + 1));
     r.model_name = nm; r.model_area = ar; r.model_owner = ow;

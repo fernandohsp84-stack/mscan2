@@ -1,39 +1,803 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>TESTE</title>
+<title>ModelScan v11</title>
 <style>
-body{font-family:-apple-system,sans-serif;padding:20px;background:#f0f2f5;}
-.btn{display:block;width:100%;padding:18px;background:#005CA9;color:#fff;border:none;border-radius:10px;font-size:18px;font-weight:700;margin:10px 0;-webkit-appearance:none;touch-action:manipulation;}
-#p1{display:block;} #p2{display:none;}
-.page{padding:20px;background:#fff;border-radius:12px;margin:10px 0;}
+*{box-sizing:border-box;margin:0;padding:0;}
+#sticky-top{position:fixed;top:0;left:0;right:0;z-index:99;}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#F0F2F5;color:#1A1D23;font-size:15px;padding-top:96px;}
+#hdr{background:#003F7A;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;}
+#hdr-logo{display:flex;align-items:center;gap:10px;}
+#hdr-icon{width:28px;height:28px;background:#F47920;border-radius:6px;display:flex;align-items:center;justify-content:center;}
+#hdr-name{font-size:17px;font-weight:700;color:#fff;}
+#hdr-btn{background:rgba(255,255,255,.15);border:none;border-radius:6px;width:36px;height:36px;color:#fff;font-size:20px;cursor:pointer;-webkit-appearance:none;display:flex;align-items:center;justify-content:center;touch-action:manipulation;}
+#menu-drop{display:none;background:#002F5A;border-bottom:3px solid #F47920;}
+#menu-drop button{display:block;width:100%;text-align:left;padding:14px 20px;background:none;border:none;color:rgba(255,255,255,.85);font-size:15px;font-family:inherit;cursor:pointer;-webkit-appearance:none;touch-action:manipulation;border-left:3px solid transparent;}
+#menu-drop button.mact{color:#fff;font-weight:700;border-left-color:#F47920;background:rgba(255,255,255,.08);}
+#ptabs{display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid #E0E4EA;-webkit-overflow-scrolling:touch;}
+.ptab{padding:12px 16px;font-size:13px;font-weight:600;color:#9BA3B2;white-space:nowrap;cursor:pointer;border-bottom:3px solid transparent;flex-shrink:0;touch-action:manipulation;}
+.ptab.on{color:#005CA9;border-bottom-color:#005CA9;}
+#step-bar{background:#fff;border-bottom:1px solid #E0E4EA;padding:11px 16px;display:flex;align-items:center;justify-content:space-between;}
+#step-txt{font-size:14px;font-weight:700;color:#005CA9;}
+#step-num{font-size:13px;font-weight:700;color:#9BA3B2;}
+.page{display:none;padding:14px 14px 40px;}
+.card{background:#fff;border-radius:10px;padding:16px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.08);}
+.card-t{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#9BA3B2;margin-bottom:12px;padding-bottom:9px;border-bottom:1px solid #ECEEF2;}
+.tip{display:flex;gap:10px;padding:13px 14px;border-radius:10px;background:#E5F3F4;border:1px solid rgba(13,115,119,.2);color:#0D7377;font-size:13px;line-height:1.6;margin-bottom:14px;}
+.field{margin-bottom:14px;}
+.field:last-child{margin-bottom:0;}
+label{display:block;font-size:13px;font-weight:600;color:#3C4353;margin-bottom:5px;}
+.req{color:#F47920;}
+input,textarea,select{width:100%;border:1.5px solid #D0D5DD;border-radius:8px;padding:12px;font-size:15px;color:#1A1D23;background:#fff;font-family:inherit;-webkit-appearance:none;outline:none;}
+input:focus,textarea:focus{border-color:#005CA9;box-shadow:0 0 0 3px rgba(0,92,169,.1);}
+textarea{resize:vertical;min-height:80px;}
+.key-row{display:flex;gap:8px;}
+.key-row input{flex:1;}
+.eye{background:#F0F2F5;border:1.5px solid #D0D5DD;border-radius:8px;padding:0 13px;font-size:16px;cursor:pointer;-webkit-appearance:none;flex-shrink:0;touch-action:manipulation;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+@media(max-width:440px){.g2{grid-template-columns:1fr;}}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+@media(max-width:400px){.tiles{grid-template-columns:1fr 1fr;}}
+.tile{border:1.5px solid #D0D5DD;border-radius:8px;padding:12px 6px;cursor:pointer;text-align:center;background:#fff;touch-action:manipulation;}
+.tile.on{border-color:#005CA9;background:#EBF3FB;}
+.tile-i{font-size:18px;margin-bottom:4px;}
+.tile-l{font-size:10px;font-weight:600;color:#717A8C;}
+.tile.on .tile-l{color:#005CA9;}
+.upz{border:2px dashed #B8BEC9;border-radius:8px;padding:20px;text-align:center;background:#F8F9FA;position:relative;}
+.upz input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer;}
+.upz-t{font-size:13px;color:#717A8C;margin:6px 0 3px;}
+.upz-h{font-size:11px;color:#B8BEC9;}
+.flist{margin-top:8px;}
+.fi{display:flex;align-items:center;gap:8px;background:#F8F9FA;border:1px solid #ECEEF2;border-radius:6px;padding:8px 10px;margin-top:6px;}
+.fi-n{flex:1;font-size:12px;color:#717A8C;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.fi-r{background:none;border:none;color:#B8BEC9;font-size:16px;cursor:pointer;-webkit-appearance:none;touch-action:manipulation;}
+.link-row{display:flex;gap:8px;margin-bottom:8px;}
+.link-row input{flex:1;}
+.ladd{background:#F0F2F5;border:1.5px solid #D0D5DD;border-radius:8px;padding:0 14px;font-size:14px;font-family:inherit;cursor:pointer;-webkit-appearance:none;color:#717A8C;touch-action:manipulation;}
+.chips{display:flex;flex-wrap:wrap;gap:6px;}
+.chip{background:#EBF3FB;border:1px solid rgba(0,92,169,.2);border-radius:20px;padding:4px 10px 4px 13px;font-size:12px;color:#005CA9;display:flex;align-items:center;gap:4px;max-width:90%;}
+.chip-t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.chip-r{background:none;border:none;color:rgba(0,92,169,.5);cursor:pointer;font-size:14px;-webkit-appearance:none;touch-action:manipulation;}
+/* BOTOES - todos com touch-action:manipulation */
+.btn{display:block;width:100%;padding:15px;border:none;border-radius:8px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;-webkit-appearance:none;touch-action:manipulation;-webkit-tap-highlight-color:rgba(0,0,0,0.1);text-align:center;margin-top:14px;}
+.btn-p{background:#005CA9;color:#fff;}
+.btn-p:active{background:#003F7A;}
+.btn-s{background:#fff;color:#3C4353;border:1.5px solid #D0D5DD;margin-top:0;}
+.btn-row{display:flex;gap:10px;margin-top:14px;}
+.btn-row .btn-s{flex:0 0 auto;width:auto;padding:15px 18px;}
+.btn-row .btn-p{flex:1;margin-top:0;}
+/* ANALISE */
+.awrap{text-align:center;padding:40px 0;}
+.spin{width:40px;height:40px;border:3px solid #ECEEF2;border-top-color:#005CA9;border-radius:50%;margin:0 auto 18px;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.awrap h3{font-size:18px;font-weight:700;margin-bottom:5px;}
+.awrap p{font-size:13px;color:#717A8C;margin-bottom:24px;}
+.astep{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid #ECEEF2;opacity:.3;}
+.astep:last-child{border:none;}
+.astep.on{opacity:1;}.astep.dn{opacity:.6;}
+.adot{width:7px;height:7px;border-radius:50%;background:#B8BEC9;margin-top:5px;flex-shrink:0;}
+.astep.on .adot{background:#005CA9;}.astep.dn .adot{background:#1B7F4F;}
+.al{font-size:14px;font-weight:600;}.as{font-size:12px;color:#B8BEC9;margin-top:2px;}
+/* MODEL CARD */
+.mc{background:#fff;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.12);overflow:hidden;margin-bottom:16px;}
+.mc-hd{padding:20px 16px 16px;background:linear-gradient(135deg,#003F7A,#1A6DC4);}
+.mc-id{font-family:monospace;font-size:11px;color:rgba(255,255,255,.7);background:rgba(255,255,255,.12);padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:8px;}
+.mc-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px;}
+.mc-name{font-size:19px;font-weight:700;color:#fff;line-height:1.2;}
+.mc-fam{font-size:12px;color:rgba(255,255,255,.55);margin-top:3px;}
+.mc-lvl{text-align:center;flex-shrink:0;}
+.mc-badge{width:52px;height:52px;border-radius:50%;border:2px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 3px;}
+.mc-ln{font-size:16px;font-weight:800;color:#fff;line-height:1;}
+.mc-ll{font-size:8px;color:rgba(255,255,255,.45);}
+.mc-lname{font-size:10px;font-weight:700;color:rgba(255,255,255,.7);}
+.mc-meta{display:flex;flex-wrap:wrap;gap:12px;}
+.mc-ml{font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;margin-bottom:1px;}
+.mc-mv{font-size:12px;color:rgba(255,255,255,.8);}
+.mc-bd{padding:16px;}
+.sec{margin-bottom:16px;}
+.sec-t{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#B8BEC9;margin-bottom:9px;padding-bottom:6px;border-bottom:1px solid #ECEEF2;}
+.txt{font-size:13px;color:#717A8C;line-height:1.7;}
+.ig{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+.ic{background:#F8F9FA;border:1px solid #ECEEF2;border-radius:7px;padding:9px 11px;}
+.ic-l{font-size:9px;font-weight:700;color:#B8BEC9;text-transform:uppercase;margin-bottom:2px;}
+.ic-v{font-size:12px;color:#1A1D23;line-height:1.4;}
+.scrow{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.scd{font-size:11px;color:#717A8C;width:110px;flex-shrink:0;}
+.sctrk{flex:1;height:5px;background:#ECEEF2;border-radius:3px;overflow:hidden;}
+.scf{height:100%;border-radius:3px;background:#005CA9;}
+.scv{font-size:11px;color:#B8BEC9;width:24px;text-align:right;flex-shrink:0;}
+.sctot{display:flex;align-items:center;justify-content:space-between;margin-top:8px;padding:10px 12px;background:#EBF3FB;border-radius:6px;}
+.sctot-l{font-size:12px;font-weight:700;color:#005CA9;}
+.sctot-v{font-size:20px;font-weight:800;color:#005CA9;}
+.tags{display:flex;flex-wrap:wrap;gap:5px;}
+.tag{background:#ECEEF2;border-radius:20px;padding:3px 9px;font-size:11px;color:#717A8C;}
+.ci{padding:9px 11px;border-radius:6px;border-left:3px solid;font-size:13px;color:#3C4353;line-height:1.5;margin-bottom:5px;}
+.ci.crit{background:#FBECEC;border-color:#B83232;}
+.ci.warn{background:#FDF5E6;border-color:#9A6200;}
+.ci.ok{background:#E6F4EE;border-color:#1B7F4F;}
+.mtabs{display:flex;border-bottom:1px solid #ECEEF2;margin-bottom:10px;}
+.mtab{padding:8px 12px;font-size:12px;font-weight:600;color:#B8BEC9;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;touch-action:manipulation;}
+.mtab.on{color:#005CA9;border-bottom-color:#005CA9;}
+.mcont{display:none;}.mcont.on{display:block;}
+.mprev{background:#F8F9FA;border:1px solid #DDE1E9;border-radius:8px;overflow:hidden;}
+.mp-bar{background:#fff;border-bottom:1px solid #ECEEF2;padding:7px 10px;display:flex;gap:5px;}
+.mpd{width:7px;height:7px;border-radius:50%;}
+.mp-to{font-size:11px;color:#B8BEC9;padding:7px 10px 0;}
+.mp-sub{font-size:13px;font-weight:600;padding:2px 10px 7px;border-bottom:1px solid #ECEEF2;}
+.mp-body{padding:10px;font-size:11px;color:#3C4353;line-height:1.75;white-space:pre-wrap;font-family:monospace;}
+.mrec{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.mrec-l{font-size:12px;color:#B8BEC9;flex-shrink:0;}
+.mrec input{flex:1;}
+.dec-btns{display:flex;gap:8px;margin-top:4px;}
+.dec-btn{flex:1;padding:12px;border-radius:8px;border:1.5px solid #D0D5DD;background:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;-webkit-appearance:none;touch-action:manipulation;color:#717A8C;}
+.dec-btn.ap.on{border-color:#1B7F4F;background:#E6F4EE;color:#1B7F4F;}
+.dec-btn.rj.on{border-color:#9A6200;background:#FDF5E6;color:#9A6200;}
+.ok-banner{display:none;align-items:center;gap:10px;padding:12px;background:#E6F4EE;border:1px solid rgba(27,127,79,.25);border-radius:8px;margin-bottom:12px;font-size:13px;color:#1B7F4F;}
+.mc-foot{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#F8F9FA;border-top:1px solid #ECEEF2;}
+.mc-foot-l{font-size:10px;color:#B8BEC9;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:monospace;}
+.mc-foot-r{display:flex;gap:5px;flex-shrink:0;}
+.bexp{background:#fff;border:1px solid #DDE1E9;border-radius:5px;padding:4px 9px;font-size:11px;color:#717A8C;cursor:pointer;font-family:monospace;-webkit-appearance:none;touch-action:manipulation;}
+.vf{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+.fb{padding:6px 12px;border-radius:20px;border:1.5px solid #D0D5DD;font-size:12px;font-weight:600;color:#717A8C;background:#fff;cursor:pointer;-webkit-appearance:none;touch-action:manipulation;}
+.fb.on{background:#005CA9;border-color:#005CA9;color:#fff;}
+.vt{width:100%;border-collapse:collapse;}
+.vt th{text-align:left;padding:8px 10px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#B8BEC9;border-bottom:1px solid #ECEEF2;background:#F8F9FA;}
+.vt td{padding:10px;font-size:13px;color:#3C4353;border-bottom:1px solid #ECEEF2;}
+.vt tbody tr:last-child td{border:none;}
+.badge{display:inline-flex;align-items:center;padding:2px 7px;border-radius:20px;font-size:11px;font-weight:700;}
+.bN1{background:#FBECEC;color:#B83232;}.bN2{background:#FEF2E8;color:#F47920;}
+.bN3{background:#FDF5E6;color:#9A6200;}.bN4{background:#E6F4EE;color:#1B7F4F;}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:flex-end;}
+.modal-bg.on{display:flex;}
+.modal{background:#fff;border-radius:14px 14px 0 0;width:100%;max-height:90vh;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px 14px;}
+.modal-x{float:right;background:none;border:none;font-size:22px;color:#B8BEC9;cursor:pointer;-webkit-appearance:none;touch-action:manipulation;}
+.uc{background:#F8F9FA;border:1px solid #ECEEF2;border-radius:8px;padding:11px;margin-bottom:8px;}
+.uc-hd{display:flex;align-items:center;gap:7px;margin-bottom:5px;}
+.uc-av{width:24px;height:24px;border-radius:50%;background:#005CA9;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;}
+.uc-nm{font-size:13px;font-weight:600;}
+.uc-t{font-size:11px;color:#B8BEC9;margin-left:auto;}
+.uc-txt{font-size:13px;color:#3C4353;line-height:1.6;}
+.kpig{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.kpi{background:#fff;border-radius:10px;padding:14px;position:relative;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.07);}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.kb::before{background:#005CA9;}.ko::before{background:#F47920;}.kg::before{background:#1B7F4F;}.kr::before{background:#B83232;}
+.kpi-l{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#B8BEC9;margin-bottom:6px;}
+.kpi-v{font-size:28px;font-weight:800;color:#1A1D23;letter-spacing:-1px;line-height:1;margin-bottom:2px;}
+.kpi-s{font-size:11px;color:#717A8C;}
+.chart{background:#fff;border-radius:10px;padding:14px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.07);}
+.chart-t{font-size:13px;font-weight:700;margin-bottom:12px;}
+.br{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.br-l{font-size:11px;color:#717A8C;width:100px;text-align:right;flex-shrink:0;}
+.br-trk{flex:1;height:18px;background:#F0F2F5;border-radius:3px;overflow:hidden;}
+.br-f{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:7px;font-size:11px;font-weight:700;color:#fff;}
+.br-v{font-size:11px;color:#717A8C;width:18px;flex-shrink:0;}
+.ph{margin-bottom:16px;}
+.ph-e{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#005CA9;margin-bottom:3px;}
+.ph-t{font-size:20px;font-weight:800;color:#1A1D23;letter-spacing:-.4px;margin-bottom:4px;}
+.ph-d{font-size:13px;color:#717A8C;line-height:1.6;}
+.sm-hero{background:linear-gradient(135deg,#003F7A,#1A6DC4);border-radius:12px;padding:22px 18px;margin-bottom:14px;color:#fff;}
+.sm-step{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid #ECEEF2;}
+.sm-step:last-child{border:none;}
+.sm-num{width:30px;height:30px;border-radius:50%;background:#005CA9;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0;margin-top:2px;}
+.sm-t{font-size:14px;font-weight:700;margin-bottom:3px;}
+.sm-d{font-size:13px;color:#717A8C;line-height:1.65;}
+.sm-n{margin-top:7px;padding:8px 11px;background:#F8F9FA;border:1px solid #ECEEF2;border-radius:6px;font-size:12px;color:#717A8C;line-height:1.5;}
+.pills{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px;}
+.pill{background:#EBF3FB;border:1px solid rgba(0,92,169,.15);border-radius:20px;padding:3px 9px;font-size:11px;color:#005CA9;font-weight:600;}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:400px){.sg{grid-template-columns:1fr;}}
+.si{background:#fff;border-radius:10px;padding:13px;box-shadow:0 1px 3px rgba(0,0,0,.07);}
+.si-t{font-size:13px;font-weight:700;margin-bottom:2px;}
+.si-p{font-family:monospace;font-size:10px;color:#005CA9;background:#EBF3FB;border-radius:3px;padding:2px 6px;display:inline-block;margin-bottom:4px;}
+.si-d{font-size:12px;color:#717A8C;line-height:1.5;}
+/* INTRO PAGE */
+.intro-hero{background:linear-gradient(135deg,#003F7A,#1A6DC4);border-radius:12px;padding:28px 20px;margin-bottom:14px;color:#fff;text-align:center;}
+.intro-hero h1{font-size:28px;font-weight:800;margin-bottom:8px;letter-spacing:-.5px;}
+.intro-hero p{font-size:14px;color:rgba(255,255,255,.8);line-height:1.65;}
+.step-card{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid #ECEEF2;}
+.step-card:last-child{border:none;}
+.step-icon{width:36px;height:36px;border-radius:10px;background:#EBF3FB;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.step-body h3{font-size:14px;font-weight:700;color:#1A1D23;margin-bottom:3px;}
+.step-body p{font-size:13px;color:#717A8C;line-height:1.6;}
+.info-box{background:#EBF3FB;border:1px solid rgba(0,92,169,.15);border-radius:8px;padding:12px 14px;margin-bottom:14px;}
+.info-box p{font-size:13px;color:#005CA9;line-height:1.6;}
+.info-box strong{font-weight:700;}
 </style>
 </head>
 <body>
-<div id="p1" class="page">
-  <h2>PAGINA 1</h2>
-  <p>Se este botao funcionar, o problema e no arquivo grande.</p>
-  <button class="btn" ontouchstart="ir2();return false;" onclick="ir2()">IR PARA PAGINA 2</button>
+
+<div id="sticky-top">
+<div id="hdr">
+  <div id="hdr-logo">
+    <div id="hdr-icon">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <rect x=".5" y=".5" width="13" height="13" rx="2" stroke="white" stroke-width="1.2" fill="none"/>
+        <path d="M3 7h8M7 3v8" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div id="hdr-name">ModelScan</div>
+  </div>
+  <button id="hdr-btn" type="button" ontouchstart="toggleMenu();return false;" onclick="toggleMenu()">&#9776;</button>
 </div>
-<div id="p2" class="page">
-  <h2>PAGINA 2 - FUNCIONOU!</h2>
-  <p>O botao funcionou corretamente.</p>
-  <button class="btn" ontouchstart="ir1();return false;" onclick="ir1()">VOLTAR PAGINA 1</button>
+
+<div id="menu-drop">
+  <button type="button" class="mact" ontouchstart="goPage('intro',this);return false;" onclick="goPage('intro',this)">Inicio</button>
+  <button type="button" ontouchstart="goPage('catalog',this);return false;" onclick="goPage('catalog',this)">Catalogacao</button>
+  <button type="button" ontouchstart="goPage('validation',this);return false;" onclick="goPage('validation',this)">Validacao</button>
+  <button type="button" ontouchstart="goPage('bi',this);return false;" onclick="goPage('bi',this)">Painel BI</button>
+  <button type="button" ontouchstart="goPage('storage',this);return false;" onclick="goPage('storage',this)">Arquivos</button>
 </div>
+
+<div id="ptabs">
+  <div class="ptab on" id="ptab-intro" ontouchstart="goPage('intro',null);return false;" onclick="goPage('intro',null)">Inicio</div>
+  <div class="ptab" id="ptab-catalog" ontouchstart="goPage('catalog',null);return false;" onclick="goPage('catalog',null)">Catalogacao</div>
+  <div class="ptab" id="ptab-validation" ontouchstart="goPage('validation',null);return false;" onclick="goPage('validation',null)">Validacao</div>
+  <div class="ptab" id="ptab-bi" ontouchstart="goPage('bi',null);return false;" onclick="goPage('bi',null)">Painel BI</div>
+  <div class="ptab" id="ptab-storage" ontouchstart="goPage('storage',null);return false;" onclick="goPage('storage',null)">Arquivos</div>
+</div>
+
+<div id="step-bar" style="display:none;">
+  <div id="step-txt">Passo 1 de 4 - Identificacao</div>
+  <div id="step-num">1/4</div>
+</div>
+</div>
+
+<!-- INTRO PAGE -->
+
+<div class="page" id="page-intro" style="display:block;">
+  <div class="intro-hero">
+    <div style="font-size:36px;margin-bottom:12px;">&#128203;</div>
+    <h1>ModelScan</h1>
+    <p>Sistema de catalogacao inteligente de modelos institucionais</p>
+  </div>
+
+<a href="javascript:void(0)" 
+style="display:block;width:100%;padding:15px;background:#005CA9;color:#fff;border:none;border-radius:8px;font-size:16px;font-weight:700;text-align:center;text-decoration:none;margin-top:0;margin-bottom:14px;box-sizing:border-box;-webkit-tap-highlight-color:rgba(255,255,255,0.2);"
+onclick="goPage('catalog',null)">
+Iniciar Catalogacao →
+</a>
+
+  <div class="card">
+    <div class="card-t">O que e o ModelScan?</div>
+    <p style="font-size:13px;color:#717A8C;line-height:1.7;margin-bottom:12px;">O ModelScan <strong style="color:#1A1D23;">substitui formularios de autodeclaracao</strong> por um processo guiado e assistido por <strong style="color:#1A1D23;">5 agentes de IA</strong>. Voce informa onde esta a documentacao do modelo e os agentes leem, classificam e geram o <strong style="color:#1A1D23;">Model Card completo</strong> automaticamente.</p>
+    <div class="info-box">
+      <p><strong>Tempo total estimado:</strong> 5 a 20 minutos por modelo.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-t">Como funciona? — 4 passos</div>
+    <div class="step-card">
+      <div class="step-icon">&#128221;</div>
+      <div class="step-body"><h3>1. Identificacao</h3><p>Preencha nome do modelo, area responsavel, owner e e-mail. Os agentes complementam o que falta.</p></div>
+    </div>
+    <div class="step-card">
+      <div class="step-icon">&#128194;</div>
+      <div class="step-body"><h3>2. Fontes</h3><p>Envie arquivos (PDF, Word, Python, R, Jupyter) ou informe links de repositorios SharePoint, GitLab, Databricks ou GCP.</p></div>
+    </div>
+    <div class="step-card">
+      <div class="step-icon">&#129302;</div>
+      <div class="step-body"><h3>3. Analise pelos Agentes</h3><p>5 agentes de IA processam as fontes, classificam o modelo e calculam o nivel de criticidade (N1 a N5).</p></div>
+    </div>
+    <div class="step-card">
+      <div class="step-icon">&#9989;</div>
+      <div class="step-body"><h3>4. Model Card + Aprovacao</h3><p>O Model Card gerado e revisado por voce e enviado automaticamente para a Area de Validacao.</p></div>
+    </div>
+  </div>
+
+  <div class="card" style="background:#FDF5E6;border-color:rgba(154,98,0,.15);">
+    <div class="card-t" style="color:#9A6200;">Antes de comecar</div>
+    <p style="font-size:13px;color:#3C4353;line-height:1.7;margin-bottom:10px;">Tenha em maos ou saiba onde encontrar:</p>
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#3C4353;">&#9679; Documentacao tecnica do modelo (PDF, Word ou link)</div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#3C4353;">&#9679; Codigo-fonte ou notebook (opcional mas recomendado)</div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#3C4353;">&#9679; Chave API Anthropic (gere em console.anthropic.com)</div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#3C4353;">&#9679; E-mail da Area de Validacao de Modelos</div>
+    </div>
+  </div>
+
+<a href="javascript:void(0)"
+style="display:block;width:100%;padding:15px;background:#005CA9;color:#fff;border:none;border-radius:8px;font-size:16px;font-weight:700;text-align:center;text-decoration:none;margin-top:14px;box-sizing:border-box;-webkit-tap-highlight-color:rgba(255,255,255,0.2);"
+onclick="goPage('catalog',null)">
+Iniciar Catalogacao →
+</a>
+
+</div>
+
+<!-- CATALOG PAGE -->
+
+<div class="page" id="page-catalog" style="display:none;">
+
+  <div id="pn1" style="display:block;">
+    <div class="tip"><span style="font-size:18px;flex-shrink:0;">&#128075;</span><div><strong>Identificacao do Modelo.</strong> Preencha os campos abaixo. Todos com * sao obrigatorios.</div></div>
+    <div class="card">
+      <div class="card-t">Acesso a API</div>
+      <div class="field">
+        <label>Chave API Anthropic</label>
+        <div class="key-row">
+          <input type="password" id="api-key" placeholder="sk-ant-... (ou vazio para demo)" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false">
+          <button class="eye" type="button" ontouchstart="toggleKey();return false;" onclick="toggleKey()">&#128065;</button>
+        </div>
+        <div style="font-size:11px;color:#B8BEC9;margin-top:5px;">Gere em <a href="https://console.anthropic.com" style="color:#005CA9;">console.anthropic.com</a> &gt; API Keys</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-t">Dados do Modelo</div>
+      <div class="field"><label>Nome do Modelo <span class="req">*</span></label><input type="text" id="nm" placeholder="ex: Scoring de Credito PF"></div>
+      <div class="field"><label>Area / Superintendencia <span class="req">*</span></label><input type="text" id="ar" placeholder="ex: SUPEC"></div>
+      <div class="field"><label>Model Owner (seu nome) <span class="req">*</span></label><input type="text" id="ow" placeholder="Nome completo"></div>
+      <div class="field"><label>Seu e-mail <span class="req">*</span></label><input type="text" id="oe" placeholder="seu@email.com" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false"></div>
+    </div>
+    <div class="card">
+      <div class="card-t">Contato Validacao</div>
+      <div class="field"><label>E-mail Validacao de Modelos</label><input type="text" id="ve" placeholder="validacao@email.com" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false"></div>
+      <div class="field"><label>E-mail Comite (opcional)</label><input type="text" id="ce" placeholder="comite@email.com" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false"></div>
+    </div>
+    <a href="javascript:void(0)" id="btn-pn2"
+      style="display:block;width:100%;padding:15px;background:#005CA9;color:#fff;border-radius:8px;font-size:16px;font-weight:700;text-align:center;text-decoration:none;margin-top:14px;box-sizing:border-box;-webkit-tap-highlight-color:rgba(255,255,255,0.2);"
+      onclick="goPn2()">
+      Proximo: Fontes &#8594;
+    </a>
+  </div>
+
+  <div id="pn2" style="display:none;">
+    <div class="tip"><span style="font-size:18px;flex-shrink:0;">&#128194;</span><div>Selecione as fontes e envie arquivos ou links. <strong>Quanto mais informacao, melhor!</strong></div></div>
+    <div class="card">
+      <div class="card-t">Tipo de Fonte</div>
+      <div class="tiles" id="tiles">
+        <div class="tile" data-s="pdf" ontouchstart="togTile(this);return false;" onclick="togTile(this)"><div class="tile-i">&#128196;</div><div class="tile-l">PDF/Word</div></div>
+        <div class="tile" data-s="sharepoint" ontouchstart="togTile(this);return false;" onclick="togTile(this)"><div class="tile-i">&#9729;</div><div class="tile-l">SharePoint</div></div>
+        <div class="tile" data-s="databricks" ontouchstart="togTile(this);return false;" onclick="togTile(this)"><div class="tile-i">&#9889;</div><div class="tile-l">Databricks</div></div>
+        <div class="tile" data-s="gcp" ontouchstart="togTile(this);return false;" onclick="togTile(this)"><div class="tile-i">&#128309;</div><div class="tile-l">GCP</div></div>
+        <div class="tile" data-s="python" ontouchstart="togTile(this);return false;" onclick="togTile(this)"><div class="tile-i">&#128013;</div><div class="tile-l">Python/Jupyter</div></div>
+        <div class="tile" data-s="r" ontouchstart="togTile(this);return false;" onclick="togTile(this)"><div class="tile-i">&#128202;</div><div class="tile-l">R/RMarkdown</div></div>
+        <div class="tile" data-s="git" ontouchstart="togTile(this);return false;" onclick="togTile(this)"><div class="tile-i">&#128193;</div><div class="tile-l">Git/GitLab</div></div>
+        <div class="tile" data-s="link" ontouchstart="togTile(this);return false;" onclick="togTile(this)"><div class="tile-i">&#128279;</div><div class="tile-l">Link/URL</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-t">Upload de Arquivos</div>
+      <div class="upz"><input type="file" id="finp" multiple accept=".pdf,.doc,.docx,.txt,.py,.r,.R,.ipynb,.md,.csv" onchange="addFiles(this.files)"><div style="font-size:24px;">&#11014;</div><div class="upz-t">Toque para selecionar arquivos</div><div class="upz-h">PDF, DOCX, .py, .R, .ipynb, .md</div></div>
+      <div id="flist"></div>
+    </div>
+    <div class="card">
+      <div class="card-t">Links de Repositorios</div>
+      <div class="link-row"><input type="text" id="linp" placeholder="https://..." inputmode="url" autocapitalize="none" autocorrect="off"><button class="ladd" type="button" ontouchstart="addLink();return false;" onclick="addLink()">+ Add</button></div>
+      <div class="chips" id="chips"></div>
+    </div>
+    <div class="card">
+      <div class="card-t">Contexto Adicional (opcional)</div>
+      <textarea id="ctx" placeholder="Cole trechos de codigo ou descricoes..."></textarea>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-s" type="button" ontouchstart="showPn(1);return false;" onclick="showPn(1)">&#8592; Voltar</button>
+      <button class="btn btn-p" type="button" ontouchstart="runAnalysis();return false;" onclick="runAnalysis()">Analisar &#8594;</button>
+    </div>
+  </div>
+
+  <div id="pn3" style="display:none;">
+    <div class="awrap">
+      <div class="spin" id="spin"></div>
+      <h3 id="atit">Agentes trabalhando...</h3>
+      <p id="asub">Isso leva alguns segundos.</p>
+      <div style="max-width:340px;margin:0 auto;text-align:left;">
+        <div class="astep on" id="as1"><div class="adot"></div><div><div class="al">Agente de Ingestao</div><div class="as">Lendo arquivos e links</div></div></div>
+        <div class="astep" id="as2"><div class="adot"></div><div><div class="al">Agente RAG</div><div class="as">Extraindo informacoes</div></div></div>
+        <div class="astep" id="as3"><div class="adot"></div><div><div class="al">Agente Classificador</div><div class="as">Identificando familia e tecnica</div></div></div>
+        <div class="astep" id="as4"><div class="adot"></div><div><div class="al">Agente de Criticidade</div><div class="as">Calculando as 6 dimensoes</div></div></div>
+        <div class="astep" id="as5"><div class="adot"></div><div><div class="al">Geracao do Model Card</div><div class="as">Preparando notificacoes</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="pn4" style="display:none;">
+    <div class="ok-banner" id="okb"><div style="font-size:18px;">&#9989;</div><div id="okbtxt"></div></div>
+    <div id="mcc"></div>
+  </div>
+
+</div>
+
+<!-- VALIDATION PAGE -->
+
+<div class="page" id="page-validation" style="display:none;">
+  <div class="ph"><div class="ph-e">Validacao</div><div class="ph-t">Fila de Validacao</div><div class="ph-d">Analise e ratifique os Model Cards.</div></div>
+  <div class="vf">
+    <button class="fb on" type="button" ontouchstart="fv('all',this);return false;" onclick="fv('all',this)">Todos</button>
+    <button class="fb" type="button" ontouchstart="fv('N1',this);return false;" onclick="fv('N1',this)">N1</button>
+    <button class="fb" type="button" ontouchstart="fv('N2',this);return false;" onclick="fv('N2',this)">N2</button>
+    <button class="fb" type="button" ontouchstart="fv('N3',this);return false;" onclick="fv('N3',this)">N3</button>
+    <button class="fb" type="button" ontouchstart="fv('pending',this);return false;" onclick="fv('pending',this)">Aguardando</button>
+    <button class="fb" type="button" ontouchstart="fv('approved',this);return false;" onclick="fv('approved',this)">Ratificados</button>
+  </div>
+  <div class="card" style="padding:0;overflow:hidden;">
+    <table class="vt"><thead><tr><th>Chave</th><th>Modelo</th><th>Crit.</th><th>Status</th><th>Acao</th></tr></thead><tbody id="vtb"></tbody></table>
+  </div>
+</div>
+
+<!-- BI PAGE -->
+
+<div class="page" id="page-bi" style="display:none;">
+  <div class="ph"><div class="ph-e">Executivo</div><div class="ph-t">Inventario</div><div class="ph-d">Visao consolidada do portfolio.</div></div>
+  <div class="kpig">
+    <div class="kpi kb"><div class="kpi-l">Total</div><div class="kpi-v" id="biT">5</div><div class="kpi-s">no inventario</div></div>
+    <div class="kpi kr"><div class="kpi-l">N1 Criticos</div><div class="kpi-v" id="biN1" style="color:#B83232;">2</div><div class="kpi-s">prioritarios</div></div>
+    <div class="kpi kg"><div class="kpi-l">Ratificados</div><div class="kpi-v" id="biR" style="color:#1B7F4F;">2</div><div class="kpi-s">validados</div></div>
+    <div class="kpi ko"><div class="kpi-l">Aguardando</div><div class="kpi-v" id="biP" style="color:#F47920;">3</div><div class="kpi-s">em analise</div></div>
+  </div>
+  <div class="chart"><div class="chart-t">Por Familia</div>
+    <div class="br"><div class="br-l">Machine Learning</div><div class="br-trk"><div class="br-f" style="width:50%;background:#005CA9;">2</div></div><div class="br-v">2</div></div>
+    <div class="br"><div class="br-l">Estatistico</div><div class="br-trk"><div class="br-f" style="width:25%;background:#0D7377;">1</div></div><div class="br-v">1</div></div>
+    <div class="br"><div class="br-l">Mat./Financeiro</div><div class="br-trk"><div class="br-f" style="width:25%;background:#F47920;">1</div></div><div class="br-v">1</div></div>
+    <div class="br"><div class="br-l">IA Gen./LLM</div><div class="br-trk"><div class="br-f" style="width:25%;background:#B83232;">1</div></div><div class="br-v">1</div></div>
+  </div>
+  <div class="card" style="padding:0;overflow:hidden;"><div style="display:flex;align-items:center;justify-content:space-between;padding:11px 13px;border-bottom:1px solid #ECEEF2;"><span style="font-size:13px;font-weight:700;">Inventario Completo</span><button class="bexp" type="button" ontouchstart="csvBI();return false;" onclick="csvBI()">CSV</button></div><table class="vt"><thead><tr><th>Chave</th><th>Modelo</th><th>Familia</th><th>Crit.</th><th>Pont.</th><th>Status</th></tr></thead><tbody id="biTb"></tbody></table></div>
+</div>
+
+<!-- STORAGE PAGE -->
+
+<div class="page" id="page-storage" style="display:none;">
+  <div class="ph"><div class="ph-e">Transparencia</div><div class="ph-t">Onde ficam os arquivos?</div><div class="ph-d">Mapa de armazenamento por perfil.</div></div>
+  <div class="sg">
+    <div class="si"><div class="si-t">Model Cards</div><div class="si-p">/inventario/model-cards/</div><div class="si-d">Ficha com metadados e historico.</div></div>
+    <div class="si"><div class="si-t">Mensageria</div><div class="si-p">/inventario/mensageria/</div><div class="si-d">Copia das notificacoes enviadas.</div></div>
+    <div class="si"><div class="si-t">Historico Validacao</div><div class="si-p">/inventario/validacoes/</div><div class="si-d">Ratificacoes e manifestacoes.</div></div>
+    <div class="si"><div class="si-t">Base BI</div><div class="si-p">/inventario/consolidado/</div><div class="si-d">Inventario atualizado automaticamente.</div></div>
+    <div class="si"><div class="si-t">Arquivos Originais</div><div class="si-p">/inventario/fontes/</div><div class="si-d">Documentos do Owner. Acesso restrito.</div></div>
+    <div class="si"><div class="si-t">Registro de IDs</div><div class="si-p">/inventario/ids/</div><div class="si-d">Garante unicidade das chaves.</div></div>
+  </div>
+</div>
+
+<!-- MODAL -->
+
+<div class="modal-bg" id="vmod">
+  <div class="modal">
+    <button class="modal-x" type="button" ontouchstart="closeModal();return false;" onclick="closeModal()">&#215;</button>
+    <div style="font-family:monospace;font-size:11px;color:#B8BEC9;margin-bottom:2px;" id="mid"></div>
+    <div style="font-size:18px;font-weight:800;margin-bottom:2px;" id="mnm"></div>
+    <div style="font-size:13px;color:#717A8C;margin-bottom:16px;" id="mar"></div>
+    <div id="mprev" style="margin-bottom:16px;"></div>
+    <div style="font-size:13px;font-weight:700;margin-bottom:8px;">Manifestacoes</div>
+    <div id="ucoms"><div class="uc"><div class="uc-hd"><div class="uc-av">AI</div><div class="uc-nm">Auditoria Interna</div><div class="uc-t">ha 2 dias</div></div><div class="uc-txt">Modelo em producao desde jan/2024. Sugerimos revisao de D6.</div></div></div>
+    <div style="margin-top:10px;">
+      <div class="g2" style="margin-bottom:10px;">
+        <div class="field" style="margin:0;"><label>Sua unidade</label><input type="text" id="uname" placeholder="ex: Compliance"></div>
+        <div class="field" style="margin:0;"><label>Seu nome</label><input type="text" id="uperson" placeholder="Nome"></div>
+      </div>
+      <div class="field"><label>Manifestacao</label><textarea id="uobs" placeholder="Observacoes..."></textarea></div>
+      <button class="btn btn-s" style="width:auto;padding:10px 16px;margin-top:8px;" type="button" ontouchstart="addCom();return false;" onclick="addCom()">+ Registrar</button>
+    </div>
+    <div style="border-top:1px solid #ECEEF2;padding-top:14px;margin-top:14px;">
+      <div style="font-size:13px;font-weight:700;margin-bottom:10px;">Decisao da Validacao</div>
+      <div class="g2" style="margin-bottom:10px;">
+        <div class="field" style="margin:0;"><label>Corrigir Criticidade</label><select id="vcrit"><option value="">manter</option><option>N1</option><option>N2</option><option>N3</option><option>N4</option><option>N5</option></select></div>
+        <div class="field" style="margin:0;"><label>Analista</label><input type="text" id="vana" placeholder="Nome"></div>
+      </div>
+      <div class="field"><label>Parecer (obrigatorio)</label><textarea id="vparecer" placeholder="Registre o parecer..."></textarea></div>
+      <div class="dec-btns">
+        <button class="dec-btn ap" type="button" ontouchstart="ratify('approve');return false;" onclick="ratify('approve')">Ratificar</button>
+        <button class="dec-btn rj" type="button" ontouchstart="ratify('reject');return false;" onclick="ratify('reject')">Solicitar correcao</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
-function ir2(){
-  document.getElementById('p1').style.display='none';
-  document.getElementById('p2').style.display='block';
+var FILES=[],LINKS=[],SOURCES=[],RESULT=null,DECISION=null,CID=null;
+var PNLABELS=['','Identificacao','Fontes','Analise','Model Card'];
+var PAGES=['intro','catalog','validation','bi','storage'];
+var INV=[
+  {uid:'MDL-B7X3K1',name:'Scoring Credito PF',area:'SUPEC',family:'Machine Learning',crit:'N1',critN:'Critico',score:4.0,reg:'Basileia III',status:'pending',date:'12/04/2025',owner:'Ana Lima'},
+  {uid:'MDL-C2M8P4',name:'Inadimplencia Consignado',area:'DIREC',family:'Estatistico',crit:'N2',critN:'Alto',score:3.5,reg:'IFRS 9',status:'pending',date:'10/04/2025',owner:'Carlos Mota'},
+  {uid:'MDL-A5R1Q9',name:'VaR Renda Fixa',area:'DIRIN',family:'Matematico',crit:'N1',critN:'Critico',score:4.2,reg:'Basileia III',status:'approved',date:'05/04/2025',owner:'Fernanda Souza'},
+  {uid:'MDL-E9T6H2',name:'Risco Fornecedores',area:'DIVCO',family:'ML',crit:'N3',critN:'Medio',score:2.8,reg:'Nenhum',status:'pending',date:'08/04/2025',owner:'Roberto Silva'},
+  {uid:'MDL-F4W2L7',name:'Agente LLM Contratos',area:'DIJUR',family:'IA Gen.',crit:'N2',critN:'Alto',score:3.7,reg:'Nenhum',status:'approved',date:'01/04/2025',owner:'Patricia Nunes'},
+];
+
+function G(id){return document.getElementById(id);}
+function GV(id){var e=G(id);return(e&&e.value)?e.value.trim():'';}
+
+function goPage(pid,btn){
+  var i,p,t;
+  for(i=0;i<PAGES.length;i++){
+    p=G('page-'+PAGES[i]);
+    if(p) p.style.display=(PAGES[i]===pid?'block':'none');
+    t=G('ptab-'+PAGES[i]);
+    if(t) t.className='ptab'+(PAGES[i]===pid?' on':'');
+  }
+  var m=G('menu-drop');
+  if(m) m.style.display='none';
+  var b=G('hdr-btn');
+  if(b) b.innerHTML='&#9776;';
+  var sb=G('step-bar');
+  if(sb) sb.style.display=(pid==='catalog'?'flex':'none');
+  document.body.style.paddingTop=(pid==='catalog'?'132px':'96px');
+  if(pid==='validation') renderVT(INV);
+  if(pid==='bi') renderBI();
+  // Update menu active
+  var btns=G('menu-drop')?G('menu-drop').querySelectorAll('button'):[];
+  for(i=0;i<btns.length;i++) btns[i].className='';
+  if(btn && btn.className!==undefined) btn.className='mact';
   window.scrollTo(0,0);
 }
-function ir1(){
-  document.getElementById('p2').style.display='none';
-  document.getElementById('p1').style.display='block';
+
+function toggleMenu(){
+  var m=G('menu-drop'),b=G('hdr-btn');
+  if(!m||!b) return;
+  var open=(m.style.display==='block');
+  m.style.display=open?'none':'block';
+  b.innerHTML=open?'&#9776;':'&#10005;';
+}
+
+function showPn(n){
+  var i,p,st,sn;
+  for(i=1;i<=4;i++){
+    p=G('pn'+i);
+    if(p) p.style.display=(i===n?'block':'none');
+  }
+  st=G('step-txt');
+  if(st) st.textContent='Passo '+n+' de 4 - '+PNLABELS[n];
+  sn=G('step-num');
+  if(sn) sn.textContent=n+'/4';
   window.scrollTo(0,0);
 }
+
+function goPn2(){
+  var nm=GV('nm'),ar=GV('ar'),ow=GV('ow'),oe=GV('oe');
+  if(!nm){alert('Informe o Nome do Modelo.');return;}
+  if(!ar){alert('Informe a Area.');return;}
+  if(!ow){alert('Informe o Model Owner.');return;}
+  if(!oe){alert('Informe seu e-mail.');return;}
+  showPn(2);
+}
+
+function toggleKey(){
+  var i=G('api-key');
+  if(i) i.type=(i.type==='password'?'text':'password');
+}
+
+function togTile(el){
+  var s=el.getAttribute('data-s');
+  var on=el.className.indexOf('on')>=0;
+  el.className=on?'tile':'tile on';
+  var idx=SOURCES.indexOf(s);
+  if(!on){if(idx<0)SOURCES.push(s);}
+  else{if(idx>=0)SOURCES.splice(idx,1);}
+}
+
+function addFiles(fl){
+  var i,f,j,found;
+  for(i=0;i<fl.length;i++){
+    f=fl[i]; found=false;
+    for(j=0;j<FILES.length;j++){if(FILES[j].name===f.name){found=true;break;}}
+    if(!found) FILES.push(f);
+  }
+  renderFiles();
+}
+function renderFiles(){
+  var h='',i;
+  for(i=0;i<FILES.length;i++){
+    h+='<div class="fi"><span style="font-size:12px;flex-shrink:0;color:#717A8C;">'+FILES[i].name.split('.').pop().toUpperCase()+'</span><span class="fi-n">'+FILES[i].name+'</span><button class="fi-r" type="button" ontouchstart="rmF('+i+');return false;" onclick="rmF('+i+')">x</button></div>';
+  }
+  G('flist').innerHTML=h;
+}
+function rmF(i){FILES.splice(i,1);renderFiles();}
+
+function addLink(){
+  var inp=G('linp');if(!inp)return;
+  var v=inp.value.trim();if(!v)return;
+  var i,found=false;
+  for(i=0;i<LINKS.length;i++){if(LINKS[i]===v){found=true;break;}}
+  if(!found){LINKS.push(v);renderChips();}
+  inp.value='';
+}
+function renderChips(){
+  var h='',i;
+  for(i=0;i<LINKS.length;i++){
+    h+='<div class="chip"><span class="chip-t">'+LINKS[i]+'</span><button class="chip-r" type="button" ontouchstart="rmL('+i+');return false;" onclick="rmL('+i+')">x</button></div>';
+  }
+  G('chips').innerHTML=h;
+}
+function rmL(i){LINKS.splice(i,1);renderChips();}
+
+function wait(ms){return new Promise(function(r){setTimeout(r,ms);});}
+function makeUID(){return 'MDL-'+Math.random().toString(36).substr(2,6).toUpperCase();}
+
+async function runAnalysis(){
+  showPn(3);
+  var ids=['as1','as2','as3','as4','as5'],i,prev,cur;
+  for(i=0;i<ids.length;i++){
+    if(i>0){prev=G(ids[i-1]);if(prev)prev.className='astep dn';}
+    cur=G(ids[i]);if(cur)cur.className='astep on';
+    await wait(i===1?1800:1200);
+  }
+  var last=G('as5');if(last)last.className='astep dn';
+  RESULT=GV('api-key')?await callAPI(GV('api-key')):makeDemo();
+  var sp=G('spin');if(sp)sp.style.display='none';
+  G('atit').textContent='Pronto! Model Card gerado.';
+  G('asub').textContent='Revise e confirme.';
+  await wait(700);
+  renderMC(RESULT);
+  showPn(4);
+}
+
+async function callAPI(key){
+  var nm=GV('nm'),ar=GV('ar'),ow=GV('ow'),txt='',i;
+  for(i=0;i<FILES.length;i++){
+    try{var t=await readTxt(FILES[i]);txt+='\nARQ:'+FILES[i].name+'\n'+t.substring(0,3000);}catch(e){}
+  }
+  var prompt='Analise e gere Model Card em JSON puro sem markdown.\nModelo:'+nm+'\nArea:'+ar+'\nOwner:'+ow+'\nFontes:'+SOURCES.join(',')+'\nLinks:'+LINKS.join(',')+'\nCtx:'+GV('ctx')+(txt?'\n'+txt:'')+'\nRetorne SOMENTE este JSON:\n{"family":"string","technique":"string","description":"string","platform":"string","inputs":"string","outputs":"string","autonomy":"string","regulatory":"string","scores":{"D1":3,"D2":3,"D3":3,"D4":3,"D5":3,"D6":3},"weighted_score":3.0,"criticality_level":"N1","criticality_name":"Critico","tags":["tag"],"controls":[{"text":"texto","type":"crit"}],"validation_scope":"string","confidence":70,"confidence_note":"string"}';
+  try{
+    var res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:2000,messages:[{role:'user',content:prompt}]})});
+    var data=await res.json();
+    if(data.error)throw new Error(data.error.message);
+    var raw=data.content.map(function(b){return b.text||'';}).join('');
+    var r=JSON.parse(raw.substring(raw.indexOf('{'),raw.lastIndexOf('}')+1));
+    r.model_name=nm;r.model_area=ar;r.model_owner=ow;return r;
+  }catch(e){console.error(e);var d=makeDemo();d.confidence=0;d.confidence_note='Erro API - demo.';return d;}
+}
+function makeDemo(){
+  return{model_name:GV('nm')||'Scoring de Credito PF',model_area:GV('ar')||'SUPEC',model_owner:GV('ow')||'Demo',family:'Machine Learning',technique:'Gradient Boosting (XGBoost)',description:'Modelo para estimacao de probabilidade de default em carteiras PF. Processa variaveis comportamentais e de bureau. Alcada automatica ate R$50 mil.',platform:'Python + Databricks',inputs:'Score bureau, historico, renda, tempo relacionamento',outputs:'Score PD (0-1000), faixa risco, limite recomendado',autonomy:'Automatico ate R$50 mil',regulatory:'Basileia III / IFRS 9',scores:{D1:4,D2:4,D3:4,D4:3,D5:5,D6:3},weighted_score:3.90,criticality_level:'N1',criticality_name:'Critico',tags:['credito-pf','pd-model','basileia-iii','xgboost'],controls:[{text:'Monitoramento continuo PSI/KS/Gini',type:'crit'},{text:'Validacao independente anual',type:'crit'},{text:'Plano de contingencia semestral',type:'crit'},{text:'Analise de vies a cada recalibracao',type:'warn'},{text:'SHAP values para contestacoes',type:'warn'},{text:'Aprovacao do Comite para alteracoes',type:'ok'}],validation_scope:'Validacao Profunda N1: revisao conceitual, backtesting 24 meses, stress test, fairness, SHAP/LIME.',confidence:72,confidence_note:'Confianca moderada-alta.'};
+}
+function readTxt(f){return new Promise(function(res,rej){var r=new FileReader();r.onload=function(e){res(e.target.result);};r.onerror=rej;r.readAsText(f);});}
+
+function renderMC(r){
+  var ts=new Date().toLocaleString('pt-BR');
+  var id=r.uid||makeUID();r.uid=id;
+  var oe=GV('oe'),ve=GV('ve');
+  var dm={D1:'D1 Impacto Fin.',D2:'D2 Exp.Reg.',D3:'D3 Autonomia',D4:'D4 Opacidade',D5:'D5 Abrangencia',D6:'D6 Maturidade'};
+  var sc=r.scores||{},k,scH='';
+  for(k in sc){scH+='<div class="scrow"><div class="scd">'+(dm[k]||k)+'</div><div class="sctrk"><div class="scf" style="width:'+((sc[k]/5)*100)+'%;"></div></div><div class="scv">'+sc[k]+'/5</div></div>';}
+  var ctH=(r.controls||[]).map(function(c){return '<div class="ci '+(c.type||'')+'">'+(c.text||'')+'</div>';}).join('');
+  var tgH=(r.tags||[]).map(function(t){return '<div class="tag">'+t+'</div>';}).join('');
+  var h='<div class="mc"><div class="mc-hd"><div class="mc-id">'+id+'</div><div class="mc-row"><div><div class="mc-name">'+r.model_name+'</div><div class="mc-fam">'+r.family+' - '+r.technique+'</div></div><div class="mc-lvl"><div class="mc-badge"><div class="mc-ln">'+(r.criticality_level||'N3')+'</div><div class="mc-ll">NIVEL</div></div><div class="mc-lname">'+(r.criticality_name||'')+'</div></div></div><div class="mc-meta"><div><div class="mc-ml">Area</div><div class="mc-mv">'+r.model_area+'</div></div><div><div class="mc-ml">Owner</div><div class="mc-mv">'+r.model_owner+'</div></div><div><div class="mc-ml">Gerado</div><div class="mc-mv">'+ts+'</div></div></div></div>'
+    +'<div class="mc-bd"><div class="sec"><div class="sec-t">Descricao</div><div class="txt">'+r.description+'</div></div>'
+    +'<div class="sec"><div class="sec-t">Identificacao</div><div class="ig"><div class="ic"><div class="ic-l">Tecnica</div><div class="ic-v">'+r.technique+'</div></div><div class="ic"><div class="ic-l">Plataforma</div><div class="ic-v">'+r.platform+'</div></div><div class="ic"><div class="ic-l">Inputs</div><div class="ic-v">'+r.inputs+'</div></div><div class="ic"><div class="ic-l">Outputs</div><div class="ic-v">'+r.outputs+'</div></div><div class="ic"><div class="ic-l">Autonomia</div><div class="ic-v">'+r.autonomy+'</div></div><div class="ic"><div class="ic-l">Regulatorio</div><div class="ic-v">'+r.regulatory+'</div></div><div class="ic"><div class="ic-l">Fontes</div><div class="ic-v">'+(SOURCES.length?SOURCES.join(', '):'nao especificadas')+'</div></div><div class="ic"><div class="ic-l">Chave</div><div class="ic-v" style="color:#005CA9;font-family:monospace;font-size:11px;">'+id+'</div></div></div></div>'
+    +'<div class="sec"><div class="sec-t">Criticidade</div>'+scH+'<div class="sctot"><div class="sctot-l">Pontuacao Ponderada</div><div class="sctot-v">'+((r.weighted_score||0).toFixed(2))+'</div></div><div style="font-size:11px;color:#B8BEC9;margin-top:4px;">'+(r.confidence_note||'')+'</div></div>'
+    +'<div class="sec"><div class="sec-t">Tags</div><div class="tags">'+tgH+'</div></div>'
+    +'<div class="sec"><div class="sec-t">Controles</div>'+ctH+'</div>'
+    +'<div class="sec"><div class="sec-t">Escopo</div><div class="txt">'+r.validation_scope+'</div></div>'
+    +'<div class="sec"><div class="sec-t">Mensageria</div>'
+    +'<div class="mtabs"><div class="mtab on" id="mto" ontouchstart="mTab(\'owner\',this);return false;" onclick="mTab(\'owner\',this)">Owner</div><div class="mtab" id="mtv" ontouchstart="mTab(\'val\',this);return false;" onclick="mTab(\'val\',this)">Validacao</div></div>'
+    +'<div id="mco" class="mcont on"><div class="mrec"><div class="mrec-l">Para:</div><input type="text" id="to-owner" value="'+oe+'" inputmode="email" autocapitalize="none"></div><div class="mprev"><div class="mp-bar"><div class="mpd" style="background:#FF5F56;"></div><div class="mpd" style="background:#FFBD2E;"></div><div class="mpd" style="background:#27C93F;"></div></div><div class="mp-to">Para: '+oe+'</div><div class="mp-sub">[ModelScan] Catalogacao | '+r.criticality_level+'</div><div class="mp-body">'+eOwner(r,id,ts)+'</div></div></div>'
+    +'<div id="mcv" class="mcont"><div class="mrec"><div class="mrec-l">Para:</div><input type="text" id="to-val" value="'+ve+'" inputmode="email" autocapitalize="none"></div><div class="mprev"><div class="mp-bar"><div class="mpd" style="background:#FF5F56;"></div><div class="mpd" style="background:#FFBD2E;"></div><div class="mpd" style="background:#27C93F;"></div></div><div class="mp-to">Para: '+ve+'</div><div class="mp-sub">[ModelScan] Novo modelo | '+r.criticality_level+'</div><div class="mp-body">'+eVal(r,id,ts)+'</div></div></div></div>'
+    +'<div style="border-top:1px solid #ECEEF2;padding-top:16px;margin-top:14px;"><div style="font-size:17px;font-weight:800;margin-bottom:3px;">Confirme o Model Card</div><div style="font-size:13px;color:#717A8C;margin-bottom:14px;">Corrija se necessario e confirme ou solicite revisao.</div>'
+    +'<div class="g2" style="margin-bottom:12px;"><div class="field" style="margin:0;"><label>Corrigir Tecnica</label><input type="text" id="mtech" placeholder="Confirme..."></div><div class="field" style="margin:0;"><label>Corrigir Autonomia</label><select id="maut"><option value="">manter</option><option>100% automatizado</option><option>Revisao em excecoes</option><option>Aprovacao sistematica</option><option>Subsidio analitico</option><option>Apenas informativo</option></select></div></div>'
+    +'<div class="field"><label>Observacoes</label><textarea id="mnotes" placeholder="Correcoes ou contexto..."></textarea></div>'
+
+```
++'<label style="margin-bottom:7px;display:block;">Decisao</label>'
++'<div class="dec-btns"><button class="dec-btn ap" id="bap" type="button" ontouchstart="setD(\'approve\');return false;" onclick="setD(\'approve\')">Confirmo!</button><button class="dec-btn rj" id="brj" type="button" ontouchstart="setD(\'reject\');return false;" onclick="setD(\'reject\')">Solicito revisao</button></div>'
++'<div class="btn-row" style="margin-top:12px;"><button class="btn btn-s" type="button" ontouchstart="showPn(2);return false;" onclick="showPn(2)">Reenviar Fontes</button><button class="btn btn-p" id="bfin" type="button" ontouchstart="finish();return false;" onclick="finish()" disabled style="opacity:.4;">Finalizar</button></div>'
++'</div></div>'
++'<div class="mc-foot"><div class="mc-foot-l" id="mcfoot">Gerado '+ts+' - '+id+'</div><div class="mc-foot-r"><button class="bexp" type="button" ontouchstart="expJ();return false;" onclick="expJ()">JSON</button><button class="bexp" type="button" ontouchstart="expT();return false;" onclick="expT()">TXT</button><button class="bexp" type="button" ontouchstart="window.print();return false;" onclick="window.print()">PDF</button></div></div></div>';
+```
+
+G(‘mcc’).innerHTML=h;
+}
+
+function eOwner(r,id,ts){return ‘Prezado(a) ‘+r.model_owner+’,\n\nCatalogacao concluida!\n\nID: ‘+id+’\nModelo: ‘+r.model_name+’\nNivel: ‘+r.criticality_level+’ - ‘+r.criticality_name+’\nPontuacao: ‘+((r.weighted_score||0).toFixed(2))+’/5\nGerado: ‘+ts+’\n\nProximos passos:\n1. Revise o Model Card\n2. Confirme ou solicite revisao\n\nEquipe ModelScan’;}
+function eVal(r,id,ts){return ‘Equipe de Validacao,\n\nNovo modelo - ‘+r.criticality_level+’.\n\nID: ‘+id+’\nModelo: ‘+r.model_name+’\nArea: ‘+r.model_area+’\nOwner: ‘+r.model_owner+’\nNivel: ‘+r.criticality_level+’ - ‘+r.criticality_name+’\nPont.: ‘+((r.weighted_score||0).toFixed(2))+’/5\n\nModelScan’;}
+
+function mTab(t,btn){
+var to=G(‘mto’),tv=G(‘mtv’),mco=G(‘mco’),mcv=G(‘mcv’);
+if(!to||!tv||!mco||!mcv)return;
+to.className=t===‘owner’?‘mtab on’:‘mtab’;
+tv.className=t===‘val’?‘mtab on’:‘mtab’;
+mco.style.display=t===‘owner’?‘block’:‘none’;
+mcv.style.display=t===‘val’?‘block’:‘none’;
+}
+
+function setD(d){
+DECISION=d;
+var ba=G(‘bap’),br=G(‘brj’),bf=G(‘bfin’);
+if(ba)ba.className=‘dec-btn ap’+(d===‘approve’?’ on’:’’);
+if(br)br.className=‘dec-btn rj’+(d===‘reject’?’ on’:’’);
+if(bf){bf.disabled=false;bf.style.opacity=‘1’;}
+}
+
+function finish(){
+if(!DECISION)return;
+var ts=new Date().toLocaleString(‘pt-BR’),ow=GV(‘ow’);
+var mf=G(‘mcfoot’);
+if(mf)mf.textContent=(DECISION===‘approve’?‘Confirmado por ‘:‘Revisao por ‘)+ow+’ em ‘+ts;
+var bf=G(‘bfin’);if(bf){bf.textContent=DECISION===‘approve’?‘Registrado!’:‘Revisao solicitada’;bf.disabled=true;bf.style.opacity=’.4’;}
+if(DECISION===‘approve’&&RESULT){INV.unshift({uid:RESULT.uid,name:RESULT.model_name,area:RESULT.model_area,family:RESULT.family,crit:RESULT.criticality_level,critN:RESULT.criticality_name,score:RESULT.weighted_score,reg:RESULT.regulatory,status:‘pending’,date:new Date().toLocaleDateString(‘pt-BR’),owner:RESULT.model_owner});}
+var ob=G(‘okb’),ot=G(‘okbtxt’);
+if(ob)ob.style.display=‘flex’;
+if(ot)ot.innerHTML=DECISION===‘approve’?’<strong>Registrado!</strong> Chave: <strong>’+(RESULT&&RESULT.uid||’’)+’</strong>’:’<strong>Revisao solicitada.</strong>’;
+window.scrollTo(0,0);
+}
+
+function renderVT(data){
+var h=’’,i,m;
+for(i=0;i<data.length;i++){
+m=data[i];
+h+=’<tr><td style="font-family:monospace;font-size:10px;color:#005CA9;">’+m.uid+’</td><td style="font-weight:600;font-size:13px;">’+m.name+’</td><td><span class="badge b'+m.crit+'">’+m.crit+’</span></td><td>’+(m.status===‘approved’?’<span style="color:#1B7F4F;font-weight:600;font-size:12px;">Ratificado</span>’:’<span style="color:#F47920;font-weight:600;font-size:12px;">Aguardando</span>’)+’</td><td><button class="fb" style="font-size:11px;padding:5px 9px;" type="button" ontouchstart="openM(\''+m.uid+'\');return false;" onclick="openM(\''+m.uid+'\')">Apreciar</button></td></tr>’;
+}
+G(‘vtb’).innerHTML=h;
+}
+
+function fv(f,btn){
+var btns=document.querySelectorAll(’.vf .fb’),i;
+for(i=0;i<btns.length;i++) btns[i].className=‘fb’;
+btn.className=‘fb on’;
+var data=INV;
+if(f===‘pending’) data=INV.filter(function(m){return m.status===‘pending’;});
+else if(f===‘approved’) data=INV.filter(function(m){return m.status===‘approved’;});
+else if(f!==‘all’) data=INV.filter(function(m){return m.crit===f;});
+renderVT(data);
+}
+
+function openM(uid){
+CID=uid;
+var m=null,i;
+for(i=0;i<INV.length;i++){if(INV[i].uid===uid){m=INV[i];break;}}
+if(!m)return;
+G(‘mid’).textContent=uid;
+G(‘mnm’).textContent=m.name;
+G(‘mar’).textContent=m.area+’ - ‘+m.family+’ - Owner: ‘+m.owner;
+G(‘mprev’).innerHTML=’<div style="display:flex;align-items:center;gap:10px;padding:11px;background:#F8F9FA;border:1px solid #ECEEF2;border-radius:8px;"><div style="flex:1;"><div style="font-size:11px;color:#B8BEC9;margin-bottom:1px;">Criticidade</div><div style="font-size:14px;font-weight:700;">’+m.crit+’ - ‘+m.critN+’</div><div style="font-size:12px;color:#717A8C;">Pont: ‘+m.score+’ | ‘+m.reg+’</div></div><span class="badge b'+m.crit+'" style="font-size:13px;padding:5px 11px;">’+m.crit+’</span></div>’;
+G(‘vmod’).style.display=‘flex’;
+}
+
+function closeModal(){
+G(‘vmod’).style.display=‘none’;
+var ids=[‘vcrit’,‘vana’,‘vparecer’,‘uname’,‘uperson’,‘uobs’],i,e;
+for(i=0;i<ids.length;i++){e=G(ids[i]);if(e)e.value=’’;}
+}
+
+function addCom(){
+var un=GV(‘uname’),up=GV(‘uperson’),uo=GV(‘uobs’);
+if(!un||!uo)return;
+G(‘ucoms’).innerHTML+=’<div class="uc"><div class="uc-hd"><div class="uc-av">’+((up||un).substring(0,2).toUpperCase())+’</div><div class="uc-nm">’+(up||un)+’ - ‘+un+’</div><div class="uc-t">agora</div></div><div class="uc-txt">’+uo+’</div></div>’;
+G(‘uname’).value=’’;G(‘uperson’).value=’’;G(‘uobs’).value=’’;
+}
+
+function ratify(a){
+if(!CID)return;
+if(a===‘approve’&&!GV(‘vparecer’)){alert(‘Registre o parecer tecnico antes de ratificar.’);return;}
+var i;
+for(i=0;i<INV.length;i++){
+if(INV[i].uid===CID){
+var nc=GV(‘vcrit’);if(nc)INV[i].crit=nc;
+INV[i].status=a===‘approve’?‘approved’:‘pending’;break;
+}
+}
+closeModal();renderVT(INV);
+alert(a===‘approve’?‘Ratificado!’:‘Correcao solicitada.’);
+}
+
+function renderBI(){
+var h=’’,i,m;
+for(i=0;i<INV.length;i++){
+m=INV[i];
+h+=’<tr><td style="font-family:monospace;font-size:10px;color:#005CA9;">’+m.uid+’</td><td style="font-weight:600;font-size:13px;">’+m.name+’</td><td style="font-size:12px;color:#717A8C;">’+m.family+’</td><td><span class="badge b'+m.crit+'">’+m.crit+’</span></td><td style="font-family:monospace;font-size:12px;">’+m.score.toFixed(2)+’</td><td>’+(m.status===‘approved’?’<span style="color:#1B7F4F;font-weight:600;font-size:12px;">Ratificado</span>’:’<span style="color:#F47920;font-weight:600;font-size:12px;">Aguardando</span>’)+’</td></tr>’;
+}
+G(‘biTb’).innerHTML=h;
+G(‘biT’).textContent=INV.length;
+G(‘biN1’).textContent=INV.filter(function(m){return m.crit===‘N1’;}).length;
+G(‘biR’).textContent=INV.filter(function(m){return m.status===‘approved’;}).length;
+G(‘biP’).textContent=INV.filter(function(m){return m.status===‘pending’;}).length;
+}
+
+function csvBI(){
+var rows=[‘Chave,Modelo,Familia,Criticidade,Pontuacao,Status’],i,m;
+for(i=0;i<INV.length;i++){m=INV[i];rows.push([m.uid,m.name,m.family,m.crit,m.score.toFixed(2),m.status===‘approved’?‘Ratificado’:‘Aguardando’].join(’,’));}
+var a=document.createElement(‘a’);a.href=URL.createObjectURL(new Blob([rows.join(’\n’)],{type:‘text/csv’}));a.download=‘inventario.csv’;document.body.appendChild(a);a.click();document.body.removeChild(a);
+}
+
+function expJ(){if(!RESULT)return;var a=document.createElement(‘a’);a.href=URL.createObjectURL(new Blob([JSON.stringify(RESULT,null,2)],{type:‘application/json’}));a.download=‘model-card.json’;document.body.appendChild(a);a.click();document.body.removeChild(a);}
+function expT(){
+if(!RESULT)return;var r=RESULT;
+var t=‘MODEL CARD: ‘+r.model_name+’\nChave: ‘+r.uid+’\nGerado: ‘+new Date().toLocaleString(‘pt-BR’)+’\nOwner: ‘+r.model_owner+’ | ‘+r.model_area+’\nNivel: ‘+r.criticality_level+’ - ‘+r.criticality_name+’\nPont: ‘+((r.weighted_score||0).toFixed(2))+’/5\n\nDescricao:\n’+r.description+’\n\nEscopo:\n’+r.validation_scope;
+var a=document.createElement(‘a’);a.href=URL.createObjectURL(new Blob([t],{type:‘text/plain’}));a.download=‘model-card.txt’;document.body.appendChild(a);a.click();document.body.removeChild(a);
+}
+
+window.onload=function(){renderVT(INV);renderBI();};
 </script>
+
 </body>
 </html>

@@ -200,12 +200,15 @@ textarea{resize:vertical;min-height:80px;}
 
   <div class="card">
     <div class="card-t">Upload de Arquivos</div>
-    <div class="upz">
-      <input type="file" id="finp" multiple accept=".pdf,.doc,.docx,.txt,.py,.r,.R,.ipynb,.md,.csv" onchange="addFiles(this.files)">
-      <div style="font-size:24px;">&#11014;</div>
-      <div class="upz-t">Toque para selecionar arquivos</div>
-      <div style="font-size:11px;color:#B8BEC9;">PDF, DOCX, .py, .R, .ipynb, .md</div>
+    <div style="margin-bottom:10px;">
+      <label for="finp" style="display:block;border:2px dashed #005CA9;border-radius:10px;padding:20px;text-align:center;background:#EBF3FB;cursor:pointer;">
+        <div style="font-size:28px;margin-bottom:8px;">&#11014;</div>
+        <div style="font-size:14px;font-weight:700;color:#005CA9;margin-bottom:4px;">Toque aqui para selecionar arquivos</div>
+        <div style="font-size:12px;color:#717A8C;">PDF, DOCX, .py, .ipynb, .txt e outros</div>
+      </label>
+      <input type="file" id="finp" multiple style="position:absolute;width:1px;height:1px;opacity:0;" onchange="addFiles(this.files)">
     </div>
+    <div id="flist-count" style="display:none;background:#E6F4EE;border:1px solid rgba(27,127,79,.3);border-radius:8px;padding:10px 14px;margin-bottom:8px;font-size:14px;color:#1B7F4F;font-weight:600;"></div>
     <div id="flist"></div>
   </div>
 
@@ -281,6 +284,15 @@ function renderFiles(){
     h+='<div class="fi"><span style="font-size:12px;color:#717A8C;flex-shrink:0;">'+FILES[i].name.split('.').pop().toUpperCase()+'</span><span class="fi-n">'+FILES[i].name+'</span><button class="fi-r" type="button" onclick="rmF('+i+')">&#215;</button></div>';
   }
   document.getElementById('flist').innerHTML=h;
+  var fc=document.getElementById('flist-count');
+  if(fc){
+    if(FILES.length>0){
+      fc.style.display='block';
+      fc.innerHTML='&#9989; '+FILES.length+' arquivo'+(FILES.length>1?'s':'')+ ' carregado'+(FILES.length>1?'s':'')+':<br>'+FILES.map(function(f){return '&#8226; '+f.name+' ('+Math.round(f.size/1024)+'KB)';}).join('<br>');
+    } else {
+      fc.style.display='none';
+    }
+  }
 }
 function rmF(i){FILES.splice(i,1);renderFiles();}
 
